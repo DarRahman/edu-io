@@ -6,13 +6,13 @@ function getSwalThemeConfig() {
   };
 }
 
-const publicPages = ["login.html", "register.html"];
+const publicPages = ["login.php", "register.php"];
 const currentPage = window.location.pathname;
 const loggedInUser = sessionStorage.getItem("loggedInUser");
 const isPublicPage = publicPages.some((page) => currentPage.endsWith(page));
 
 if (!loggedInUser && !isPublicPage) {
-  window.location.href = "login.html";
+  window.location.href = "login.php";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }).then((result) => {
         if (result.isConfirmed) {
           sessionStorage.removeItem("loggedInUser");
-          window.location.href = "login.html";
+          window.location.href = "login.php";
         }
       });
     });
@@ -199,113 +199,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-const registerForm = document.getElementById("register-form");
-if (registerForm) {
-  registerForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const username = document.getElementById("reg-username").value;
-    const password = document.getElementById("reg-password").value;
-    const confirmPassword = document.getElementById("confirm-password").value;
-
-    if (!username || !password || !confirmPassword) {
-      Swal.fire({
-        ...getSwalThemeConfig(),
-        icon: "error",
-        title: "Oops...",
-        text: "Semua kolom wajib diisi!",
-      });
-      return;
-    }
-    if (password !== confirmPassword) {
-      Swal.fire({
-        ...getSwalThemeConfig(),
-        icon: "error",
-        title: "Password Tidak Cocok",
-        text: "Pastikan password dan konfirmasi password Anda sama.",
-      });
-      return;
-    }
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const userExists = users.find((user) => user.username === username);
-    if (userExists) {
-      Swal.fire({
-        ...getSwalThemeConfig(),
-        icon: "warning",
-        title: "Username Sudah Digunakan",
-        text: "Silakan pilih username yang lain.",
-      });
-      return;
-    }
-    users.push({ username, password });
-    localStorage.setItem("users", JSON.stringify(users));
-    Swal.fire({
-      ...getSwalThemeConfig(),
-      icon: "success",
-      title: "Registrasi Berhasil!",
-      text: "Akun Anda telah berhasil dibuat.",
-      timer: 2500,
-      timerProgressBar: true,
-      showConfirmButton: false,
-    }).then(() => {
-      window.location.href = "login.html";
-    });
-  });
-}
-
-const loginForm = document.getElementById("login-form");
-if (loginForm) {
-  const passwordInput = document.getElementById("password");
-  const togglePassword = document.getElementById("togglePassword");
-
-  loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = passwordInput.value;
-
-    if (!username || !password) {
-      Swal.fire({
-        ...getSwalThemeConfig(),
-        icon: "warning",
-        title: "Input Tidak Lengkap",
-        text: "Harap masukkan username dan password Anda.",
-      });
-      return;
-    }
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const foundUser = users.find(
-      (user) => user.username === username && user.password === password
-    );
-
-    if (foundUser) {
-      sessionStorage.setItem("loggedInUser", username);
-      Swal.fire({
-        ...getSwalThemeConfig(),
-        icon: "success",
-        title: "Login Berhasil!",
-        text: `Selamat datang kembali, ${username}!`,
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      }).then(() => {
-        window.location.href = "index.html";
-      });
-    } else {
-      Swal.fire({
-        ...getSwalThemeConfig(),
-        icon: "error",
-        title: "Login Gagal",
-        text: "Username atau password yang Anda masukkan salah!",
-      });
-    }
-  });
-
-  if (togglePassword) {
-    togglePassword.addEventListener("click", () => {
-      const type =
-        passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
-      togglePassword.classList.toggle("fa-eye-slash");
-    });
-  }
-}
