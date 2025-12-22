@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Tutorial - edu.io</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <img src="logo.png" alt="Logo Edu.io" class="logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="materi.html">Materi</a></li>
+            <li><a href="kuis.html">Kuis</a></li>
+            <li><a href="nilai.html">Hasil</a></li>
+            <li class="active"><a href="video.html">Video</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1 class="page-title">Video Tutorial HTML, CSS, & JavaScript</h1>
+        <main>
+            <div style="text-align:center; margin-bottom: 2em;">
+                <input type="text" id="video-search" placeholder="Cari video..." class="input-group" style="width: 60%; max-width: 400px; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1em;">
+            </div>
+            <div id="video-list" class="materi-grid"></div>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+    // Daftar video (bisa ditambah sesuai kebutuhan)
+    const videos = [
+        {
+            title: "HTML Dasar untuk Pemula (Indonesia)",
+            youtubeId: "UB1O30fR-EE",
+            topic: "html"
+        },
+        {
+            title: "Belajar HTML Lengkap - Web Programming UNPAS",
+            youtubeId: "iR5itOM5xgE",
+            topic: "html"
+        },
+        {
+            title: "CSS Dasar untuk Pemula (Indonesia)",
+            youtubeId: "yfoY53QXEnI",
+            topic: "css"
+        },
+        {
+            title: "Belajar CSS dari Nol - Web Programming UNPAS",
+            youtubeId: "1Rs2ND1ryYc",
+            topic: "css"
+        },
+        {
+            title: "JavaScript Dasar untuk Pemula (Indonesia)",
+            youtubeId: "W6NZfCO5SIk",
+            topic: "javascript"
+        },
+        {
+            title: "Belajar JavaScript Lengkap - Web Programming UNPAS",
+            youtubeId: "RUTV_5m4VeI",
+            topic: "javascript"
+        }
+    ];
+
+    function renderVideos(filter = "") {
+        const list = document.getElementById('video-list');
+        const keyword = filter.trim().toLowerCase();
+        let filtered = videos;
+        if (keyword) {
+            filtered = videos.filter(v => v.title.toLowerCase().includes(keyword) || v.topic.includes(keyword));
+        }
+        if (filtered.length === 0) {
+            list.innerHTML = `<div style='text-align:center; color:var(--text-secondary);'>Video tidak ditemukan.</div>`;
+            return;
+        }
+        list.innerHTML = filtered.map(v => `
+            <div class="materi-card" style="max-width:350px; margin:auto;">
+                <div class="materi-card-header">
+                    <i class="fab fa-youtube" style="color:#FF0000;"></i>
+                    <h3 style="font-size:1.1em;">${v.title}</h3>
+                </div>
+                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:10px;">
+                    <iframe src="https://www.youtube.com/embed/${v.youtubeId}" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;"></iframe>
+                </div>
+            </div>
+        `).join("");
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        renderVideos();
+        document.getElementById('video-search').addEventListener('input', function(e) {
+            renderVideos(e.target.value);
+        });
+    });
+    </script>
+</body>
+</html>

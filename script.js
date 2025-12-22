@@ -17,6 +17,74 @@ if (!loggedInUser && !publicPages.includes(currentPage)) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // Fitur Video Search (untuk video.html)
+    if (document.body.classList.contains('video-page') || window.location.pathname.endsWith('video.html')) {
+        const videos = [
+            {
+                title: "HTML Dasar untuk Pemula (Indonesia)",
+                youtubeId: "UB1O30fR-EE",
+                topic: "html"
+            },
+            {
+                title: "Belajar HTML Lengkap - Web Programming UNPAS",
+                youtubeId: "iR5itOM5xgE",
+                topic: "html"
+            },
+            {
+                title: "CSS Dasar untuk Pemula (Indonesia)",
+                youtubeId: "yfoY53QXEnI",
+                topic: "css"
+            },
+            {
+                title: "Belajar CSS dari Nol - Web Programming UNPAS",
+                youtubeId: "1Rs2ND1ryYc",
+                topic: "css"
+            },
+            {
+                title: "JavaScript Dasar untuk Pemula (Indonesia)",
+                youtubeId: "W6NZfCO5SIk",
+                topic: "javascript"
+            },
+            {
+                title: "Belajar JavaScript Lengkap - Web Programming UNPAS",
+                youtubeId: "RUTV_5m4VeI",
+                topic: "javascript"
+            }
+        ];
+
+        function renderVideos(filter = "") {
+            const list = document.getElementById('video-list');
+            if (!list) return;
+            const keyword = filter.trim().toLowerCase();
+            let filtered = videos;
+            if (keyword) {
+                filtered = videos.filter(v => v.title.toLowerCase().includes(keyword) || v.topic.includes(keyword));
+            }
+            if (filtered.length === 0) {
+                list.innerHTML = `<div style='text-align:center; color:var(--text-secondary);'>Video tidak ditemukan.</div>`;
+                return;
+            }
+            list.innerHTML = filtered.map(v => `
+                <div class="materi-card" style="max-width:350px; margin:auto;">
+                    <div class="materi-card-header">
+                        <i class="fab fa-youtube" style="color:#FF0000;"></i>
+                        <h3 style="font-size:1.1em;">${v.title}</h3>
+                    </div>
+                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:10px;">
+                        <iframe src="https://www.youtube.com/embed/${v.youtubeId}" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;"></iframe>
+                    </div>
+                </div>
+            `).join("");
+        }
+        renderVideos();
+        const searchInput = document.getElementById('video-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                renderVideos(e.target.value);
+            });
+        }
+    }
+
     const quizForm = document.querySelector(".quiz-form");
     if (quizForm) {
         quizForm.addEventListener("submit", (e) => {
