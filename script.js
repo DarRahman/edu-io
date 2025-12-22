@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const quizForm = document.querySelector(".quiz-form");
+const quizForm = document.querySelector(".quiz-form");
   if (quizForm) {
     quizForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -114,22 +114,45 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let i = 1; i <= correctAnswers.length; i++) {
         const radioName = `q${i}`;
         const selectedAnswer = quizForm[radioName]
-          ? Array.from(quizForm[radioName]).find((radio) => radio.checked)
-              ?.value
+          ? Array.from(quizForm[radioName]).find((radio) => radio.checked)?.value
           : null;
         if (selectedAnswer === correctAnswers[i - 1]) score++;
       }
 
       const finalScore = Math.round((score / correctAnswers.length) * 100);
-      const currentUser = sessionStorage.getItem("loggedInUser");
-      if (currentUser) {
-        const allQuizScores =
-          JSON.parse(localStorage.getItem("quizScores")) || {};
-        if (!allQuizScores[currentUser]) allQuizScores[currentUser] = {};
-        allQuizScores[currentUser][quizId] = finalScore;
-        localStorage.setItem("quizScores", JSON.stringify(allQuizScores));
-      }
-      window.location.href = "nilai.html";
+
+      // --- PERBAIKAN PATH DI SINI ---
+      // Jika kita di dalam folder Kuis, kita harus naik satu tingkat (../)
+      const isSubfolder = window.location.pathname.includes('/Kuis/') || window.location.pathname.includes('/Materi/');
+      const targetUrl = isSubfolder ? '../simpan_nilai.php' : 'simpan_nilai.php';
+      const redirectUrl = isSubfolder ? '../nilai.php' : 'nilai.php';
+
+      const formData = new FormData();
+      formData.append("quiz_id", quizId);
+      formData.append("score", finalScore);
+
+      fetch(targetUrl, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          if (data.trim() === "success") {
+            window.location.href = redirectUrl;
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Gagal Menyimpan",
+              text: "Nilai gagal disimpan. Pastikan Anda sudah login di database."
+            }).then(() => {
+              window.location.href = redirectUrl;
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          window.location.href = redirectUrl;
+        });
     });
   }
 
