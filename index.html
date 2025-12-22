@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edu.io - Menu Utama</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+            (function() {
+                const currentTheme = localStorage.getItem('theme');
+                if (currentTheme === 'dark') {
+                    document.documentElement.classList.add('dark-mode');
+                }
+            })();
+        </script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <img src="logo.png" alt="Logo Edu.io" class="logo-img">
+        </a>
+
+        <ul class="nav-links">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="materi.html">Materi</a></li>
+            <li><a href="kuis.html">Kuis</a></li>
+            <li><a href="nilai.html">Hasil</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">Selamat Datang!</h1>
+
+        <main>
+            <p style="text-align: center; font-size: 1.2em; color: var(--text-secondary);">Pilih salah satu menu di
+                bawah untuk memulai perjalanan belajar Anda.</p>
+
+            <div class="feature-cards-container">
+                <a href="materi.html" class="feature-card">
+                    <div class="card-header">
+                        <i class="fas fa-compass-drafting icon-materi"></i>
+                        <h2>Jelajahi Materi</h2>
+                    </div>
+                    <p>Pelajari berbagai topik menarik yang telah kami siapkan untuk memperluas pengetahuan Anda.</p>
+                    <span class="card-link color-materi">Lihat Semua Materi &rarr;</span>
+                </a>
+
+                <a href="kuis.html" class="feature-card">
+                    <div class="card-header">
+                        <i class="fas fa-clipboard-check icon-kuis"></i>
+                        <h2>Tantang Diri Anda</h2>
+                    </div>
+                    <p>Uji pemahaman Anda dengan mengerjakan kuis-kuis interaktif yang seru dan menantang.</p>
+                    <span class="card-link color-kuis">Lihat Semua Kuis &rarr;</span>
+                </a>
+
+                <a href="nilai.html" class="feature-card">
+                    <div class="card-header">
+                        <i class="fas fa-trophy icon-hasil"></i>
+                        <h2>Lihat Pencapaian</h2>
+                    </div>
+                    <p>Tinjau kembali semua hasil dan skor dari kuis yang telah Anda selesaikan sebelumnya.</p>
+                    <span class="card-link color-hasil">Lihat Hasil Anda &rarr;</span>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Kuis - edu.io</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <a class="logo" href="index.html">
+      <img src="logo.png" alt="Logo Edu.io" class="logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="materi.html">Materi</a></li>
+      <li class="active"><a href="kuis.html">Kuis</a></li>
+      <li><a href="nilai.html">Hasil</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1 class="page-title">Pilih Kuis</h1>
+    <main>
+      <p style="text-align: center; color: var(--text-secondary);">Uji pemahaman Anda dengan memilih salah satu kuis di
+        bawah ini.</p>
+
+      <div class="materi-grid">
+        <a href="Kuis/kuis-html.html" class="materi-card">
+          <div class="materi-card-header">
+            <i class="fab fa-html5"></i>
+            <h3>Kuis: Pengenalan HTML</h3>
+          </div>
+          <p>Seberapa baik pemahaman Anda tentang tag, elemen, dan struktur dasar HTML?</p>
+          <span class="start-link">Mulai Kuis &rarr;</span>
+        </a>
+
+        <a href="Kuis/kuis-css.html" class="materi-card">
+          <div class="materi-card-header">
+            <i class="fab fa-css3-alt"></i>
+            <h3>Kuis: Dasar-dasar CSS</h3>
+          </div>
+          <p>Uji pengetahuan Anda tentang selektor, properti, dan cara membuat website lebih menarik.</p>
+          <span class="start-link">Mulai Kuis &rarr;</span>
+        </a>
+
+        <a href="Kuis/kuis-js.html" class="materi-card">
+          <div class="materi-card-header">
+            <i class="fab fa-js-square"></i>
+            <h3>Kuis: JavaScript</h3>
+          </div>
+          <p>Tantang dan uji pengetahuan diri Anda dengan soal-soal mengenai JavaScript.</p>
+          <span class="start-link">Mulai Kuis &rarr;</span>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

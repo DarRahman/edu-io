@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis Pengetahuan - Edukasi Interaktif</title>
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <a class="logo" href="../index.html">
+      <img src="../logo.png" alt="Logo Edu.io" height="70" width="150" class="logo-img" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../materi.html">Materi</a></li>
+      <li class="active"><a href="../kuis.html">Kuis</a></li>
+      <li><a href="../nilai.html">Hasil</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1 class="page-title">Kuis Pengetahuan</h1>
+    <main>
+      <form class="quiz-form" data-quiz-id="html-quiz">
+        <h2>Jawablah pertanyaan berikut:</h2>
+
+        <div class="question">
+          <p>1. Apa kepanjangan dari HTML?</p>
+          <ul class="options">
+            <li> <input type="radio" name="q1" value="a" required /> HyperText Markup Language </li>
+            <li> <input type="radio" name="q1" value="b" /> HighText Machine Language </li>
+            <li> <input type="radio" name="q1" value="c" /> Hyperlink and Text Markup Language </li>
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>2. Tag HTML manakah yang digunakan untuk membuat paragraf?</p>
+          <ul class="options">
+            <li><input type="radio" name="q2" value="a" /> &lt;h1&gt;</li>
+            <li><input type="radio" name="q2" value="b" required /> &lt;p&gt;</li>
+            <li><input type="radio" name="q2" value="c" /> &lt;br&gt;</li>
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>3. Tag yang berfungsi sebagai judul utama dalam HTML adalah...</p>
+          <ul class="options">
+            <li><input type="radio" name="q3" value="a" required /> &lt;h1&gt;</li>
+            <li><input type="radio" name="q3" value="b" /> &lt;title&gt;</li>
+            <li><input type="radio" name="q3" value="c" /> &lt;head&gt;</li>
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>4. Tag HTML manakah yang digunakan untuk membuat link?</p>
+          <ul class="options">
+            <li><input type="radio" name="q4" value="a" /> &lt;link&gt;</li>
+            <li><input type="radio" name="q4" value="b" required /> &lt;a&gt;</li>
+            <li><input type="radio" name="q4" value="c" /> &lt;href&gt;</li>
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>
+            5. Elemen yang digunakan untuk menampung seluruh konten halaman web adalah...
+          </p>
+          <ul class="options">
+            <li><input type="radio" name="q5" value="a" required /> &lt;body&gt;</li>
+            <li><input type="radio" name="q5" value="b" /> &lt;head&gt;</li>
+            <li><input type="radio" name="q5" value="c" /> &lt;footer&gt; </li> 
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>
+            6. File HTML biasanya disimpan dengan ekstensi?
+          </p>
+          <ul class="options">
+            <li> <input type="radio" name="q6" value="a" /> .doc </li>
+            <li> <input type="radio" name="q6" value="b" required /> .html </li>
+            <li> <input type="radio" name="q6" value="c" /> .txt </li> 
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>
+            7. Atribut href digunakan untuk?
+          </p>
+          <ul class="options">
+            <li> <input type="radio" name="q7" value="a" /> Menentukan warna teks </li>
+            <li> <input type="radio" name="q7" value="b" /> Menampilkan teks bergaya miring </li>
+            <li> <input type="radio" name="q7" value="c" required /> Menentukan lokasi file tujuan hyperlink </li> 
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>
+            8. Fungsi utama HTML adalah...
+          </p>
+          <ul class="options">
+            <li> <input type="radio" name="q8" value="a" /> Mengatur logika program </li>
+            <li> <input type="radio" name="q8" value="b" /> Menyimpan data pengguna </li>
+            <li> <input type="radio" name="q8" value="c" required /> Menentukan struktur dan isi halaman web </li>
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>
+            9. Tag yang digunakan untuk menampilkan gambar pada halaman web adalah...
+          </p>
+          <ul class="options">
+            <li> <input type="radio" name="q9" value="a" required /> &lt;img&gt; </li>
+            <li> <input type="radio" name="q9" value="b" /> &lt;picture&gt; </li>
+            <li> <input type="radio" name="q9" value="c" /> &lt;image&gt; </li>
+          </ul>
+        </div>
+
+        <div class="question">
+          <p>
+            10. Tag yang berfungsi untuk membuat baris baru adalah...
+          </p>
+          <ul class="options">
+            <li> <input type="radio" name="q10" value="a" /> &lt;b&gt; </li>
+            <li> <input type="radio" name="q10" value="b" required /> &lt;hr&gt; </li>
+            <li> <input type="radio" name="q10" value="c" /> &lt;br&gt; </li> 
+          </ul>
+        </div>
+
+        <button type="submit" class="btn">Lihat Hasil</button>
+      </form>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+  </footer>
+
+  <!-- Script ini penting untuk memeriksa login, logout, dan memproses kuis -->
+  <script src="../script.js"></script>
+</body>
+
+</html>
