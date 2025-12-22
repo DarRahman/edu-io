@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Diskusi - edu.io</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <img src="logo.png" alt="Logo Edu.io" class="logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="materi.html">Materi</a></li>
+            <li><a href="kuis.html">Kuis</a></li>
+            <li><a href="nilai.html">Hasil</a></li>
+            <li><a href="video.html">Video</a></li>
+            <li class="active"><a href="forum.html">Forum</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1 class="page-title">Forum Diskusi</h1>
+        <main>
+            <div style="text-align:center; margin-bottom:2em;">
+                <input type="text" id="forum-search" placeholder="Cari pertanyaan..." class="input-group" style="width:60%;max-width:400px;padding:10px;border-radius:8px;border:1px solid var(--border-color);font-size:1em;">
+            </div>
+            <div id="forum-ask-box" style="margin-bottom:2em;">
+                <form id="ask-form" style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+                    <textarea id="ask-question" rows="2" placeholder="Tulis pertanyaan Anda..." style="width:100%;max-width:600px;padding:10px;border-radius:8px;border:1px solid var(--border-color);font-size:1em;resize:vertical;" required></textarea>
+                    <button type="submit" class="btn">Kirim Pertanyaan</button>
+                </form>
+            </div>
+            <div id="forum-list"></div>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+    // IndexedDB setup & forum logic
+    let db;
+    const DB_NAME = 'eduiodb';
+    const DB_VERSION = 1;
+    function openDB() {
+        return new Promise((resolve, reject) => {
+            const req = indexedDB.open(DB_NAME, DB_VERSION);
+            req.onupgradeneeded = function(e) {
+                db = e.target.result;
+                if (!db.objectStoreNames.contains('forum')) {
+                    const forumStore = db.createObjectStore('forum', { keyPath: 'id', autoIncrement: true });
+                    forumStore.createIndex('question', 'question', { unique: false });
+                }
+            };
+            req.onsuccess = function(e) { db = e.target.result; resolve(db); };
+            req.onerror = function(e) { reject(e); };
+        });
+    }
+    function addForumQuestion(question, user) {
+        return openDB().then(db => {
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('forum', 'readwrite');
+                const store = tx.objectStore('forum');
+                store.add({ question, user, answers: [], created: Date.now() });
+                tx.oncomplete = () => resolve();
+                tx.onerror = e => reject(e);
+            });
+        });
+    }
+    function getForumQuestions(search = "") {
+        return openDB().then(db => {
+            return new Promise((resolve) => {
+                const tx = db.transaction('forum', 'readonly');
+                const store = tx.objectStore('forum');
+                const req = store.getAll();
+                req.onsuccess = function() {
+                    let data = req.result;
+                    if (search) {
+                        const keyword = search.trim().toLowerCase();
+                        data = data.filter(q => q.question.toLowerCase().includes(keyword));
+                    }
+                    resolve(data.sort((a,b) => b.created - a.created));
+                };
+            });
+        });
+    }
+    function addForumAnswer(qid, answer, user) {
+        return openDB().then(db => {
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('forum', 'readwrite');
+                const store = tx.objectStore('forum');
+                const req = store.get(qid);
+                req.onsuccess = function() {
+                    const q = req.result;
+                    if (!q) return reject();
+                    q.answers.push({ answer, user, rating: 0, created: Date.now() });
+                    store.put(q);
+                    tx.oncomplete = () => resolve();
+                };
+                req.onerror = e => reject(e);
+            });
+        });
+    }
+    function rateForumAnswer(qid, idx, value) {
+        return openDB().then(db => {
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction('forum', 'readwrite');
+                const store = tx.objectStore('forum');
+                const req = store.get(qid);
+                req.onsuccess = function() {
+                    const q = req.result;
+                    if (!q) return reject();
+                    q.answers[idx].rating = value;
+                    store.put(q);
+                    tx.oncomplete = () => resolve();
+                };
+                req.onerror = e => reject(e);
+            });
+        });
+    }
+    function getCurrentUser() {
+        return sessionStorage.getItem('loggedInUser') || 'Anonim';
+    }
+    function getProfilePhoto(username) {
+        return 'https://ui-avatars.com/api/?name=' + encodeURIComponent(username) + '&background=00A896&color=fff&size=64';
+    }
+    function renderForum(search = "") {
+        getForumQuestions(search).then(questions => {
+            const list = document.getElementById('forum-list');
+            if (!list) return;
+            if (questions.length === 0) {
+                list.innerHTML = `<div style='text-align:center; color:var(--text-secondary);'>Belum ada pertanyaan.</div>`;
+                return;
+            }
+            list.innerHTML = questions.map(q => `
+                <div class="materi-card" style="max-width:700px; margin:24px auto;">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <img src="${getProfilePhoto(q.user)}" alt="profile" style="width:40px;height:40px;border-radius:50%;border:2px solid var(--accent-teal);">
+                        <span style="font-weight:600;">${q.user}</span>
+                        <span style="color:var(--text-secondary);font-size:0.9em;">${new Date(q.created).toLocaleString()}</span>
+                    </div>
+                    <div style="margin:10px 0 16px 0;font-size:1.1em;">${q.question}</div>
+                    <div style="margin-bottom:8px;font-weight:600;">Jawaban:</div>
+                    <div>
+                        ${q.answers.length === 0 ? '<div style="color:var(--text-secondary);">Belum ada jawaban.</div>' : q.answers.map((a,idx) => `
+                            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                                <img src="${getProfilePhoto(a.user)}" alt="profile" style="width:32px;height:32px;border-radius:50%;border:1px solid var(--accent-teal);">
+                                <span style="font-weight:500;">${a.user}</span>
+                                <span style="color:var(--text-secondary);font-size:0.9em;">${new Date(a.created).toLocaleString()}</span>
+                                <span style="margin-left:8px;">${a.answer}</span>
+                                <span class="star-rating" data-qid="${q.id}" data-idx="${idx}">
+                                    ${[1,2,3,4,5].map(i => `<i class='fa${a.rating>=i?"s":"r"} fa-star' style='color:#FFC312;cursor:pointer;font-size:1.2em;margin-right:2px;' onclick='window.rateAnswer(${q.id},${idx},${i})'></i>`).join("")}
+                                </span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <form onsubmit="window.answerQuestion(event,${q.id})" style="margin-top:10px;display:flex;gap:8px;">
+                        <input type="text" name="answer" placeholder="Tulis jawaban..." style="flex:1;padding:6px 10px;border-radius:8px;border:1px solid var(--border-color);font-size:1em;" required>
+                        <button type="submit" class="btn">Kirim Jawaban</button>
+                    </form>
+                </div>
+            `).join('');
+        });
+    }
+    window.answerQuestion = function(e,qid) {
+        e.preventDefault();
+        const input = e.target.answer;
+        const answer = input.value.trim();
+        if (!answer) return;
+        addForumAnswer(qid, answer, getCurrentUser()).then(() => {
+            input.value = "";
+            renderForum(document.getElementById('forum-search').value);
+        });
+    };
+    window.rateAnswer = function(qid, idx, value) {
+        rateForumAnswer(qid, idx, value).then(() => {
+            renderForum(document.getElementById('forum-search').value);
+        });
+    };
+    document.addEventListener("DOMContentLoaded", function() {
+        renderForum();
+        document.getElementById('forum-search').addEventListener('input', function(e) {
+            renderForum(e.target.value);
+        });
+        document.getElementById('ask-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const question = document.getElementById('ask-question').value.trim();
+            if (!question) return;
+            addForumQuestion(question, getCurrentUser()).then(() => {
+                document.getElementById('ask-question').value = "";
+                renderForum(document.getElementById('forum-search').value);
+            });
+        });
+    });
+    </script>
+</body>
+</html>
