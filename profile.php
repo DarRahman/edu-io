@@ -71,7 +71,22 @@ $isOwnProfile = ($username === $_SESSION['loggedInUser']);
             <!-- Card Kiri: Informasi Profil -->
             <div class="materi-card" style="text-align: center;">
                 <div style="margin-bottom: 20px;">
-                    <img src="img/<?php echo $userData['profile_pic']; ?>" alt="PP"
+                    <?php
+                    $foto = $userData['profile_pic'];
+
+                    // LOGIKA PENENTUAN PATH FOTO
+                    if (empty($foto)) {
+                        // Jika kolom database kosong, pakai default
+                        $pathFoto = "img/default-pp.png";
+                    } elseif (strpos($foto, 'http') === 0) {
+                        // Jika isinya link (User Google), pakai link-nya langsung
+                        $pathFoto = $foto;
+                    } else {
+                        // Jika isinya nama file (User Manual), ambil dari folder img/
+                        $pathFoto = "img/" . $foto;
+                    }
+                    ?>
+                    <img src="<?php echo $pathFoto; ?>" alt="Foto Profil"
                         style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--accent-teal); object-fit: cover;">
                 </div>
                 <h3><?php echo $userData['full_name'] ?? $userData['username']; ?></h3>

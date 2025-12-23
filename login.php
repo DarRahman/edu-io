@@ -74,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- Pustaka SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -108,6 +109,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
 
                 <button type="submit" class="btn auth-btn">Login</button>
+
+                <div style="margin: 20px 0; text-align: center; color: var(--text-secondary);">Atau</div>
+
+                <!-- Tombol Google -->
+                <!-- Konfigurasi Google (Cukup 1 kali) -->
+                <div id="g_id_onload"
+                    data-client_id="652782440460-0o32m4tlim6rpp32bg94e6hg89rjnq45.apps.googleusercontent.com"
+                    data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+                    data-auto_prompt="false">
+                </div>
+
+                <!-- Tampilan Tombol Google (Cukup 1 div ini saja) -->
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+                        data-text="signin_with" data-size="large" data-logo_alignment="left" data-width="400">
+                    </div>
+                </div>
+
+                <script>
+                    function handleCredentialResponse(response) {
+                        // Google mengirim token (JWT)
+                        const formData = new FormData();
+                        formData.append('credential', response.credential);
+
+                        // Kirim token ke backend PHP untuk diproses
+                        fetch('auth_google.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Jika sukses, set data session di browser dan pindah ke index
+                                    sessionStorage.setItem('loggedInUser', data.username);
+                                    sessionStorage.setItem('displayName', data.full_name);
+                                    window.location.href = 'index.html';
+                                } else {
+                                    Swal.fire('Gagal!', data.message, 'error');
+                                }
+                            })
+                            .catch(err => console.error("Error Google Login:", err));
+                    }
+                </script>
 
                 <p class="auth-redirect">
                     Belum punya akun? <a href="register.php">Daftar di sini</a>

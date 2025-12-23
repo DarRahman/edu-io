@@ -37,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // 3. Simpan ke database
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO users (username, password) VALUES ('$username', '$hashed_password')";
+            // Cari baris ini di register.php
+            $query = "INSERT INTO users (username, password, profile_pic) VALUES ('$username', '$hashed_password', 'default-pp.png')";
 
             if (mysqli_query($conn, $query)) {
                 $alertScript = "
