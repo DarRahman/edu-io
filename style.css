@@ -706,3 +706,13 @@ html.dark-mode .materi-content th {
 html.dark-mode .swal2-cancel {
     background-color: #555 !important;
 }
+
+.nav-profile-link {
+    text-decoration: none;
+    color: var(--title-color);
+    font-weight: 700;
+    transition: 0.3s;
+}
+.nav-profile-link:hover {
+    color: var(--accent-teal);
+}

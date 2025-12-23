@@ -14,23 +14,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($data) {
         if (password_verify($password, $data['password'])) {
             $_SESSION['loggedInUser'] = $username;
-            
-            // Script untuk Login Berhasil
+
+            // Ambil nama tampilan (Gunakan Full Name jika ada, jika tidak pakai Username)
+            $displayName = (!empty($data['full_name'])) ? $data['full_name'] : $username;
+
             $alertScript = "
-                sessionStorage.setItem('loggedInUser', '$username');
-                Swal.fire({
-                    background: localStorage.getItem('theme') === 'dark' ? '#27273a' : '#fff',
-                    color: localStorage.getItem('theme') === 'dark' ? '#e0e0e0' : '#333',
-                    icon: 'success',
-                    title: 'Login Berhasil!',
-                    text: 'Selamat datang kembali, $username',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true
-                }).then(() => {
-                    window.location.href = 'index.html';
-                });
-            ";
+        sessionStorage.setItem('loggedInUser', '$username');
+        sessionStorage.setItem('displayName', '$displayName'); // SIMPAN NAMA LENGKAP DI SINI
+        Swal.fire({
+            background: localStorage.getItem('theme') === 'dark' ? '#27273a' : '#fff',
+            color: localStorage.getItem('theme') === 'dark' ? '#e0e0e0' : '#333',
+            icon: 'success',
+            title: 'Login Berhasil!',
+            text: 'Selamat datang kembali, $displayName',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        }).then(() => {
+            window.location.href = 'index.html';
+        });
+    ";
         } else {
             // Script untuk Password Salah
             $alertScript = "
@@ -62,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,13 +78,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // Pre-load theme agar tidak kedip saat refresh
-        (function() {
+        (function () {
             if (localStorage.getItem('theme') === 'dark') {
                 document.documentElement.classList.add('dark-mode');
             }
         })();
     </script>
 </head>
+
 <body>
     <div class="auth-container">
         <main class="auth-form">
@@ -112,15 +117,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script src="script.js"></script>
-    
+
     <!-- Eksekusi Alert Jika Ada -->
     <?php if ($alertScript != ""): ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            <?php echo $alertScript; ?>
-        });
-    </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                <?php echo $alertScript; ?>
+            });
+        </script>
     <?php endif; ?>
 
 </body>
+
 </html>

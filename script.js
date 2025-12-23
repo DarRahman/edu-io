@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-const quizForm = document.querySelector(".quiz-form");
+  const quizForm = document.querySelector(".quiz-form");
   if (quizForm) {
     quizForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -114,7 +114,8 @@ const quizForm = document.querySelector(".quiz-form");
       for (let i = 1; i <= correctAnswers.length; i++) {
         const radioName = `q${i}`;
         const selectedAnswer = quizForm[radioName]
-          ? Array.from(quizForm[radioName]).find((radio) => radio.checked)?.value
+          ? Array.from(quizForm[radioName]).find((radio) => radio.checked)
+              ?.value
           : null;
         if (selectedAnswer === correctAnswers[i - 1]) score++;
       }
@@ -123,9 +124,13 @@ const quizForm = document.querySelector(".quiz-form");
 
       // --- PERBAIKAN PATH DI SINI ---
       // Jika kita di dalam folder Kuis, kita harus naik satu tingkat (../)
-      const isSubfolder = window.location.pathname.includes('/Kuis/') || window.location.pathname.includes('/Materi/');
-      const targetUrl = isSubfolder ? '../simpan_nilai.php' : 'simpan_nilai.php';
-      const redirectUrl = isSubfolder ? '../nilai.php' : 'nilai.php';
+      const isSubfolder =
+        window.location.pathname.includes("/Kuis/") ||
+        window.location.pathname.includes("/Materi/");
+      const targetUrl = isSubfolder
+        ? "../simpan_nilai.php"
+        : "simpan_nilai.php";
+      const redirectUrl = isSubfolder ? "../nilai.php" : "nilai.php";
 
       const formData = new FormData();
       formData.append("quiz_id", quizId);
@@ -143,7 +148,7 @@ const quizForm = document.querySelector(".quiz-form");
             Swal.fire({
               icon: "error",
               title: "Gagal Menyimpan",
-              text: "Nilai gagal disimpan. Pastikan Anda sudah login di database."
+              text: "Nilai gagal disimpan. Pastikan Anda sudah login di database.",
             }).then(() => {
               window.location.href = redirectUrl;
             });
@@ -157,12 +162,15 @@ const quizForm = document.querySelector(".quiz-form");
   }
 
   const user = sessionStorage.getItem("loggedInUser");
+  const displayName = sessionStorage.getItem("displayName") || user; // TAMBAHKAN INI
+
   const navLinks = document.querySelector(".nav-links");
 
   if (user && navLinks) {
     const welcomeElement = document.createElement("li");
     welcomeElement.className = "nav-welcome-user";
-    welcomeElement.innerHTML = `<span>Halo, ${user}</span>`;
+    // UBAH ${user} MENJADI ${displayName}
+    welcomeElement.innerHTML = `<a href="profile.php" class="nav-profile-link">Halo, ${displayName}</a>`;
 
     const logoutElement = document.createElement("li");
     logoutElement.innerHTML = '<a href="#" id="logout-btn">Logout</a>';
