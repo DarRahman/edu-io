@@ -716,3 +716,13 @@ html.dark-mode .swal2-cancel {
 .nav-profile-link:hover {
     color: var(--accent-teal);
 }
+
+#forum-list a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#forum-list a:hover div, 
+#forum-list a:hover span {
+    color: var(--accent-teal); /* Warna berubah saat nama diarahkan mouse */
+}

@@ -73,6 +73,7 @@ if (isset($_POST['submit_answer'])) {
             </form>
         </main>
 
+        <!-- List Pertanyaan (Ambil dari Database) -->
         <div id="forum-list">
             <?php
             // SQL DENGAN FILTER SEARCH
@@ -85,86 +86,96 @@ if (isset($_POST['submit_answer'])) {
             while ($q = mysqli_fetch_assoc($resQ)):
                 $displayPenanya = !empty($q['full_name']) ? $q['full_name'] : $q['username'];
                 ?>
-                <div class="materi-card" style="margin-bottom: 20px; border-left: 5px solid var(--accent-teal);">
+                <!-- KARTU UTAMA PERTANYAAN -->
+                <div class="materi-card"
+                    style="margin-bottom: 30px; border-left: 5px solid var(--accent-teal); text-align: left;">
+
+                    <!-- Header: Foto & Nama Penanya -->
                     <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
-                        <img src="img/<?php echo $q['profile_pic']; ?>"
-                            style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-teal);">
+                        <a href="profile.php?user=<?php echo $q['username']; ?>">
+                            <img src="img/<?php echo $q['profile_pic']; ?>"
+                                style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-teal);">
+                        </a>
                         <div>
-                            <div style="font-weight:700;"><?php echo $displayPenanya; ?></div>
+                            <a href="profile.php?user=<?php echo $q['username']; ?>"
+                                style="text-decoration:none; color:inherit;">
+                                <div style="font-weight:700;"><?php echo $displayPenanya; ?></div>
+                            </a>
                             <small style="color:var(--text-secondary);"><?php echo $q['created_at']; ?></small>
                         </div>
                     </div>
 
-                    <div style="font-size:1.1em; margin-bottom:20px;"><?php echo $q['question']; ?></div>
+                    <!-- Isi Pertanyaan -->
+                    <div style="font-size:1.1em; margin-bottom:20px; font-weight: 500;">
+                        <?php echo nl2br(htmlspecialchars($q['question'])); ?>
+                    </div>
 
+                    <!-- Kotak List Jawaban -->
                     <div style="background: rgba(0,0,0,0.05); padding:15px; border-radius:8px; margin-bottom:15px;">
                         <h4 style="margin-top:0;"><i class="fas fa-comments"></i> Jawaban:</h4>
+
                         <?php
                         $qid = $q['id'];
-                        // Query sakti: Mengambil jawaban, data user, rata-rata rating, dan jumlah pemberi rating
                         $sqlA = "SELECT a.*, u.full_name, u.profile_pic, 
-         IFNULL(AVG(r.rating_value), 0) as avg_rating, 
-         COUNT(r.id) as total_voters
-         FROM forum_answers a 
-         JOIN users u ON a.username = u.username 
-         LEFT JOIN forum_ratings r ON a.id = r.answer_id
-         WHERE a.question_id = $qid 
-         GROUP BY a.id 
-         ORDER BY a.created_at ASC";
+                                 IFNULL(AVG(r.rating_value), 0) as avg_rating, 
+                                 COUNT(r.id) as total_voters
+                                 FROM forum_answers a 
+                                 JOIN users u ON a.username = u.username 
+                                 LEFT JOIN forum_ratings r ON a.id = r.answer_id
+                                 WHERE a.question_id = $qid 
+                                 GROUP BY a.id 
+                                 ORDER BY a.created_at ASC";
 
                         $resA = mysqli_query($conn, $sqlA);
 
                         if (mysqli_num_rows($resA) > 0):
                             while ($a = mysqli_fetch_assoc($resA)):
                                 $displayPenjawab = !empty($a['full_name']) ? $a['full_name'] : $a['username'];
-                                $rerata = round($a['avg_rating'], 1); // Rata-rata 1 angka di belakang koma (misal 4.5)
+                                $rerata = round($a['avg_rating'], 1);
                                 ?>
                                 <div
                                     style="display:flex; align-items:start; gap:10px; margin-bottom:15px; border-bottom: 1px solid var(--border-color); padding-bottom:10px;">
-                                    <img src="img/<?php echo $a['profile_pic']; ?>"
-                                        style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+                                    <a href="profile.php?user=<?php echo $a['username']; ?>">
+                                        <img src="img/<?php echo $a['profile_pic']; ?>"
+                                            style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+                                    </a>
                                     <div style="flex:1;">
-                                        <span style="font-weight:600; font-size:0.9em;"><?php echo $displayPenjawab; ?></span>
-                                        <p style="margin:2px 0;"><?php echo $a['answer']; ?></p>
+                                        <a href="profile.php?user=<?php echo $a['username']; ?>"
+                                            style="text-decoration:none; color:inherit;">
+                                            <span style="font-weight:600; font-size:0.9em;"><?php echo $displayPenjawab; ?></span>
+                                        </a>
+                                        <p style="margin:2px 0;"><?php echo htmlspecialchars($a['answer']); ?></p>
 
-                                        <!-- TAMPILAN RATING BINTANG -->
+                                        <!-- RATING BINTANG -->
                                         <div class="star-rating" style="font-size: 0.85em;">
                                             <?php
                                             for ($i = 1; $i <= 5; $i++):
-                                                if ($rerata >= $i) {
-                                                    // Bintang penuh jika rata-rata >= angka saat ini (misal 4.5 >= 4)
-                                                    $starClass = 'fas fa-star';
-                                                } elseif ($rerata >= ($i - 0.5)) {
-                                                    // Bintang setengah jika rata-rata >= angka sebelumnya + 0.5 (misal 4.5 >= 4.5)
-                                                    $starClass = 'fas fa-star-half-alt';
-                                                } else {
-                                                    // Bintang kosong
-                                                    $starClass = 'far fa-star';
-                                                }
+                                                $starClass = ($rerata >= $i) ? 'fas' : 'far';
                                                 ?>
-                                                <i class="<?php echo $starClass; ?>" style="color:#FFC312; cursor:pointer;"
+                                                <i class="<?php echo $starClass; ?> fa-star" style="color:#FFC312; cursor:pointer;"
                                                     onclick="rateAnswer(<?php echo $a['id']; ?>, <?php echo $i; ?>)"></i>
                                             <?php endfor; ?>
-
                                             <span style="color: var(--text-secondary); margin-left: 5px; font-weight: 600;">
                                                 <?php echo $rerata; ?> <small style="font-weight:400;">/5
-                                                    (<?php echo $a['total_voters']; ?> ulasan)</small>
+                                                    (<?php echo $a['total_voters']; ?> rating)</small>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                            <?php endwhile; else: ?>
+                            <?php endwhile;
+                        else: ?>
                             <small style="color:var(--text-secondary);">Belum ada jawaban.</small>
                         <?php endif; ?>
                     </div>
 
+                    <!-- Form Balas Jawaban -->
                     <form action="forum.php" method="POST" style="display:flex; gap:10px;">
                         <input type="hidden" name="question_id" value="<?php echo $q['id']; ?>">
                         <input type="text" name="answer" placeholder="Tulis jawaban..."
                             style="flex:1; padding:8px 12px; border-radius:5px; border:1px solid var(--border-color);"
                             required>
                         <button type="submit" name="submit_answer" class="btn"
-                            style="padding:5px 15px; font-size:0.9em;">Balas</button>
+                            style="padding:5px 15px; font-size:0.9em; margin:0;">Balas</button>
                     </form>
                 </div>
             <?php endwhile; ?>

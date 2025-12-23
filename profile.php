@@ -2,24 +2,40 @@
 session_start();
 include 'koneksi.php';
 
-// Proteksi halaman: Jika belum login, tendang ke login.php
 if (!isset($_SESSION['loggedInUser'])) {
     header("Location: login.php");
     exit;
 }
 
-$username = $_SESSION['loggedInUser'];
+// LOGIKA PENTING:
+// Jika ada link ?user=abc di URL, maka tampilkan profil orang tersebut.
+// Jika tidak ada, tampilkan profil diri sendiri.
+if (isset($_GET['user'])) {
+    $username = mysqli_real_escape_string($conn, $_GET['user']);
+} else {
+    $username = $_SESSION['loggedInUser'];
+}
 
-// 1. Ambil Data User
+// 1. Ambil Data User berdasarkan username yang dipilih
 $queryUser = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
 $userData = mysqli_fetch_assoc($queryUser);
 
-// 2. Ambil Riwayat Nilai Kuis
+// Jika user tidak ditemukan di database
+if (!$userData) {
+    echo "User tidak ditemukan.";
+    exit;
+}
+
+// 2. Ambil Riwayat Nilai Kuis user tersebut
 $queryScores = mysqli_query($conn, "SELECT * FROM scores WHERE username = '$username' ORDER BY created_at DESC");
+
+// Cek apakah ini profil milik sendiri atau orang lain
+$isOwnProfile = ($username === $_SESSION['loggedInUser']);
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +51,7 @@ $queryScores = mysqli_query($conn, "SELECT * FROM scores WHERE username = '$user
         }
     </script>
 </head>
+
 <body>
     <nav class="navbar">
         <a class="logo" href="index.html"><img src="logo.png" alt="Logo Edu.io" class="logo-img"></a>
@@ -49,12 +66,13 @@ $queryScores = mysqli_query($conn, "SELECT * FROM scores WHERE username = '$user
 
     <div class="container">
         <h1 class="page-title">Profil Pengguna</h1>
-        
+
         <div class="materi-grid" style="grid-template-columns: 1fr 2fr;">
             <!-- Card Kiri: Informasi Profil -->
             <div class="materi-card" style="text-align: center;">
                 <div style="margin-bottom: 20px;">
-                    <img src="img/<?php echo $userData['profile_pic']; ?>" alt="PP" style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--accent-teal); object-fit: cover;">
+                    <img src="img/<?php echo $userData['profile_pic']; ?>" alt="PP"
+                        style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid var(--accent-teal); object-fit: cover;">
                 </div>
                 <h3><?php echo $userData['full_name'] ?? $userData['username']; ?></h3>
                 <p style="color: var(--accent-teal); font-weight: 600;">@<?php echo $userData['username']; ?></p>
@@ -62,7 +80,10 @@ $queryScores = mysqli_query($conn, "SELECT * FROM scores WHERE username = '$user
                 <p style="font-style: italic; font-size: 0.9em;">
                     <?php echo $userData['bio'] ?? "Belum ada deskripsi."; ?>
                 </p>
-                <a href="edit_profile.php" class="btn" style="width: 100%; box-sizing: border-box;">Edit Profil</a>
+                <!-- Hanya tampilkan tombol edit jika ini profil milik sendiri -->
+                <?php if ($isOwnProfile): ?>
+                    <a href="edit_profile.php" class="btn" style="width: 100%; box-sizing: border-box;">Edit Profil</a>
+                <?php endif; ?>
             </div>
 
             <!-- Card Kanan: Statistik Kuis -->
@@ -70,8 +91,9 @@ $queryScores = mysqli_query($conn, "SELECT * FROM scores WHERE username = '$user
                 <h3><i class="fas fa-chart-line"></i> Pencapaian Belajar</h3>
                 <div class="history-container" style="display: block; margin-top: 20px;">
                     <?php if (mysqli_num_rows($queryScores) > 0): ?>
-                        <?php while($s = mysqli_fetch_assoc($queryScores)): ?>
-                            <div class="score-history-card" style="flex-direction: row; justify-content: space-between; align-items: center; padding: 15px; margin-bottom: 10px; text-align: left;">
+                        <?php while ($s = mysqli_fetch_assoc($queryScores)): ?>
+                            <div class="score-history-card"
+                                style="flex-direction: row; justify-content: space-between; align-items: center; padding: 15px; margin-bottom: 10px; text-align: left;">
                                 <div>
                                     <h4 style="margin:0;"><?php echo $s['quiz_name']; ?></h4>
                                     <small><?php echo $s['created_at']; ?></small>
@@ -95,4 +117,5 @@ $queryScores = mysqli_query($conn, "SELECT * FROM scores WHERE username = '$user
 
     <script src="script.js"></script>
 </body>
+
 </html>
