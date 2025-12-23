@@ -10,28 +10,24 @@ if (!isset($_SESSION['loggedInUser'])) {
 $currentUser = $_SESSION['loggedInUser'];
 $alertScript = "";
 
-// --- LOGIKA SIMPAN PERTANYAAN ---
+// Ambil keyword search jika ada
+$search = isset($_GET['query']) ? mysqli_real_escape_string($conn, $_GET['query']) : '';
+
+// --- LOGIKA SIMPAN PERTANYAAN & JAWABAN (Tetap sama seperti sebelumnya) ---
 if (isset($_POST['submit_question'])) {
     $question = mysqli_real_escape_string($conn, $_POST['question']);
-    $query = "INSERT INTO forum_questions (username, question) VALUES ('$currentUser', '$question')";
-    if (mysqli_query($conn, $query)) {
-        $alertScript = "Swal.fire({icon:'success', title:'Pertanyaan Terkirim', showConfirmButton:false, timer:1500});";
-    }
+    mysqli_query($conn, "INSERT INTO forum_questions (username, question) VALUES ('$currentUser', '$question')");
 }
-
-// --- LOGIKA SIMPAN JAWABAN ---
 if (isset($_POST['submit_answer'])) {
     $qid = $_POST['question_id'];
     $ans = mysqli_real_escape_string($conn, $_POST['answer']);
-    $query = "INSERT INTO forum_answers (question_id, username, answer) VALUES ('$qid', '$currentUser', '$ans')";
-    if (mysqli_query($conn, $query)) {
-        $alertScript = "Swal.fire({icon:'success', title:'Jawaban Terkirim', showConfirmButton:false, timer:1500});";
-    }
+    mysqli_query($conn, "INSERT INTO forum_answers (question_id, username, answer) VALUES ('$qid', '$currentUser', '$ans')");
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Forum Diskusi - edu.io</title>
@@ -42,6 +38,7 @@ if (isset($_POST['submit_answer'])) {
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.classList.add('dark-mode'); }
     </script>
 </head>
+
 <body>
     <nav class="navbar">
         <a class="logo" href="index.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
@@ -57,83 +54,146 @@ if (isset($_POST['submit_answer'])) {
     <div class="container">
         <h1 class="page-title">Forum Diskusi</h1>
 
-        <!-- Form Tanya -->
+        <!-- FITUR SEARCH -->
+        <div style="text-align:center; margin-bottom:2em;">
+            <form action="forum.php" method="GET">
+                <input type="text" name="query" placeholder="Cari pertanyaan..." value="<?php echo $search; ?>"
+                    style="width:60%; max-width:400px; padding:10px; border-radius:8px; border:1px solid var(--border-color); font-size:1em;">
+                <button type="submit" class="btn" style="padding:10px 20px; margin:0;">Cari</button>
+            </form>
+        </div>
+
+        <!-- FORM TANYA -->
         <main class="materi-card" style="margin-bottom: 30px;">
             <form action="forum.php" method="POST" style="display:flex; flex-direction:column; gap:10px;">
-                <textarea name="question" placeholder="Tulis pertanyaan Anda..." rows="3" style="width:100%; padding:15px; border-radius:10px; border:1px solid var(--border-color); font-family:inherit;" required></textarea>
+                <textarea name="question" placeholder="Tulis pertanyaan Anda..." rows="2"
+                    style="width:100%; padding:15px; border-radius:10px; border:1px solid var(--border-color); font-family:inherit;"
+                    required></textarea>
                 <button type="submit" name="submit_question" class="btn">Kirim Pertanyaan</button>
             </form>
         </main>
 
-        <!-- List Pertanyaan (Ambil dari Database) -->
         <div id="forum-list">
             <?php
-            // Query JOIN untuk ambil foto profil & nama asli si penanya
-            $sqlQ = "SELECT q.*, u.full_name, u.profile_pic 
-                     FROM forum_questions q 
+            // SQL DENGAN FILTER SEARCH
+            $sqlQ = "SELECT q.*, u.full_name, u.profile_pic FROM forum_questions q 
                      JOIN users u ON q.username = u.username 
+                     WHERE q.question LIKE '%$search%'
                      ORDER BY q.created_at DESC";
             $resQ = mysqli_query($conn, $sqlQ);
 
             while ($q = mysqli_fetch_assoc($resQ)):
                 $displayPenanya = !empty($q['full_name']) ? $q['full_name'] : $q['username'];
-            ?>
+                ?>
                 <div class="materi-card" style="margin-bottom: 20px; border-left: 5px solid var(--accent-teal);">
-                    <!-- Header Penanya -->
                     <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
-                        <img src="img/<?php echo $q['profile_pic']; ?>" style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-teal);">
+                        <img src="img/<?php echo $q['profile_pic']; ?>"
+                            style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-teal);">
                         <div>
                             <div style="font-weight:700;"><?php echo $displayPenanya; ?></div>
                             <small style="color:var(--text-secondary);"><?php echo $q['created_at']; ?></small>
                         </div>
                     </div>
-                    
+
                     <div style="font-size:1.1em; margin-bottom:20px;"><?php echo $q['question']; ?></div>
 
-                    <!-- List Jawaban -->
                     <div style="background: rgba(0,0,0,0.05); padding:15px; border-radius:8px; margin-bottom:15px;">
                         <h4 style="margin-top:0;"><i class="fas fa-comments"></i> Jawaban:</h4>
                         <?php
                         $qid = $q['id'];
-                        // JOIN untuk ambil foto profil & nama asli si penjawab
-                        $sqlA = "SELECT a.*, u.full_name, u.profile_pic 
-                                 FROM forum_answers a 
-                                 JOIN users u ON a.username = u.username 
-                                 WHERE a.question_id = $qid ORDER BY a.created_at ASC";
+                        // Query sakti: Mengambil jawaban, data user, rata-rata rating, dan jumlah pemberi rating
+                        $sqlA = "SELECT a.*, u.full_name, u.profile_pic, 
+         IFNULL(AVG(r.rating_value), 0) as avg_rating, 
+         COUNT(r.id) as total_voters
+         FROM forum_answers a 
+         JOIN users u ON a.username = u.username 
+         LEFT JOIN forum_ratings r ON a.id = r.answer_id
+         WHERE a.question_id = $qid 
+         GROUP BY a.id 
+         ORDER BY a.created_at ASC";
+
                         $resA = mysqli_query($conn, $sqlA);
-                        
+
                         if (mysqli_num_rows($resA) > 0):
                             while ($a = mysqli_fetch_assoc($resA)):
                                 $displayPenjawab = !empty($a['full_name']) ? $a['full_name'] : $a['username'];
-                        ?>
-                            <div style="display:flex; gap:10px; margin-bottom:15px; border-bottom: 1px solid var(--border-color); padding-bottom:10px;">
-                                <img src="img/<?php echo $a['profile_pic']; ?>" style="width:30px; height:30px; border-radius:50%; object-fit:cover;">
-                                <div>
-                                    <span style="font-weight:600; font-size:0.9em;"><?php echo $displayPenjawab; ?></span>
-                                    <p style="margin:2px 0;"><?php echo $a['answer']; ?></p>
+                                $rerata = round($a['avg_rating'], 1); // Rata-rata 1 angka di belakang koma (misal 4.5)
+                                ?>
+                                <div
+                                    style="display:flex; align-items:start; gap:10px; margin-bottom:15px; border-bottom: 1px solid var(--border-color); padding-bottom:10px;">
+                                    <img src="img/<?php echo $a['profile_pic']; ?>"
+                                        style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+                                    <div style="flex:1;">
+                                        <span style="font-weight:600; font-size:0.9em;"><?php echo $displayPenjawab; ?></span>
+                                        <p style="margin:2px 0;"><?php echo $a['answer']; ?></p>
+
+                                        <!-- TAMPILAN RATING BINTANG -->
+                                        <div class="star-rating" style="font-size: 0.85em;">
+                                            <?php
+                                            for ($i = 1; $i <= 5; $i++):
+                                                if ($rerata >= $i) {
+                                                    // Bintang penuh jika rata-rata >= angka saat ini (misal 4.5 >= 4)
+                                                    $starClass = 'fas fa-star';
+                                                } elseif ($rerata >= ($i - 0.5)) {
+                                                    // Bintang setengah jika rata-rata >= angka sebelumnya + 0.5 (misal 4.5 >= 4.5)
+                                                    $starClass = 'fas fa-star-half-alt';
+                                                } else {
+                                                    // Bintang kosong
+                                                    $starClass = 'far fa-star';
+                                                }
+                                                ?>
+                                                <i class="<?php echo $starClass; ?>" style="color:#FFC312; cursor:pointer;"
+                                                    onclick="rateAnswer(<?php echo $a['id']; ?>, <?php echo $i; ?>)"></i>
+                                            <?php endfor; ?>
+
+                                            <span style="color: var(--text-secondary); margin-left: 5px; font-weight: 600;">
+                                                <?php echo $rerata; ?> <small style="font-weight:400;">/5
+                                                    (<?php echo $a['total_voters']; ?> ulasan)</small>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endwhile; else: ?>
+                            <?php endwhile; else: ?>
                             <small style="color:var(--text-secondary);">Belum ada jawaban.</small>
                         <?php endif; ?>
                     </div>
 
-                    <!-- Form Balas -->
                     <form action="forum.php" method="POST" style="display:flex; gap:10px;">
                         <input type="hidden" name="question_id" value="<?php echo $q['id']; ?>">
-                        <input type="text" name="answer" placeholder="Tulis jawaban..." style="flex:1; padding:8px 12px; border-radius:5px; border:1px solid var(--border-color);" required>
-                        <button type="submit" name="submit_answer" class="btn" style="padding:5px 15px; font-size:0.9em;">Balas</button>
+                        <input type="text" name="answer" placeholder="Tulis jawaban..."
+                            style="flex:1; padding:8px 12px; border-radius:5px; border:1px solid var(--border-color);"
+                            required>
+                        <button type="submit" name="submit_answer" class="btn"
+                            style="padding:5px 15px; font-size:0.9em;">Balas</button>
                     </form>
                 </div>
             <?php endwhile; ?>
         </div>
     </div>
 
-    <footer><p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p></footer>
+    <footer>
+        <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+    </footer>
 
-    <script src="script.js"></script>
-    <?php if ($alertScript != ""): ?>
-        <script><?php echo $alertScript; ?></script>
-    <?php endif; ?>
+    <!-- SCRIPT AJAX UNTUK RATING -->
+    <script>
+        function rateAnswer(answerId, score) {
+            const formData = new FormData();
+            formData.append('answer_id', answerId);
+            formData.append('rating', score);
+
+            fetch('rate_answer.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data.trim() === "success") {
+                        location.reload(); // Refresh untuk melihat perubahan bintang
+                    }
+                });
+        }
+    </script>
 </body>
+
 </html>
