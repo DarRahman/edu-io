@@ -23,7 +23,7 @@
             <li><a href="kuis.html">Kuis</a></li>
             <li class="active"><a href="nilai.phpl">Hasil</a></li>
             <li><a href="video.html">Video</a></li>
-            <li><a href="forum.html">Forum</a></li>
+            <li><a href="forum.php">Forum</a></li>
         </ul>
     </nav>
 

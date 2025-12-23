@@ -43,7 +43,7 @@ $queryScores = mysqli_query($conn, "SELECT * FROM scores WHERE username = '$user
             <li><a href="materi.html">Materi</a></li>
             <li><a href="kuis.html">Kuis</a></li>
             <li><a href="nilai.php">Hasil</a></li>
-            <li><a href="forum.html">Forum</a></li>
+            <li><a href="forum.php">Forum</a></li>
         </ul>
     </nav>
 
