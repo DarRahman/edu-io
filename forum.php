@@ -2,7 +2,8 @@
 session_start();
 include 'koneksi.php';
 
-function getProfilePath($foto) {
+function getProfilePath($foto)
+{
     if (empty($foto)) {
         return "img/default-pp.png";
     }
@@ -50,14 +51,14 @@ if (isset($_POST['submit_answer'])) {
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.classList.add('dark-mode'); }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-            (function() {
-                const currentTheme = localStorage.getItem('theme');
-                if (currentTheme === 'dark') {
-                    document.documentElement.classList.add('dark-mode');
-                }
-            })();
-        </script>
+    <script>
+        (function () {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -115,7 +116,7 @@ if (isset($_POST['submit_answer'])) {
                     <!-- Header: Foto & Nama Penanya -->
                     <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
                         <a href="profile.php?user=<?php echo $q['username']; ?>">
-                            <img src="img/<?php echo $q['profile_pic']; ?>"
+                            <img src="<?php echo getProfilePath($q['profile_pic']); ?>"
                                 style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-teal);">
                         </a>
                         <div>
@@ -158,7 +159,7 @@ if (isset($_POST['submit_answer'])) {
                                 <div
                                     style="display:flex; align-items:start; gap:10px; margin-bottom:15px; border-bottom: 1px solid var(--border-color); padding-bottom:10px;">
                                     <a href="profile.php?user=<?php echo $a['username']; ?>">
-                                        <img src="img/<?php echo $a['profile_pic']; ?>"
+                                        <img src="<?php echo getProfilePath($q['profile_pic']); ?>"
                                             style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
                                     </a>
                                     <div style="flex:1;">
