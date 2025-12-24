@@ -726,3 +726,154 @@ html.dark-mode .swal2-cancel {
 #forum-list a:hover span {
     color: var(--accent-teal); /* Warna berubah saat nama diarahkan mouse */
 }
+
+/* --- FIX AI CHATBOT UI --- */
+#ai-chat-launcher {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 60px !important;
+    height: 60px !important;
+    background-color: #192A56 !important; /* Biru Tua */
+    color: white !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 24px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+    z-index: 9999 !important;
+    transition: 0.3s;
+}
+
+#ai-chat-window {
+    position: fixed !important;
+    bottom: 90px !important;
+    right: 20px !important;
+    width: 350px !important;
+    max-width: 90vw !important;
+    height: 450px !important;
+    background-color: white !important; /* Pakai putih dulu agar terlihat */
+    border: 1px solid #ddd !important;
+    border-radius: 15px !important;
+    display: none; /* Akan diubah jadi flex oleh JS */
+    flex-direction: column !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+    z-index: 9999 !important;
+    overflow: hidden !important;
+}
+
+/* Khusus Dark Mode */
+html.dark-mode #ai-chat-window {
+    background-color: #27273a !important;
+    border-color: #3a3a50 !important;
+}
+
+.ai-chat-header {
+    background-color: #192A56 !important;
+    color: white !important;
+    padding: 15px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+#ai-chat-body {
+    flex: 1 !important;
+    padding: 15px !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    background-color: rgba(0,0,0,0.05) !important;
+}
+
+.ai-message {
+    padding: 10px 15px !important;
+    border-radius: 12px !important;
+    max-width: 80% !important;
+    font-size: 0.9em !important;
+}
+
+.ai-message.bot { background-color: #e9ecef !important; color: #333 !important; align-self: flex-start !important; }
+.ai-message.user { background-color: #00A896 !important; color: white !important; align-self: flex-end !important; }
+
+.ai-chat-footer { padding: 10px !important; display: flex !important; gap: 5px !important; border-top: 1px solid #ddd !important; }
+.ai-chat-footer input { 
+    flex: 1 !important; 
+    padding: 10px !important; 
+    border: 1px solid #ddd !important; 
+    border-radius: 8px !important; 
+    background: white !important;
+    color: black !important;
+}
+
+/* Styling Markdown di dalam Chat */
+.ai-message.bot pre {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.ai-message.bot code {
+    font-family: 'Courier New', Courier, monospace;
+    background: rgba(0,0,0,0.1);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.ai-message.bot ul, .ai-message.bot ol {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+/* Container untuk blok kode agar tombol copy bisa diletakkan di pojok */
+.code-container {
+    position: relative;
+    margin: 15px 0;
+}
+
+.ai-message.bot pre {
+    background: #1e1e1e !important;
+    color: #dcdcdc !important;
+    padding: 35px 15px 15px 15px !important; /* Beri ruang di atas untuk tombol */
+    border-radius: 10px;
+    position: relative;
+    font-size: 0.85em;
+}
+
+/* Tombol Copy */
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    font-size: 11px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    z-index: 10;
+}
+
+.copy-btn:hover {
+    background: var(--accent-teal);
+    border-color: var(--accent-teal);
+}
+
+/* Animasi kursor berkedip saat AI mengetik */
+.typing-cursor::after {
+    content: "▋";
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

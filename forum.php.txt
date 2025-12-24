@@ -2,8 +2,7 @@
 session_start();
 include 'koneksi.php';
 
-function getProfilePath($foto)
-{
+function getProfilePath($foto) {
     if (empty($foto)) {
         return "img/default-pp.png";
     }
@@ -54,16 +53,12 @@ if (isset($_POST['submit_answer'])) {
 
 <body>
     <nav class="navbar">
-        <a class="logo" href="index.html">
-            <img src="logo.png" alt="Logo" class="logo-img">
-        </a>
+        <a class="logo" href="index.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="materi.html">Materi</a></li>
             <li><a href="kuis.html">Kuis</a></li>
             <li><a href="nilai.php">Hasil</a></li>
-            <!-- TAMBAHKAN LINK VIDEO DI SINI -->
-            <li><a href="video.html">Video</a></li>
             <li class="active"><a href="forum.php">Forum</a></li>
         </ul>
     </nav>
@@ -203,8 +198,6 @@ if (isset($_POST['submit_answer'])) {
         <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
     </footer>
 
-    <script src="script.js"></script>
-    
     <!-- SCRIPT AJAX UNTUK RATING -->
     <script>
         function rateAnswer(answerId, score) {
