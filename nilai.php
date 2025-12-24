@@ -108,10 +108,6 @@
         <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
     </footer>
 
-<footer>
-        <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
-    </footer>
-
     <!-- WAJIB DIPANGGIL DI SINI -->
     <script src="script.js"></script>
 </body>
