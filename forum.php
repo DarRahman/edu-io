@@ -63,23 +63,15 @@ if (isset($_POST['submit_answer'])) {
 
 <body>
     <nav class="navbar">
-        <<<<<<< HEAD <a class="logo" href="index.html">
-            <img src="logo.png" alt="Logo" class="logo-img">
-            </a>
-            =======
-            <a class="logo" href="index.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
-            >>>>>>> fix-navbar
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="materi.html">Materi</a></li>
-                <li><a href="kuis.html">Kuis</a></li>
-                <li><a href="nilai.php">Hasil</a></li>
-                <<<<<<< HEAD <!-- TAMBAHKAN LINK VIDEO DI SINI -->
-                    =======
-                    >>>>>>> fix-navbar
-                    <li><a href="video.html">Video</a></li>
-                    <li class="active"><a href="forum.php">Forum</a></li>
-            </ul>
+        <a class="logo" href="index.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="materi.html">Materi</a></li>
+            <li><a href="kuis.html">Kuis</a></li>
+            <li><a href="nilai.php">Hasil</a></li>
+            <li><a href="video.html">Video</a></li>
+            <li class="active"><a href="forum.php">Forum</a></li>
+        </ul>
     </nav>
 
     <div class="container">
@@ -124,10 +116,8 @@ if (isset($_POST['submit_answer'])) {
                     <!-- Header: Foto & Nama Penanya -->
                     <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
                         <a href="profile.php?user=<?php echo $q['username']; ?>">
-                            <<<<<<< HEAD <img src="img/<?php echo $q['profile_pic']; ?>"=======<img
-                                src="<?php echo getProfilePath($q['profile_pic']); ?>">>>>>>> fix-navbar
-                                style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid
-                                var(--accent-teal);">
+                            <img src="<?php echo getProfilePath($q['profile_pic']); ?>"
+                                style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-teal);">
                         </a>
                         <div>
                             <a href="profile.php?user=<?php echo $q['username']; ?>"
@@ -169,8 +159,7 @@ if (isset($_POST['submit_answer'])) {
                                 <div
                                     style="display:flex; align-items:start; gap:10px; margin-bottom:15px; border-bottom: 1px solid var(--border-color); padding-bottom:10px;">
                                     <a href="profile.php?user=<?php echo $a['username']; ?>">
-                                        <<<<<<< HEAD <img src="img/<?php echo $a['profile_pic']; ?>"=======<img
-                                            src="<?php echo getProfilePath($q['profile_pic']); ?>">>>>>>> fix-navbar
+                                        <img src="<?php echo getProfilePath($q['profile_pic']); ?>"
                                             style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
                                     </a>
                                     <div style="flex:1;">
@@ -221,10 +210,6 @@ if (isset($_POST['submit_answer'])) {
     </footer>
 
     <script src="script.js"></script>
-    <<<<<<< HEAD <!-- SCRIPT AJAX UNTUK RATING -->
-        <script>
-            function rateAnswer(answerId, score) {
-=======
     <script>
         function rateAnswer(answerId, score) {
             // Cegah klik ganda dan disable semua bintang rating sementara
@@ -232,22 +217,17 @@ if (isset($_POST['submit_answer'])) {
             window._ratingInProgress = true;
             // Disable semua bintang rating
             document.querySelectorAll('.star-rating i').forEach(el => el.style.pointerEvents = 'none');
->>>>>>> fix-navbar
-                const formData = new FormData();
-                formData.append('answer_id', answerId);
-                formData.append('rating', score);
+            const formData = new FormData();
+            formData.append('answer_id', answerId);
+            formData.append('rating', score);
 
-                fetch('rate_answer.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        if (data.trim() === "success") {
-<<<<<<< HEAD
-                            location.reload(); // Refresh untuk melihat perubahan bintang
-                        }
-=======
+            fetch('rate_answer.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data.trim() === "success") {
                         // Setelah rating sukses, hapus event click pada semua bintang agar tidak bisa klik lagi
                         document.querySelectorAll('.star-rating i').forEach(el => {
                             el.style.pointerEvents = 'none';
@@ -275,10 +255,9 @@ if (isset($_POST['submit_answer'])) {
                 .catch(() => {
                     window._ratingInProgress = false;
                     document.querySelectorAll('.star-rating i').forEach(el => el.style.pointerEvents = 'auto');
->>>>>>> fix-navbar
-                    });
-            }
-        </script>
+                });
+        }
+    </script>
 </body>
 
 </html>
