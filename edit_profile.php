@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include 'koneksi.php';
@@ -115,69 +116,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border-color); font-family:inherit;"><?php echo $oldData['bio']; ?></textarea>
                 </div>
 
-                <<<<<<< HEAD <div class="input-group">
-                    <label>Foto Profil (Maks 2MB)</label>
-                    <input type="file" name="pp" accept="image/*">
-                    <small style="color: var(--text-secondary)">Kosongkan jika tidak ingin ganti foto.</small>
-    </div>
-    =======
 
-    <div class="input-group">
-        <label>Foto Profil (Maks 2MB)</label>
-        <input type="file" id="ppInput" accept="image/*">
-        <input type="hidden" name="pp_cropped" id="ppCropped">
-        <small style="color: var(--text-secondary)">Kosongkan jika tidak ingin ganti foto.</small>
-        <div style="margin-top:10px;">
-            <img id="previewCrop"
-                src="<?php echo !empty($oldData['profile_pic']) ? 'img/' . $oldData['profile_pic'] : 'img/default-pp.png'; ?>"
-                style="max-width:150px; max-height:150px; border-radius:50%; display:block;">
-        </div>
-    </div>
+                <div class="input-group">
+                    <label>Foto Profil (Maks 2MB)</label>
+                    <input type="file" id="ppInput" accept="image/*">
+                    <input type="hidden" name="pp_cropped" id="ppCropped">
+                    <small style="color: var(--text-secondary)">Kosongkan jika tidak ingin ganti foto.</small>
+                    <div style="margin-top:10px;">
+                        <img id="previewCrop" src="<?php echo !empty($oldData['profile_pic']) ? 'img/' . $oldData['profile_pic'] : 'img/default-pp.png'; ?>" style="max-width:150px; max-height:150px; border-radius:50%; display:block;">
+                    </div>
+                </div>
     <!-- Cropper.js CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <!-- Cropper.js JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
-        let cropper;
-        const input = document.getElementById('ppInput');
-        const preview = document.getElementById('previewCrop');
-        const hiddenInput = document.getElementById('ppCropped');
-        input.addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                preview.src = event.target.result;
-                if (cropper) cropper.destroy();
-                cropper = new Cropper(preview, {
-                    aspectRatio: 1,
-                    viewMode: 1,
-                    dragMode: 'move',
-                    autoCropArea: 1,
-                    cropend: function () {
-                        const canvas = cropper.getCroppedCanvas({ width: 300, height: 300 });
-                        hiddenInput.value = canvas.toDataURL('image/jpeg');
-                    }
-                });
-            };
-            reader.readAsDataURL(file);
-        });
-        // Saat submit, pastikan hiddenInput sudah terisi
-        document.querySelector('form').addEventListener('submit', function (e) {
-            if (cropper) {
-                const canvas = cropper.getCroppedCanvas({ width: 300, height: 300 });
-                hiddenInput.value = canvas.toDataURL('image/jpeg');
-            }
-        });
+    let cropper;
+    const input = document.getElementById('ppInput');
+    const preview = document.getElementById('previewCrop');
+    const hiddenInput = document.getElementById('ppCropped');
+    input.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            preview.src = event.target.result;
+            if (cropper) cropper.destroy();
+            cropper = new Cropper(preview, {
+                aspectRatio: 1,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 1,
+                cropend: function() {
+                    const canvas = cropper.getCroppedCanvas({width:300,height:300});
+                    hiddenInput.value = canvas.toDataURL('image/jpeg');
+                }
+            });
+        };
+        reader.readAsDataURL(file);
+    });
+    // Saat submit, pastikan hiddenInput sudah terisi
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (cropper) {
+            const canvas = cropper.getCroppedCanvas({width:300,height:300});
+            hiddenInput.value = canvas.toDataURL('image/jpeg');
+        }
+    });
     </script>
-    >>>>>>> fix-navbar
 
-    <div style="display: flex; gap: 10px;">
-        <button type="submit" class="btn" style="flex: 2;">Simpan Perubahan</button>
-        <a href="profile.php" class="btn" style="flex: 1; background: #6c757d;">Batal</a>
-    </div>
-    </form>
-    </main>
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn" style="flex: 2;">Simpan Perubahan</button>
+                    <a href="profile.php" class="btn" style="flex: 1; background: #6c757d;">Batal</a>
+                </div>
+            </form>
+        </main>
     </div>
 
     <?php if ($alertScript != ""): ?>

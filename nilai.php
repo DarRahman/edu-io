@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- TAMBAHKAN SCRIPT INI AGAR DARK MODE JALAN -->
     <script>
@@ -104,6 +105,34 @@
     <footer>
         <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
     </footer>
+
+        <div id="ai-chat-launcher" onclick="toggleAIChat()">
+      <i class="fas fa-robot"></i>
+    </div>
+
+    <!-- Jendela Chat AI -->
+    <div id="ai-chat-window">
+      <div class="ai-chat-header">
+        <span><i class="fas fa-magic"></i> edu.io AI Tutor</span>
+        <button onclick="toggleAIChat()">&times;</button>
+      </div>
+      <div id="ai-chat-body">
+        <div class="ai-message bot">
+          Halo! Saya Tutor AI edu.io. Ada yang bisa saya bantu terkait koding
+          atau materi hari ini?
+        </div>
+      </div>
+      <div class="ai-chat-footer">
+        <input
+          type="text"
+          id="ai-input"
+          placeholder="Tanyakan sesuatu..."
+          autocomplete="off"
+        />
+        <button onclick="sendToAI()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 

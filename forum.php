@@ -50,6 +50,7 @@ if (isset($_POST['submit_answer'])) {
     <script>
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.classList.add('dark-mode'); }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         (function () {
@@ -208,6 +209,28 @@ if (isset($_POST['submit_answer'])) {
     <footer>
         <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
     </footer>
+
+    <div id="ai-chat-launcher" onclick="toggleAIChat()">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <!-- Jendela Chat AI -->
+    <div id="ai-chat-window">
+        <div class="ai-chat-header">
+            <span><i class="fas fa-magic"></i> edu.io AI Tutor</span>
+            <button onclick="toggleAIChat()">&times;</button>
+        </div>
+        <div id="ai-chat-body">
+            <div class="ai-message bot">
+                Halo! Saya Tutor AI edu.io. Ada yang bisa saya bantu terkait koding
+                atau materi hari ini?
+            </div>
+        </div>
+        <div class="ai-chat-footer">
+            <input type="text" id="ai-input" placeholder="Tanyakan sesuatu..." autocomplete="off" />
+            <button onclick="sendToAI()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script>
