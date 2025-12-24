@@ -2,6 +2,18 @@
 session_start();
 include 'koneksi.php';
 
+function getProfilePath($foto) {
+    if (empty($foto)) {
+        return "img/default-pp.png";
+    }
+    // Jika isinya link (User Google), langsung kembalikan linknya
+    if (strpos($foto, 'http') === 0) {
+        return $foto;
+    }
+    // Jika isinya file lokal, tambahkan folder img/
+    return "img/" . $foto;
+}
+
 if (!isset($_SESSION['loggedInUser'])) {
     header("Location: login.php");
     exit;
