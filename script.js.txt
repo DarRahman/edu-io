@@ -231,106 +231,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// --- FITUR CHATBOT AI V2 (TYPING & COPY) ---
-let aiChatHistory = [];
-
-function toggleAIChat() {
-  const chatWindow = document.getElementById("ai-chat-window");
-  if (!chatWindow) return;
-  const currentDisplay = window.getComputedStyle(chatWindow).display;
-  chatWindow.style.display = currentDisplay === "none" ? "flex" : "none";
-}
-
-// Fungsi untuk menyalin kode ke clipboard
-function copyCode(btn) {
-    const pre = btn.parentElement;
-    const code = pre.querySelector('code').innerText;
-    
-    navigator.clipboard.writeText(code).then(() => {
-        const originalText = btn.innerText;
-        btn.innerText = "Copied!";
-        btn.style.background = "#2ecc71";
-        setTimeout(() => {
-            btn.innerText = originalText;
-            btn.style.background = "";
-        }, 2000);
-    });
-}
-
-// Fungsi Efek Mengetik
-async function typeEffect(element, rawText) {
-    element.classList.add("typing-cursor");
-    let i = 0;
-    let currentText = "";
-    
-    // Kecepatan mengetik (ms)
-    const speed = 15; 
-
-    return new Promise((resolve) => {
-        const interval = setInterval(() => {
-            if (i < rawText.length) {
-                currentText += rawText.charAt(i);
-                // Render markdown secara realtime sambil mengetik
-                element.innerHTML = marked.parse(currentText);
-                
-                // Tambahkan tombol copy ke setiap blok 'pre' yang baru muncul
-                const preBlocks = element.querySelectorAll('pre');
-                preBlocks.forEach(pre => {
-                    if (!pre.querySelector('.copy-btn')) {
-                        pre.innerHTML += `<button class="copy-btn" onclick="copyCode(this)">Copy</button>`;
-                    }
-                });
-
-                i++;
-                const chatBody = document.getElementById("ai-chat-body");
-                chatBody.scrollTop = chatBody.scrollHeight;
-            } else {
-                clearInterval(interval);
-                element.classList.remove("typing-cursor");
-                resolve();
-            }
-        }, speed);
-    });
-}
-
+// Fitur Chatbot AI
 async function sendToAI() {
-  const input = document.getElementById("ai-input");
-  const chatBody = document.getElementById("ai-chat-body");
-  const message = input.value.trim();
-  const userName = sessionStorage.getItem("displayName") || "Siswa";
+    const input = document.getElementById('ai-input');
+    const chatBody = document.getElementById('ai-chat-body');
+    const message = input.value.trim();
 
-  if (!message) return;
+    // AMBIL NAMA USER DARI SESSION
+    const userName = sessionStorage.getItem('displayName') || 'Siswa';
 
-  chatBody.innerHTML += `<div class="ai-message user">${message}</div>`;
-  input.value = "";
-  chatBody.scrollTop = chatBody.scrollHeight;
+    if (!message) return;
 
-  aiChatHistory.push({ role: "user", parts: [{ text: message }] });
+    // 1. Tampilkan pesan user
+    chatBody.innerHTML += `<div class="ai-message user">${message}</div>`;
+    input.value = '';
+    chatBody.scrollTop = chatBody.scrollHeight;
 
-  const loadingId = "ai-loading-" + Date.now();
-  chatBody.innerHTML += `<div class="ai-message bot" id="${loadingId}">...</div>`;
+    // 2. Tampilkan status loading
+    const loadingId = "ai-loading-" + Date.now();
+    chatBody.innerHTML += `<div class="ai-message bot" id="${loadingId}">...sedang berpikir...</div>`;
+    chatBody.scrollTop = chatBody.scrollHeight;
 
-  try {
-    const response = await fetch("ai_process.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ history: aiChatHistory, name: userName }),
-    });
+    try {
+        // 3. Kirim ke PHP (sertakan nama user)
+        const response = await fetch('ai_process.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                message: message,
+                name: userName // KIRIM NAMA KE PHP
+            })
+        });
 
-    const data = await response.json();
-    const botDiv = document.getElementById(loadingId);
-    
-    // Jalankan efek mengetik
-    await typeEffect(botDiv, data.reply);
-
-    aiChatHistory.push({ role: "model", parts: [{ text: data.reply }] });
-  } catch (error) {
-    document.getElementById(loadingId).innerText = "Ups! Gagal tersambung ke server.";
-  }
+        const data = await response.json();
+        const botDiv = document.getElementById(loadingId);
+        
+        // 4. Gunakan MARKED untuk merender jawaban AI (mendukung kodingan)
+        botDiv.innerHTML = marked.parse(data.reply);
+        
+    } catch (error) {
+        document.getElementById(loadingId).innerText = "Ups! Gagal tersambung ke server.";
+    }
+    chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("ai-input")?.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendToAI();
-  });
+// Support tombol Enter
+document.getElementById('ai-input')?.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') sendToAI();
 });
