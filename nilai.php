@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
 
+<!DOCTYPE html>
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +13,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- TAMBAHKAN SCRIPT INI AGAR DARK MODE JALAN -->
+    <script>
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -21,7 +32,8 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="materi.html">Materi</a></li>
             <li><a href="kuis.html">Kuis</a></li>
-            <li class="active"><a href="nilai.phpl">Hasil</a></li>
+            <!-- PERBAIKAN TYPO: nilai.phpl -> nilai.php -->
+            <li class="active"><a href="nilai.php">Hasil</a></li>
             <li><a href="video.html">Video</a></li>
             <li><a href="forum.php">Forum</a></li>
         </ul>
@@ -96,6 +108,11 @@
         <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
     </footer>
 
-</body>
+<footer>
+        <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+    </footer>
 
+    <!-- WAJIB DIPANGGIL DI SINI -->
+    <script src="script.js"></script>
+</body>
 </html>
