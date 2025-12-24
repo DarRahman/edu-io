@@ -725,6 +725,7 @@ html.dark-mode .swal2-cancel {
 #forum-list a:hover div, 
 #forum-list a:hover span {
     color: var(--accent-teal); /* Warna berubah saat nama diarahkan mouse */
+<<<<<<< HEAD
 }
 
 /* --- FIX AI CHATBOT UI --- */
@@ -876,4 +877,6 @@ html.dark-mode #ai-chat-window {
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+=======
+>>>>>>> fix-navbar
 }

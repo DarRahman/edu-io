@@ -50,22 +50,36 @@ if (isset($_POST['submit_answer'])) {
     <script>
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.classList.add('dark-mode'); }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        (function () {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
 </head>
 
 <body>
     <nav class="navbar">
-        <a class="logo" href="index.html">
+        <<<<<<< HEAD <a class="logo" href="index.html">
             <img src="logo.png" alt="Logo" class="logo-img">
-        </a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="materi.html">Materi</a></li>
-            <li><a href="kuis.html">Kuis</a></li>
-            <li><a href="nilai.php">Hasil</a></li>
-            <!-- TAMBAHKAN LINK VIDEO DI SINI -->
-            <li><a href="video.html">Video</a></li>
-            <li class="active"><a href="forum.php">Forum</a></li>
-        </ul>
+            </a>
+            =======
+            <a class="logo" href="index.html"><img src="logo.png" alt="Logo" class="logo-img"></a>
+            >>>>>>> fix-navbar
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="materi.html">Materi</a></li>
+                <li><a href="kuis.html">Kuis</a></li>
+                <li><a href="nilai.php">Hasil</a></li>
+                <<<<<<< HEAD <!-- TAMBAHKAN LINK VIDEO DI SINI -->
+                    =======
+                    >>>>>>> fix-navbar
+                    <li><a href="video.html">Video</a></li>
+                    <li class="active"><a href="forum.php">Forum</a></li>
+            </ul>
     </nav>
 
     <div class="container">
@@ -110,8 +124,10 @@ if (isset($_POST['submit_answer'])) {
                     <!-- Header: Foto & Nama Penanya -->
                     <div style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
                         <a href="profile.php?user=<?php echo $q['username']; ?>">
-                            <img src="img/<?php echo $q['profile_pic']; ?>"
-                                style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-teal);">
+                            <<<<<<< HEAD <img src="img/<?php echo $q['profile_pic']; ?>"=======<img
+                                src="<?php echo getProfilePath($q['profile_pic']); ?>">>>>>>> fix-navbar
+                                style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid
+                                var(--accent-teal);">
                         </a>
                         <div>
                             <a href="profile.php?user=<?php echo $q['username']; ?>"
@@ -153,7 +169,8 @@ if (isset($_POST['submit_answer'])) {
                                 <div
                                     style="display:flex; align-items:start; gap:10px; margin-bottom:15px; border-bottom: 1px solid var(--border-color); padding-bottom:10px;">
                                     <a href="profile.php?user=<?php echo $a['username']; ?>">
-                                        <img src="img/<?php echo $a['profile_pic']; ?>"
+                                        <<<<<<< HEAD <img src="img/<?php echo $a['profile_pic']; ?>"=======<img
+                                            src="<?php echo getProfilePath($q['profile_pic']); ?>">>>>>>> fix-navbar
                                             style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
                                     </a>
                                     <div style="flex:1;">
@@ -204,26 +221,64 @@ if (isset($_POST['submit_answer'])) {
     </footer>
 
     <script src="script.js"></script>
-    
-    <!-- SCRIPT AJAX UNTUK RATING -->
+    <<<<<<< HEAD <!-- SCRIPT AJAX UNTUK RATING -->
+        <script>
+            function rateAnswer(answerId, score) {
+=======
     <script>
         function rateAnswer(answerId, score) {
-            const formData = new FormData();
-            formData.append('answer_id', answerId);
-            formData.append('rating', score);
+            // Cegah klik ganda dan disable semua bintang rating sementara
+            if (window._ratingInProgress) return;
+            window._ratingInProgress = true;
+            // Disable semua bintang rating
+            document.querySelectorAll('.star-rating i').forEach(el => el.style.pointerEvents = 'none');
+>>>>>>> fix-navbar
+                const formData = new FormData();
+                formData.append('answer_id', answerId);
+                formData.append('rating', score);
 
-            fetch('rate_answer.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.text())
-                .then(data => {
-                    if (data.trim() === "success") {
+                fetch('rate_answer.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data.trim() === "success") {
+<<<<<<< HEAD
+                            location.reload(); // Refresh untuk melihat perubahan bintang
+                        }
+=======
+                        // Setelah rating sukses, hapus event click pada semua bintang agar tidak bisa klik lagi
+                        document.querySelectorAll('.star-rating i').forEach(el => {
+                            el.style.pointerEvents = 'none';
+                            el.onclick = null;
+                        });
+                        window._ratingInProgress = false;
                         location.reload(); // Refresh untuk melihat perubahan bintang
+                    } else if (data.trim() === "cannot_rate_own_answer") {
+                        window._ratingInProgress = false;
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Tidak diizinkan',
+                                text: 'Anda tidak dapat memberi rating pada jawaban sendiri.',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            alert('Anda tidak dapat memberi rating pada jawaban sendiri.');
+                        }
+                        // Enable kembali bintang rating
+                        document.querySelectorAll('.star-rating i').forEach(el => el.style.pointerEvents = 'auto');
                     }
-                });
-        }
-    </script>
+                })
+                .catch(() => {
+                    window._ratingInProgress = false;
+                    document.querySelectorAll('.star-rating i').forEach(el => el.style.pointerEvents = 'auto');
+>>>>>>> fix-navbar
+                    });
+            }
+        </script>
 </body>
 
 </html>
