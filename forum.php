@@ -211,6 +211,11 @@ if (isset($_POST['submit_answer'])) {
     <script src="script.js"></script>
     <script>
         function rateAnswer(answerId, score) {
+            // Cegah klik ganda dan disable semua bintang rating sementara
+            if (window._ratingInProgress) return;
+            window._ratingInProgress = true;
+            // Disable semua bintang rating
+            document.querySelectorAll('.star-rating i').forEach(el => el.style.pointerEvents = 'none');
             const formData = new FormData();
             formData.append('answer_id', answerId);
             formData.append('rating', score);
@@ -222,8 +227,33 @@ if (isset($_POST['submit_answer'])) {
                 .then(response => response.text())
                 .then(data => {
                     if (data.trim() === "success") {
+                        // Setelah rating sukses, hapus event click pada semua bintang agar tidak bisa klik lagi
+                        document.querySelectorAll('.star-rating i').forEach(el => {
+                            el.style.pointerEvents = 'none';
+                            el.onclick = null;
+                        });
+                        window._ratingInProgress = false;
                         location.reload(); // Refresh untuk melihat perubahan bintang
+                    } else if (data.trim() === "cannot_rate_own_answer") {
+                        window._ratingInProgress = false;
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Tidak diizinkan',
+                                text: 'Anda tidak dapat memberi rating pada jawaban sendiri.',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        } else {
+                            alert('Anda tidak dapat memberi rating pada jawaban sendiri.');
+                        }
+                        // Enable kembali bintang rating
+                        document.querySelectorAll('.star-rating i').forEach(el => el.style.pointerEvents = 'auto');
                     }
+                })
+                .catch(() => {
+                    window._ratingInProgress = false;
+                    document.querySelectorAll('.star-rating i').forEach(el => el.style.pointerEvents = 'auto');
                 });
         }
     </script>

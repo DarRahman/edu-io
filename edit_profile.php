@@ -19,25 +19,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullName = mysqli_real_escape_string($conn, $_POST['full_name']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
 
-    // Logika Upload Foto
+    // Logika Upload Foto (support crop base64)
     $profilePic = $oldData['profile_pic']; // Default pakai yang lama
-    if ($_FILES['pp']['name'] != "") {
+    if (!empty($_POST['pp_cropped'])) {
+        $data = $_POST['pp_cropped'];
+        if (preg_match('/^data:image\/(png|jpeg|jpg);base64,/', $data, $type)) {
+            $data = substr($data, strpos($data, ',') + 1);
+            $data = base64_decode($data);
+            $ext = $type[1] === 'jpeg' ? 'jpg' : $type[1];
+            $newFileName = $username . "_" . time() . "." . $ext;
+            file_put_contents('img/' . $newFileName, $data);
+            $profilePic = $newFileName;
+        }
+    } else if ($_FILES['pp']['name'] != "") {
         $namaFile = $_FILES['pp']['name'];
         $ukuranFile = $_FILES['pp']['size'];
         $error = $_FILES['pp']['error'];
         $tmpName = $_FILES['pp']['tmp_name'];
-
-        // Cek ekstensi (hanya jpg, jpeg, png)
         $ekstensiValid = ['jpg', 'jpeg', 'png'];
         $ekstensiGambar = explode('.', $namaFile);
         $ekstensiGambar = strtolower(end($ekstensiGambar));
-
         if (!in_array($ekstensiGambar, $ekstensiValid)) {
             $alertScript = "Swal.fire({icon:'error', title:'Format Salah', text:'Hanya menerima JPG/PNG'});";
         } elseif ($ukuranFile > 2000000) { // Max 2MB
             $alertScript = "Swal.fire({icon:'error', title:'Terlalu Besar', text:'Maksimal ukuran foto 2MB'});";
         } else {
-            // Rename file agar tidak bentrok (contoh: badar_12345.jpg)
             $newFileName = $username . "_" . time() . "." . $ekstensiGambar;
             move_uploaded_file($tmpName, 'img/' . $newFileName);
             $profilePic = $newFileName;
@@ -109,11 +115,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border-color); font-family:inherit;"><?php echo $oldData['bio']; ?></textarea>
                 </div>
 
+
                 <div class="input-group">
                     <label>Foto Profil (Maks 2MB)</label>
-                    <input type="file" name="pp" accept="image/*">
+                    <input type="file" id="ppInput" accept="image/*">
+                    <input type="hidden" name="pp_cropped" id="ppCropped">
                     <small style="color: var(--text-secondary)">Kosongkan jika tidak ingin ganti foto.</small>
+                    <div style="margin-top:10px;">
+                        <img id="previewCrop" src="<?php echo !empty($oldData['profile_pic']) ? 'img/' . $oldData['profile_pic'] : 'img/default-pp.png'; ?>" style="max-width:150px; max-height:150px; border-radius:50%; display:block;">
+                    </div>
                 </div>
+    <!-- Cropper.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <!-- Cropper.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script>
+    let cropper;
+    const input = document.getElementById('ppInput');
+    const preview = document.getElementById('previewCrop');
+    const hiddenInput = document.getElementById('ppCropped');
+    input.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            preview.src = event.target.result;
+            if (cropper) cropper.destroy();
+            cropper = new Cropper(preview, {
+                aspectRatio: 1,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 1,
+                cropend: function() {
+                    const canvas = cropper.getCroppedCanvas({width:300,height:300});
+                    hiddenInput.value = canvas.toDataURL('image/jpeg');
+                }
+            });
+        };
+        reader.readAsDataURL(file);
+    });
+    // Saat submit, pastikan hiddenInput sudah terisi
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (cropper) {
+            const canvas = cropper.getCroppedCanvas({width:300,height:300});
+            hiddenInput.value = canvas.toDataURL('image/jpeg');
+        }
+    });
+    </script>
 
                 <div style="display: flex; gap: 10px;">
                     <button type="submit" class="btn" style="flex: 2;">Simpan Perubahan</button>
