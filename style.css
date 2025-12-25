@@ -885,3 +885,89 @@ footer {
 .dark-mode .swal2-confirm {
   background-color: var(--accent-teal) !important;
 }
+
+/* =========================================
+   10. PLAYGROUND / LIVE CODE EDITOR
+   ========================================= */
+.editor-container {
+  display: flex;
+  height: calc(100vh - 70px); /* Full height minus navbar */
+  margin-top: 0;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+}
+
+.editor-box,
+.preview-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+}
+
+.editor-box {
+  border-right: 5px solid var(--border-color);
+  background-color: #1e1e1e; /* Warna gelap editor coding */
+}
+
+.editor-label {
+  background: #00a896;
+  color: white;
+  padding: 8px 15px;
+  font-size: 0.85em;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+textarea#sourceCode {
+  flex: 1;
+  background-color: #1e1e1e;
+  color: #dcdcdc; /* Warna teks koding */
+  border: none;
+  resize: none;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 15px;
+  padding: 20px;
+  outline: none;
+  line-height: 1.6;
+}
+
+/* Hasil preview selalu putih agar akurat */
+iframe#previewFrame {
+  flex: 1;
+  border: none;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.btn-run {
+  background: #2ecc71;
+  border: none;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-run:hover {
+  background: #27ae60;
+}
+
+/* Responsive untuk HP: Atas-Bawah */
+@media (max-width: 768px) {
+  .editor-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .editor-box,
+  .preview-box {
+    height: 50vh;
+  }
+}
