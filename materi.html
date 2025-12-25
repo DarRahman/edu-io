@@ -19,24 +19,37 @@
   </head>
 
   <body>
+    <!-- --- NAVBAR --- -->
     <nav class="navbar">
       <a class="logo" href="index.html">
-        <img
-          src="logo.png"
-          alt="Logo Edu.io"
-          height="70"
-          width="150"
-          class="logo-img"
-        />
+        <img src="logo.png" alt="Logo Edu.io" class="logo-img" />
       </a>
+
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li class="active"><a href="materi.html">Materi</a></li>
-        <li><a href="kuis.php">Kuis</a></li>
-        <li><a href="video.html">Video</a></li>
+        <!-- Home -->
+        <li class="active"><a href="index.html">Home</a></li>
+
+        <!-- MENU DROPDOWN "BELAJAR" -->
+        <li class="dropdown">
+          <a href="#" class="dropbtn"
+            >Belajar <i class="fas fa-caret-down"></i
+          ></a>
+          <div class="dropdown-content">
+            <a href="materi.html"><i class="fas fa-book"></i> Materi Teks</a>
+            <a href="video.html"
+              ><i class="fas fa-play-circle"></i> Video Tutorial</a
+            >
+            <a href="playground.php"><i class="fas fa-code"></i> Live Coding</a>
+          </div>
+        </li>
+
+        <!-- Menu Lainnya -->
+        <li><a href="kuis.html">Kuis</a></li>
         <li><a href="forum.php">Forum</a></li>
+        <li><a href="nilai.php">Hasil</a></li>
       </ul>
     </nav>
+    <!-- --- AKHIR NAVBAR --- -->
 
     <div class="container">
       <h1 class="page-title">Daftar Materi</h1>

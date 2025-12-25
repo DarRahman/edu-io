@@ -959,3 +959,104 @@ html.dark-mode #ai-chat-window {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
 }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    cursor: pointer;
+    /* Samakan style dengan link navbar lain */
+    color: var(--text-primary);
+    padding: 5px 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--bg-primary); /* Sesuai tema */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 8px;
+    top: 100%; /* Muncul tepat di bawah */
+    left: 0;
+    border: 1px solid var(--border-color);
+}
+
+.dropdown-content a {
+    color: var(--text-primary);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9em;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--bg-secondary);
+    color: var(--accent-teal);
+}
+
+/* Tampilkan saat di-hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Panah kecil ke bawah (opsional) */
+.fa-caret-down {
+    margin-left: 5px;
+}
+
+#history-section {
+    margin-top: 60px;
+    padding-top: 50px;
+    /* Garis gradasi dari transparan -> warna -> transparan */
+    border-top: 2px solid transparent;
+    border-image: linear-gradient(to right, transparent, var(--accent-teal), transparent) 1;
+    position: relative;
+    text-align: center;
+}
+
+#history-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    /* Menambahkan background kecil di belakang judul */
+    display: inline-block;
+    padding: 10px 30px;
+    background: rgba(0, 168, 150, 0.1); /* Teal transparan */
+    border-radius: 50px;
+    color: var(--accent-teal);
+}
+
+/* --- PERBAIKAN TAMPILAN BELUM ADA NILAI --- */
+
+.no-score-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.no-score-message i {
+    font-size: 5rem; /* Ikon kotak jadi besar */
+    color: var(--text-secondary); /* Warna abu-abu redup */
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+/* Ini kuncinya: Kita reset style h2 khusus di dalam pesan ini */
+.no-score-message h2 {
+    background: none !important; /* Hilangkan kotak background */
+    padding: 0 !important;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: block !important;
+    margin: 0;
+    border: none !important;
+}
