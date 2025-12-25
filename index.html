@@ -19,6 +19,9 @@
       rel="stylesheet"
     />
 
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
     <!-- Libraries (Markdown for AI & SweetAlert) -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -86,7 +89,12 @@
         <!-- Grid Menu Utama -->
         <div class="feature-grid">
           <!-- Card 1: Materi -->
-          <a href="materi.html" class="feature-card shadow-materi">
+          <a
+            href="materi.html"
+            class="feature-card shadow-materi"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
             <div class="card-header">
               <i class="fas fa-compass-drafting icon-materi"></i>
               <h2>Jelajahi Materi</h2>
@@ -98,7 +106,12 @@
           </a>
 
           <!-- Card 2: Kuis -->
-          <a href="kuis.html" class="feature-card shadow-kuis">
+          <a
+            href="kuis.html"
+            class="feature-card shadow-kuis"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <div class="card-header">
               <i class="fas fa-clipboard-check icon-kuis"></i>
               <h2>Tantang Diri</h2>
@@ -205,6 +218,14 @@
         <button onclick="sendToAI()"><i class="fas fa-paper-plane"></i></button>
       </div>
     </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800, // Durasi animasi
+        once: true, // Animasi hanya sekali saat scroll ke bawah
+      });
+    </script>
 
     <!-- Main Logic Script -->
     <script src="script.js"></script>

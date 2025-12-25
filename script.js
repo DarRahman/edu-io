@@ -31,6 +31,9 @@ if (!loggedInUser && !isPublicPage) {
 // 3. MAIN LOGIC (AFTER DOM LOADED)
 // =========================================
 document.addEventListener("DOMContentLoaded", () => {
+  // --- INIT VISITOR STATS ---
+  updateVisitorStats();
+
   // --- A. ACTIVE MENU LOGIC (FIXED) ---
   const navLinksList = document.querySelectorAll(".nav-links a");
   navLinksList.forEach((link) => {
@@ -307,4 +310,37 @@ async function sendToAI() {
     document.getElementById(loadingId).innerText =
       "Ups! Gagal tersambung ke server.";
   }
+}
+
+/* =========================================
+   5. VISITOR STATS
+   ========================================= */
+function updateVisitorStats() {
+  fetch(pathPrefix + "visitor_stats.php")
+    .then((response) => response.json())
+    .then((data) => {
+      const footer = document.querySelector("footer");
+      if (footer) {
+        let statsEl = document.getElementById("visitor-stats");
+        if (!statsEl) {
+          statsEl = document.createElement("div");
+          statsEl.id = "visitor-stats";
+          statsEl.style.marginTop = "10px";
+          statsEl.style.fontSize = "0.85rem";
+          statsEl.style.opacity = "0.8";
+          footer.appendChild(statsEl);
+        }
+        statsEl.innerHTML = `
+          <span style="margin-right: 15px;">
+            <i class="fas fa-circle" style="color: #00ff00; font-size: 0.6em; vertical-align: middle;"></i> 
+            Online: <b>${data.online}</b>
+          </span>
+          <span>
+            <i class="fas fa-eye" style="font-size: 0.8em; vertical-align: middle;"></i> 
+            Total: <b>${data.total}</b>
+          </span>
+        `;
+      }
+    })
+    .catch((err) => console.error("Stats Error:", err));
 }
