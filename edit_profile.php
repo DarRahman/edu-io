@@ -21,24 +21,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Logika Upload Foto (support crop base64)
     $profilePic = $oldData['profile_pic']; // Default pakai yang lama
+
+    // 1. Cek apakah ada data Cropped Image (Base64)
     if (!empty($_POST['pp_cropped'])) {
         $data = $_POST['pp_cropped'];
         if (preg_match('/^data:image\/(png|jpeg|jpg);base64,/', $data, $type)) {
             $data = substr($data, strpos($data, ',') + 1);
             $data = base64_decode($data);
-            $ext = $type[1] === 'jpeg' ? 'jpg' : $type[1];
+            $ext = ($type[1] === 'jpeg') ? 'jpg' : $type[1];
             $newFileName = $username . "_" . time() . "." . $ext;
             file_put_contents('img/' . $newFileName, $data);
             $profilePic = $newFileName;
         }
-    } else if ($_FILES['pp']['name'] != "") {
+    }
+    // 2. Cek apakah ada file upload biasa ($_FILES)
+    else if (isset($_FILES['pp']) && $_FILES['pp']['error'] === UPLOAD_ERR_OK) {
         $namaFile = $_FILES['pp']['name'];
         $ukuranFile = $_FILES['pp']['size'];
-        $error = $_FILES['pp']['error'];
         $tmpName = $_FILES['pp']['tmp_name'];
+
         $ekstensiValid = ['jpg', 'jpeg', 'png'];
-        $ekstensiGambar = explode('.', $namaFile);
-        $ekstensiGambar = strtolower(end($ekstensiGambar));
+        $ekstensiGambar = strtolower(pathinfo($namaFile, PATHINFO_EXTENSION));
+
         if (!in_array($ekstensiGambar, $ekstensiValid)) {
             $alertScript = "Swal.fire({icon:'error', title:'Format Salah', text:'Hanya menerima JPG/PNG'});";
         } elseif ($ukuranFile > 2000000) { // Max 2MB
