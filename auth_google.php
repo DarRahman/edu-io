@@ -36,7 +36,7 @@ if (isset($_POST['credential'])) {
             }
 
             // 3. Masukkan sebagai user baru (password dikosongkan karena via Google)
-// Cari baris INSERT di auth_google.php
+            // Cari baris INSERT di auth_google.php
             $query = "INSERT INTO users (username, full_name, google_id, profile_pic) 
           VALUES ('$username', '$name', '$google_id', '$picture')";
             mysqli_query($conn, $query);

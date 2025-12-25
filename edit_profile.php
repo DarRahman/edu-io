@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include 'koneksi.php';
@@ -123,46 +122,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="hidden" name="pp_cropped" id="ppCropped">
                     <small style="color: var(--text-secondary)">Kosongkan jika tidak ingin ganti foto.</small>
                     <div style="margin-top:10px;">
-                        <img id="previewCrop" src="<?php echo !empty($oldData['profile_pic']) ? 'img/' . $oldData['profile_pic'] : 'img/default-pp.png'; ?>" style="max-width:150px; max-height:150px; border-radius:50%; display:block;">
+                        <img id="previewCrop"
+                            src="<?php echo !empty($oldData['profile_pic']) ? 'img/' . $oldData['profile_pic'] : 'img/default-pp.png'; ?>"
+                            style="max-width:150px; max-height:150px; border-radius:50%; display:block;">
                     </div>
                 </div>
-    <!-- Cropper.js CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
-    <!-- Cropper.js JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-    <script>
-    let cropper;
-    const input = document.getElementById('ppInput');
-    const preview = document.getElementById('previewCrop');
-    const hiddenInput = document.getElementById('ppCropped');
-    input.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            preview.src = event.target.result;
-            if (cropper) cropper.destroy();
-            cropper = new Cropper(preview, {
-                aspectRatio: 1,
-                viewMode: 1,
-                dragMode: 'move',
-                autoCropArea: 1,
-                cropend: function() {
-                    const canvas = cropper.getCroppedCanvas({width:300,height:300});
-                    hiddenInput.value = canvas.toDataURL('image/jpeg');
-                }
-            });
-        };
-        reader.readAsDataURL(file);
-    });
-    // Saat submit, pastikan hiddenInput sudah terisi
-    document.querySelector('form').addEventListener('submit', function(e) {
-        if (cropper) {
-            const canvas = cropper.getCroppedCanvas({width:300,height:300});
-            hiddenInput.value = canvas.toDataURL('image/jpeg');
-        }
-    });
-    </script>
+                <!-- Cropper.js CSS -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+                <!-- Cropper.js JS -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+                <script>
+                    let cropper;
+                    const input = document.getElementById('ppInput');
+                    const preview = document.getElementById('previewCrop');
+                    const hiddenInput = document.getElementById('ppCropped');
+                    input.addEventListener('change', function (e) {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = function (event) {
+                            preview.src = event.target.result;
+                            if (cropper) cropper.destroy();
+                            cropper = new Cropper(preview, {
+                                aspectRatio: 1,
+                                viewMode: 1,
+                                dragMode: 'move',
+                                autoCropArea: 1,
+                                cropend: function () {
+                                    const canvas = cropper.getCroppedCanvas({ width: 300, height: 300 });
+                                    hiddenInput.value = canvas.toDataURL('image/jpeg');
+                                }
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    // Saat submit, pastikan hiddenInput sudah terisi
+                    document.querySelector('form').addEventListener('submit', function (e) {
+                        if (cropper) {
+                            const canvas = cropper.getCroppedCanvas({ width: 300, height: 300 });
+                            hiddenInput.value = canvas.toDataURL('image/jpeg');
+                        }
+                    });
+                </script>
 
                 <div style="display: flex; gap: 10px;">
                     <button type="submit" class="btn" style="flex: 2;">Simpan Perubahan</button>
