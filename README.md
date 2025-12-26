@@ -1,4 +1,4 @@
-# edu.io - Platform Edukasi Web Interaktif (Full-Stack)
+# edu.io - Platform Edukasi Web Interaktif
 
 **edu.io** adalah platform pembelajaran daring berbasis web yang dirancang untuk membantu pengguna mempelajari dasar-dasar pengembangan web (HTML, CSS, dan JavaScript). Proyek ini telah berkembang menjadi aplikasi web dinamis (Full-Stack) dengan integrasi database, autentikasi modern, dan kecerdasan buatan (AI).
 
@@ -15,35 +15,31 @@ Proyek ini dibuat sebagai **Tugas Kelompok Proyek Akhir Mata Kuliah Web Design**
 
 ---
 
-## 🚀 Fitur Utama (v2.0 - Dev 2)
+## 🚀 Fitur Utama (v3.0 - Final Release)
 
-### 🔐 Autentikasi & Keamanan
-- **Login & Register:** Terintegrasi dengan database MySQL (Server-side).
-- **Google Login:** Dukungan OAuth 2.0 untuk login cepat menggunakan akun Google.
-- **Keamanan:** Password hashing (`password_hash`), proteksi sesi, dan sanitasi input.
-- **UI Autentikasi:** Tampilan modern dengan *overlay* alert menggunakan SweetAlert2.
+### 🤖 AI Power (Integrasi Gemini 2.5 Flash)
+- **AI Tutor Chatbot:** Asisten belajar 24/7 yang dapat menjawab pertanyaan koding, menjelaskan konsep, dan memperbaiki bug.
+- **AI Quiz Generator (BARU):** Fitur canggih untuk membuat soal kuis otomatis tanpa batas berdasarkan topik apa saja yang diminta pengguna.
 
-### 🤖 AI Tutor (Integrasi Gemini AI)
-- **Chatbot Pintar:** Asisten belajar 24/7 yang ditenagai oleh **Google Gemini 2.5 Flash**.
-- **Fitur Koding:** Jawaban AI mendukung format *Markdown* dan *Syntax Highlighting* untuk kode.
-- **Chat History:** AI dapat mengingat konteks percakapan sebelumnya.
-- **Copy Code:** Fitur salin kode otomatis dari jawaban AI.
+### 🎮 Gamifikasi & Interaktivitas (BARU)
+- **Sistem Leaderboard:** Peringkat global pengguna berdasarkan total skor kuis.
+- **Badges & Achievements:** Dapatkan lencana eksklusif (seperti *HTML Master*, *JS Ninja*) saat mencapai nilai sempurna (100).
+- **UI Kuis Modern:** Tampilan kuis interaktif dengan *Glassmorphism*, *Sticky Progress Bar*, dan animasi transisi.
 
-### 💬 Forum Diskusi Komunitas
-- **Real-time Database:** Pertanyaan dan jawaban tersimpan di MySQL, dapat dilihat oleh semua pengguna.
-- **Pencarian:** Fitur pencarian pertanyaan (`Search`).
-- **Rating Jawaban:** Sistem rating bintang rata-rata (*Average Rating*) yang presisi.
-- **Integrasi Profil:** Nama dan foto profil pengguna terhubung langsung ke setiap postingan.
+### 📚 Modul Pembelajaran
+- **Materi Terstruktur:** Modul HTML, CSS, dan JS dengan tampilan *Card-Based Layout* yang nyaman dibaca.
+- **Code Highlighting:** Blok kode dengan tampilan gelap ala text editor.
+- **Navigasi Intuitif:** Kemudahan berpindah antar materi dan kuis.
 
-### 👤 Manajemen Profil Pengguna
-- **Profil Dinamis:** Halaman profil yang menampilkan biodata dan riwayat nilai.
-- **Edit Profil:** Pengguna dapat mengubah nama lengkap, bio, dan foto profil.
-- **Foto Profil Pintar:** Mendukung upload foto lokal maupun foto dari akun Google.
+### 💬 Forum & Komunitas
+- **Diskusi Real-time:** Tanya jawab antar pengguna yang tersimpan di database.
+- **Sistem Rating:** Berikan bintang pada jawaban yang membantu.
+- **Profil Terintegrasi:** Identitas penanya dan penjawab terlihat jelas.
 
-### 📚 Modul & Kuis
-- **Materi Terstruktur:** Modul pembelajaran HTML, CSS, dan JavaScript.
-- **Kuis Interaktif:** Penilaian otomatis di sisi server.
-- **Riwayat Nilai:** Skor kuis tersimpan permanen di database dan ditampilkan dengan indikator warna.
+### 🔒 Keamanan & Autentikasi
+- **Secure Login:** Password hashing (`password_hash`) dan proteksi sesi.
+- **Google OAuth:** Login instan menggunakan akun Google.
+- **Config Protection:** API Key disimpan aman dalam file `config.php` terpisah.
 
 ---
 
@@ -51,11 +47,11 @@ Proyek ini dibuat sebagai **Tugas Kelompok Proyek Akhir Mata Kuliah Web Design**
 
 | Kategori | Teknologi |
 | :--- | :--- |
-| **Frontend** | HTML5, CSS3 (Glassmorphism), JavaScript (ES6+), SweetAlert2, Marked.js, FontAwesome |
-| **Backend** | PHP (Native) |
+| **Frontend** | HTML5, CSS3 (Glassmorphism), JavaScript (ES6+), SweetAlert2, FontAwesome |
+| **Backend** | PHP 8+ (Native/Procedural) |
 | **Database** | MySQL / MariaDB |
-| **AI API** | Google Gemini API (REST via cURL) |
-| **Auth API** | Google Identity Services (OAuth 2.0) |
+| **AI Service** | Google Gemini API (via cURL) |
+| **Auth** | Google Identity Services (OAuth 2.0) |
 
 ---
 
@@ -63,25 +59,27 @@ Proyek ini dibuat sebagai **Tugas Kelompok Proyek Akhir Mata Kuliah Web Design**
 
 ```text
 edu-io/
-├── Kuis/                   # File halaman kuis (HTML)
-├── Materi/                 # File halaman materi (HTML)
-├── img/                    # Penyimpanan foto profil user
-├── ai_process.php          # Backend: Logika koneksi ke Gemini AI
-├── auth_google.php         # Backend: Handler login Google
-├── edit_profile.php        # Backend & UI: Edit profil user
-├── forum.php               # Halaman Forum Diskusi (Full PHP)
-├── index.html              # Dashboard utama
-├── koneksi.php             # Konfigurasi koneksi database
-├── login.php               # Halaman Login
-├── logout.php              # Script Logout
-├── nilai.php               # Halaman Riwayat Nilai
-├── profile.php             # Halaman Profil User
-├── rate_answer.php         # API: Logika rating forum
-├── register.php            # Halaman Registrasi
-├── simpan_nilai.php        # API: Logika penyimpanan skor kuis
-├── script.js               # Logika Frontend (Navbar dinamis, Chatbot, dll)
-└── style.css               # Styling global (Dark/Light mode support)
-
++-- Kuis/                   # Halaman kuis statis (HTML)
++-- Materi/                 # Halaman materi pembelajaran (HTML)
++-- img/
+│   +-- badges/             # Aset gambar lencana/badge
+│   +-- ...                 # Foto profil user
++-- ai_process.php          # Backend: Chatbot AI
++-- ai_quiz.php             # Frontend: Halaman AI Quiz Generator
++-- ai_quiz_process.php     # Backend: Generator Soal AI
++-- auth_google.php         # Handler login Google
++-- config.php              # Konfigurasi API Key (Gitignored)
++-- forum.php               # Halaman Forum Diskusi
++-- index.html              # Landing Page / Dashboard
++-- koneksi.php             # Koneksi Database
++-- leaderboard.php         # Halaman Peringkat User
++-- login.php               # Halaman Login
++-- profile.php             # Halaman Profil User
++-- register.php            # Halaman Registrasi
++-- script.js               # Logic Frontend Global
++-- simpan_nilai.php        # API: Simpan skor & Logika Badge
++-- style.css               # Global Styling (Dark/Light Mode)
++-- visitor_stats.php       # Tracker statistik pengunjung
 ```
 
 ## 💻 Cara Menjalankan Proyek (Localhost)
@@ -91,24 +89,21 @@ edu-io/
     git clone https://github.com/username/edu-io.git
     ```
 2.  **Siapkan Database:**
-    - Nyalakan **XAMPP** (Apache & MySQL).
-    - Buka `phpMyAdmin` dan buat database baru bernama **`db_eduio`**.
-    - Import file SQL (jika ada) atau buat tabel-tabel berikut: `users`, `scores`, `forum_questions`, `forum_answers`, `forum_ratings`.
-3.  **Konfigurasi Koneksi:**
-    - Buka file `koneksi.php`.
-    - Sesuaikan dengan kredensial database lokal Anda (Default XAMPP: user `root`, password kosong).
-4.  **Konfigurasi API (Opsional):**
-    - **Fitur AI:** Buka `ai_process.php` dan masukkan API Key Google Gemini Anda pada variabel `$apiKey`.
-    - **Google Login:** Buka `login.php` dan sesuaikan `data-client_id` dengan Client ID Google Cloud Console Anda.
-
-5.  **Jalankan:**
-    - Buka browser dan akses alamat berikut:
-      `http://localhost/edu-io/login.php`
+    - Buat database di phpMyAdmin bernama **`db_eduio`**.
+    - Import file SQL yang disertakan (jika ada) atau pastikan tabel `users`, `scores`, `badges`, `forum_*` sudah dibuat.
+3.  **Konfigurasi:**
+    - **Database:** Sesuaikan `koneksi.php` dengan user/pass MySQL Anda.
+    - **API Key:** Buka `config.php` dan masukkan API Key Google Gemini Anda.
+      ```php
+      $apiKey = "YOUR_GEMINI_API_KEY";
+      ```
+4.  **Jalankan:**
+    - Akses via browser: `http://localhost/edu-io/login.php`
 
 ---
 
-## 🤝 Kontribusi & Pengembangan
-Proyek ini masih dalam tahap pengembangan aktif. Jika Anda menemukan *bug* atau ingin menambahkan fitur, silakan buat *Pull Request* atau hubungi tim pengembang.
+## 🤝 Kontribusi
+Proyek ini dikembangkan oleh Kelompok 3.
 
 ---
 © 2025 edu.io - Hak Cipta Dilindungi.

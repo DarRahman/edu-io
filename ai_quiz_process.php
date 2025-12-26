@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json');
+include 'config.php';
 
 // --- KONFIGURASI ---
-$apiKey = "MASUKKAN_API_KEY_GEMINI_DI_SINI"; 
 $modelName = "gemini-2.5-flash";
 $apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/" . $modelName . ":generateContent?key=" . $apiKey;
 

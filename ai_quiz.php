@@ -21,47 +21,6 @@ if (!isset($_SESSION['loggedInUser'])) {
         if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-mode');
     </script>
     <style>
-        /* Style Khusus Halaman Ini */
-        .quiz-generator-box {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .generated-quiz {
-            display: none;
-            /* Sembunyi sebelum digenerate */
-            text-align: left;
-            margin-top: 30px;
-        }
-
-        .quiz-item {
-            background: var(--glass-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-
-        .quiz-options label {
-            display: block;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            margin-top: 8px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .quiz-options label:hover {
-            background: var(--bg-secondary);
-            border-color: var(--accent-teal);
-        }
-
-        .quiz-options input {
-            margin-right: 10px;
-        }
-
         /* Loading Animation */
         .loader {
             display: none;
@@ -75,13 +34,19 @@ if (!isset($_SESSION['loggedInUser'])) {
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Custom override for AI input area */
+        .ai-input-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px var(--shadow-color);
         }
     </style>
 </head>
@@ -92,12 +57,11 @@ if (!isset($_SESSION['loggedInUser'])) {
         <a class="logo" href="index.html"><img src="logo.png" alt="Logo" class="logo-img" /></a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li class="dropdown active">
+            <li class="dropdown">
                 <a href="#" class="dropbtn">Belajar <i class="fas fa-caret-down"></i></a>
                 <div class="dropdown-content">
                     <a href="materi.html"><i class="fas fa-book"></i> Materi Teks</a>
                     <a href="video.html"><i class="fas fa-play-circle"></i> Video Tutorial</a>
-                    <!-- Link ini otomatis aktif karena href-nya cocok dengan nama file -->
                     <a href="playground.php"><i class="fas fa-code"></i> Live Coding</a>
                 </div>
             </li>
@@ -114,25 +78,44 @@ if (!isset($_SESSION['loggedInUser'])) {
     </nav>
 
     <div class="container">
-        <div class="quiz-generator-box">
+        <div class="quiz-header">
             <h1 class="page-title"><i class="fas fa-robot"></i> AI Quiz Generator</h1>
-            <p>Masukkan topik apa saja, AI akan membuatkan soal latihan untukmu!</p>
+            <p style="color: var(--text-secondary);">Masukkan topik apa saja, AI akan membuatkan soal latihan untukmu!</p>
+        </div>
 
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <div class="ai-input-section">
+            <div style="display: flex; gap: 15px; max-width: 600px; margin: 0 auto;">
                 <input type="text" id="topicInput" class="input-group"
                     placeholder="Contoh: CSS Flexbox, Sejarah Indonesia, Python..."
-                    style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
-                <button onclick="generateQuiz()" class="btn" style="margin:0;">Buat Soal</button>
+                    style="flex: 1; padding: 15px; border-radius: 12px; border: 2px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                <button onclick="generateQuiz()" class="btn" style="margin:0; white-space: nowrap;">
+                    <i class="fas fa-magic"></i> Buat Soal
+                </button>
             </div>
-
             <div id="loader" class="loader"></div>
         </div>
 
         <!-- Wadah Soal -->
-        <div id="quizContainer" class="generated-quiz">
-            <h2 id="quizTitle" style="text-align: center; margin-bottom: 20px;"></h2>
+        <div id="quizContainer" class="generated-quiz" style="display: none;">
+            
+            <!-- Progress Bar -->
+            <div class="quiz-progress-container" style="margin-bottom: 30px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span class="quiz-progress-text" id="progressText"><i class="fas fa-tasks"></i> 0 Soal</span>
+                    <span style="font-size: 0.9em; color: var(--text-secondary);">Semangat! 🔥</span>
+                </div>
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="progressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <h2 id="quizTitle" style="text-align: center; margin-bottom: 30px; color: var(--accent-teal);"></h2>
+            
             <div id="questionsList"></div>
-            <button onclick="checkAnswers()" class="btn" style="width: 100%;">Cek Nilai</button>
+            
+            <button onclick="checkAnswers()" class="btn-submit-quiz">
+                <i class="fas fa-check-circle"></i> Cek Nilai
+            </button>
         </div>
     </div>
 
@@ -142,7 +125,7 @@ if (!isset($_SESSION['loggedInUser'])) {
     <script src="script.js"></script>
 
     <script>
-        let currentQuestions = []; // Simpan kunci jawaban di sini
+        let currentQuestions = []; 
 
         async function generateQuiz() {
             const topic = document.getElementById('topicInput').value.trim();
@@ -174,31 +157,47 @@ if (!isset($_SESSION['loggedInUser'])) {
         }
 
         function renderQuiz(data) {
-            currentQuestions = data.questions; // Simpan data untuk pengecekan nanti
+            currentQuestions = data.questions; 
             const container = document.getElementById('questionsList');
             document.getElementById('quizTitle').innerText = "Topik: " + data.topic;
+            document.getElementById('progressText').innerHTML = `<i class="fas fa-tasks"></i> ${data.questions.length} Soal`;
+            
             container.innerHTML = '';
+
+            const markers = ['A', 'B', 'C', 'D', 'E'];
 
             data.questions.forEach((q, index) => {
                 let optionsHtml = '';
                 q.options.forEach((opt, optIndex) => {
+                    const marker = markers[optIndex] || '?';
                     optionsHtml += `
-                        <label>
-                            <input type="radio" name="q${index}" value="${optIndex}">
-                            ${opt}
+                        <label class="quiz-option-label">
+                            <input type="radio" name="q${index}" value="${optIndex}" class="quiz-option-input" onchange="updateProgress()">
+                            <div class="quiz-option-content">
+                                <span class="quiz-option-marker">${marker}</span>
+                                <span class="quiz-option-text">${opt}</span>
+                            </div>
                         </label>
                     `;
                 });
 
                 container.innerHTML += `
-                    <div class="quiz-item">
-                        <p style="font-weight:bold; font-size:1.1em;">${index + 1}. ${q.q}</p>
-                        <div class="quiz-options">${optionsHtml}</div>
+                    <div class="quiz-question-card">
+                        <p class="quiz-question-text">${index + 1}. ${q.q}</p>
+                        <div class="quiz-options-grid">${optionsHtml}</div>
                     </div>
                 `;
             });
 
             document.getElementById('quizContainer').style.display = 'block';
+            updateProgress(); // Reset progress bar
+        }
+
+        function updateProgress() {
+            const total = currentQuestions.length;
+            const answered = document.querySelectorAll('.quiz-option-input:checked').length;
+            const percent = (answered / total) * 100;
+            document.getElementById('progressBar').style.width = `${percent}%`;
         }
 
         function checkAnswers() {
@@ -207,8 +206,21 @@ if (!isset($_SESSION['loggedInUser'])) {
 
             currentQuestions.forEach((q, index) => {
                 const selected = document.querySelector(`input[name="q${index}"]:checked`);
-                if (selected && parseInt(selected.value) === q.correct) {
-                    score++;
+                const card = document.querySelectorAll('.quiz-question-card')[index];
+                
+                // Reset styles
+                card.style.borderColor = 'var(--glass-border)';
+                
+                if (selected) {
+                    const val = parseInt(selected.value);
+                    if (val === q.correct) {
+                        score++;
+                        // Highlight correct card
+                        card.style.borderColor = 'var(--accent-teal)';
+                    } else {
+                        // Highlight incorrect card
+                        card.style.borderColor = '#e74c3c';
+                    }
                 }
             });
 
@@ -218,7 +230,9 @@ if (!isset($_SESSION['loggedInUser'])) {
             Swal.fire({
                 title: `Nilai Kamu: ${finalScore}`,
                 text: `${pesan} (Benar ${score} dari ${total} soal)`,
-                icon: finalScore >= 60 ? 'success' : 'warning'
+                icon: finalScore >= 60 ? 'success' : 'warning',
+                background: document.documentElement.classList.contains('dark-mode') ? '#27273a' : '#fff',
+                color: document.documentElement.classList.contains('dark-mode') ? '#fff' : '#333'
             });
         }
     </script>

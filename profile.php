@@ -79,6 +79,29 @@ while ($row = mysqli_fetch_assoc($queryScores)) {
 }
 
 $isOwnProfile = ($username === $_SESSION['loggedInUser']);
+
+// Ekstraksi username dari URL sosial
+$ghHandle = '';
+$igHandle = '';
+$liHandle = '';
+if (!empty($userData['github_link'])) {
+    $p = parse_url($userData['github_link']);
+    $path = isset($p['path']) ? $p['path'] : '';
+    $segs = array_values(array_filter(explode('/', $path)));
+    if (count($segs) > 0) { $ghHandle = $segs[0]; }
+}
+if (!empty($userData['instagram_link'])) {
+    $p = parse_url($userData['instagram_link']);
+    $path = isset($p['path']) ? $p['path'] : '';
+    $segs = array_values(array_filter(explode('/', $path)));
+    if (count($segs) > 0) { $igHandle = $segs[0]; }
+}
+if (!empty($userData['linkedin_link'])) {
+    $p = parse_url($userData['linkedin_link']);
+    $path = isset($p['path']) ? $p['path'] : '';
+    $segs = array_values(array_filter(explode('/', $path)));
+    if (count($segs) > 0) { $liHandle = end($segs); }
+}
 ?>
 
 <!DOCTYPE html>
@@ -296,6 +319,70 @@ $isOwnProfile = ($username === $_SESSION['loggedInUser']);
                 grid-template-columns: 1fr;
             }
         }
+
+        .social-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 18px;
+            margin-top: 20px;
+        }
+
+        .social-card h4 {
+            margin: 0 0 12px 0;
+            color: var(--text-primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-pills {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px var(--shadow-color);
+            color: #fff;
+        }
+
+        .pill i {
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .pill .handle {
+            font-weight: 700;
+        }
+
+        .pill-github i { background: #333; }
+        .pill-instagram i { background: #E1306C; }
+        .pill-linkedin i { background: #0077b5; }
+
+        .pill-github:hover { background: #333; }
+        .pill-instagram:hover { background: #E1306C; }
+        .pill-linkedin:hover { background: #0077b5; }
     </style>
 </head>
 
@@ -346,11 +433,39 @@ $isOwnProfile = ($username === $_SESSION['loggedInUser']);
                     <?php echo !empty($userData['bio']) ? $userData['bio'] : "Pengguna ini belum menuliskan deskripsi diri."; ?>
                 </p>
 
+                <?php if (!empty($userData['github_link']) || !empty($userData['instagram_link']) || !empty($userData['linkedin_link'])): ?>
+                <div class="social-card">
+                    <h4><i class="fas fa-share-alt"></i> Sosial Media</h4>
+                    <div class="social-pills">
+                        <?php if (!empty($userData['github_link'])): ?>
+                            <a href="<?php echo $userData['github_link']; ?>" target="_blank" class="pill pill-github" title="GitHub">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub <span class="handle">@<?php echo htmlspecialchars($ghHandle); ?></span></span>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($userData['instagram_link'])): ?>
+                            <a href="<?php echo $userData['instagram_link']; ?>" target="_blank" class="pill pill-instagram" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram <span class="handle">@<?php echo htmlspecialchars($igHandle); ?></span></span>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($userData['linkedin_link'])): ?>
+                            <a href="<?php echo $userData['linkedin_link']; ?>" target="_blank" class="pill pill-linkedin" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn <span class="handle">@<?php echo htmlspecialchars($liHandle); ?></span></span>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
                 <?php if ($isOwnProfile): ?>
                     <a href="edit_profile.php" class="btn" style="width: 100%; display:block; box-sizing:border-box;">Edit
                         Profil</a>
                 <?php endif; ?>
             </div>
+
+            
 
             <!-- 2. KONTEN KANAN (BADGE & STATS) -->
             <div class="profile-content">

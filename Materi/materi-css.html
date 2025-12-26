@@ -19,191 +19,175 @@
         </a>
         <ul class="nav-links">
             <li><a href="../index.html">Home</a></li>
-             <li class="dropdown active">
-            <a href="#" class="dropbtn">Belajar <i class="fas fa-caret-down"></i></a>
-            <div class="dropdown-content">
-            <a href="../materi.html"><i class="fas fa-book"></i> Materi Teks</a>
-            <a href="../video.html"><i class="fas fa-play-circle"></i> Video Tutorial</a>
-            <!-- Link ini otomatis aktif karena href-nya cocok dengan nama file -->
-            <a href="../playground.php"><i class="fas fa-code"></i> Live Coding</a>
-            </div>
+            <li class="dropdown active">
+                <a href="#" class="dropbtn">Belajar <i class="fas fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="../materi.html"><i class="fas fa-book"></i> Materi Teks</a>
+                    <a href="../video.html"><i class="fas fa-play-circle"></i> Video Tutorial</a>
+                    <a href="../playground.php"><i class="fas fa-code"></i> Live Coding</a>
+                </div>
             </li>
             <li class="dropdown">
-        <a href="#" class="dropbtn">Kuis <i class="fas fa-caret-down"></i></a>
-        <div class="dropdown-content">
-            <a href="../kuis.php"><i class="fas fa-clipboard-check"></i> Pilih Kuis</a>
-            <a href="..ai_quiz.php"><i class="fas fa-robot"></i> AI Quiz Generator</a>
-            <a href="../leaderboard.php"><i class="fas fa-trophy"></i> Leaderboard</a>
-        </div>
-        </li>
+                <a href="#" class="dropbtn">Kuis <i class="fas fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="../kuis.php"><i class="fas fa-clipboard-check"></i> Pilih Kuis</a>
+                    <a href="../ai_quiz.php"><i class="fas fa-robot"></i> AI Quiz Generator</a>
+                    <a href="../leaderboard.php"><i class="fas fa-trophy"></i> Leaderboard</a>
+                </div>
+            </li>
             <li><a href="../forum.php">Forum</a></li>
         </ul>
     </nav>
 
-    <div class="container">
-        <main class="materi-content">
-            <h1>Materi 2: Dasar-dasar CSS</h1>
-            <h2>Pengertian CSS</h2>
-            <p align="justify">Kepanjangan CSS adalah Cascading Style Sheet. CSS digunakan untuk memberikan warna,
-                style, ukuran, dan juga digunakan untuk mengatur posisi pada elemen-elemen di halaman website, sehingga
-                membuat halaman website tampak lebih menarik saat dilihat. Jika Anda membuat website tanpa menggunakan
-                CSS, maka halaman website akan tampak pucat karena hanya berupa gambar, dan tulisan saja.</p>
-            <p align="justify">CSS bukanlah bahasa pemrograman. CSS adalah bahasa style sheet yang dirancang untuk
-                memungkinkan pemisahan antara presentasi dan konten, sehingga memungkinkan beberapa halaman website
-                menggunakan kode CSS yang sama, namun menampilkan tampilan yang berbeda, sesuai kode yang telah
-                dibuat.<br>
-            <p align="justify">Selain itu, CSS bisa digunakan bersama dengan bahasa markup, seperti HTML, XHTML, XML
-                biasa, SVG, dan XUL. Masih ingat kan, dengan apa itu HTML?
-                Beberapa hal yang perlu Anda ketahui tentang CSS adalah sebagai berikut:</p>
-            <ul>
-                <li>CSS adalah aturan yang digunakan untuk menampilkan elemen atau tag HTML dan bahasa markup.</li>
-                <li>Script CSS dibuat terpisah dari HTML.</li>
-                <li>CSS bertujuan untuk memisahkan konten dan style yang akan digunakan.</li>
-                <li>1 file CSS dapat digunakan untuk banyak halaman HTML.</li>
-                <li>1 Halaman HTML, dapat terlihat berbeda tergantung dari isi code yang ada di CSS.</li>
-            </ul>
+    <div class="materi-wrapper">
+        <!-- Hero Section -->
+        <header class="materi-hero" style="background: linear-gradient(135deg, #2980b9, #2c3e50);">
+            <h1><i class="fab fa-css3-alt"></i> Dasar-dasar CSS</h1>
+            <p>Pelajari cara mempercantik tampilan website dengan Cascading Style Sheets.</p>
+        </header>
 
-            <h2>Hubungan CSS dan HTML</h2>
-            <p align="justify">HTML (hypertext mark up language) merupakan bahasa pemrograman yang paling sering
-                digunakan dalam pembuatan website.
-                HTML merupakan sesuatu yang berada di balik layar tampilan halaman web yang sehari-hari diakses oleh
-                pengguna. Tanpa kehadiran HTML, tampilan web tentunya akan berantakan.
-                Lalu, CSS dan HTML memiliki keterikatan satu sama lain. CSS merupakan kode-kode yang dipakai untuk
-                mendesain laman HTML. Bila diibaratkan dengan bahasa awam,
-                HTML dapat dikatakan sebagai handphone dan CSS adalah casing yang akan membuat handphone terlihat
-                semakin cantik.</p>
-            <p align="justify">CSS berfungsi untuk membantu para web designer agar dapat mengubah dan menambahkan, baik
-                teks, gambar, hingga latar belakang sebuah halaman HTML. Biasanya,
-                keberadaan CSS dapat langsung terlihat dengan adanya perbedaan pada warna teks. CSS memberi perintah
-                teks berwarna biru dengan tag <code>&lt;span&gt;</code> dengan tambahan tag class=” nama warna”.
-                Dengan demikian, setiap tag <code>&lt;span&gt;</code> muncul, teks yang mengikutinya pun akan berwarna
-                sesuai warna yang diinginkan dan seterusnya.</p>
-            <h2>Fungsi CSS</h2>
-            <p>Berikut beberapa fungsi CSS lainnya yang baik untuk website, antara lain:</p>
-            <h4>1. Proses loading halaman web lebih cepat</h4>
-            <p align="justify"> Satu rangkaian kode CSS dapat diaplikasikan untuk beberapa halaman website sekaligus
-                sehingga jumlah kode dapat diminimalkan. Hal ini tentunya akan membuat beban loading website menjadi
-                lebih kecil.
-                Alhasil, kecepatan saat loading website pun akan menjadi lebih cepat.</p>
-            <h4>2. Beragam variasi</h4>
-            <p align="justify">Seperti yang kita ketahui, HTML memang dapat digunakan untuk mengatur tampilan website.
-                Sayangnya, terbatas. Namun hal ini tidak berlaku bagi CSS yang menawarkan lebih banyak style tampilan
-                pada halaman website.</p>
-            <h4>3. Tampilan website akan lebih rapi</h4>
-            <p align="justify">Dengan menggunakan CSS, tampilan halaman website pun akan rapi dan optimal di berbagai
-                ukuran layar pengguna, baik itu desktop maupun smartphone. Sehingga pemilik website tidak perlu repot
-                mengatur dan
-                pusing memikirkan website tidak maksimal dibuka dari perangkat-perangkat pengunjung.
-                Hal ini disebabkan oleh kelebihan CSS yang memiliki berbagai property untuk mengatur tampilan konten
-                agar sesuai kebutuhan layar, salah satunya dengan max-width. Saat menggunakan property tersebut, ukuran
-                elemen HTML pun
-                akan berubah sesuai ukuran layar yang digunakan untuk menampilkan website. Kehadiran CSS bagi website
-                terbilang penting. Tanpa adanya CSS, tampilan website tentu akan monoton dan membutuhkan waktu yang lama
-                untuk loading.</p>
-            <h2>Tag Dasar CSS</h2>
-            <table border="1">
-                <tr>
-                    <td><strong>Selector/Property</strong></td>
-                    <td><strong>Penjelasan</strong></td>
-                    <td><strong>Contoh</strong></td>
-                </tr>
-                <tr>
-                    <td>color</td>
-                    <td>Mengatur warna teks</td>
-                    <td>color: red;</td>
-                </tr>
-                <tr>
-                    <td>background-color</td>
-                    <td>Mengatur warna latar belakang</td>
-                    <td>background-color: blue;</td>
-                </tr>
-                <tr>
-                    <td>font-size</td>
-                    <td>Mengatur ukuran font</td>
-                    <td>font-size: 16px;</td>
-                </tr>
-                <tr>
-                    <td>margin</td>
-                    <td>Mengatur jarak luar elemen</td>
-                    <td>margin: 10px;</td>
-                </tr>
-                <tr>
-                    <td>padding</td>
-                    <td>Mengatur jarak dalam elemen</td>
-                    <td>padding: 15px;</td>
-                </tr>
-                <tr>
-                    <td>border</td>
-                    <td>Mengatur garis tepi elemen</td>
-                    <td>border: 1px solid black;</td>
-                </tr>
-                <tr>
-                    <td>Selector Class (.)</td>
-                    <td>Memilih elemen berdasarkan class</td>
-                    <td>.container { }</td>
-                </tr>
-                <tr>
-                    <td>Selector ID (#)</td>
-                    <td>Memilih elemen berdasarkan ID</td>
-                    <td>#header { }</td>
-                </tr>
-                <tr>
-                    <td>Selector Element</td>
-                    <td>Memilih elemen berdasarkan tag</td>
-                    <td>p { }</td>
-                </tr>
-                <tr>
-                    <td>text-align</td>
-                    <td>Mengatur perataan teks</td>
-                    <td>text-align: center;</td>
-                </tr>
-                <tr>
-                    <td>display</td>
-                    <td>Mengatur tipe tampilan elemen</td>
-                    <td>display: flex;</td>
-                </tr>
-            </table>
-            <h2>Jenis CSS</h2>
-            <p align="justify">CSS dibagi menjadi beberapa macam tergantung fungsi penggunaannya, namun ada tiga macam
-                jenis yang paling sering digunakan oleh web designer.</p>
-            <h4>1. Inline Style CSS</h4>
-            <p align="justify">merupakan kode yang dituliskan di dalam file HTML dan menggunakan elemen spesifik yang
-                memuat tag <code>&lt;style&gt;</code>. Jenis CSS ini hanya mempengaruhi satu baris kode
-                HTML dan harus menempel pada elemen tulisan tersebut.</p>
-            <h4>2. Internal CSS</h4>
-            <p align="justify">merupakan kode yang dituliskan pada bagian header file HTML. Sayangnya, jenis ini
-                terkadang membuat loading menjadi semakin lama.</p>
-            <h4>3. External CSS</h4>
-            merupakan kode CSS yang diletakkan di luar dokumen HTML sebagai file .css. External CSS memiliki fungsi
-            untuk mengkustomisasi semua tampilan
-            halaman website yang sudah ditentukan atau beberapa halaman sekaligus.</p>
-
-            <h2>Cara Kerja CSS</h2>
-            <p align="justify">CSS beroperasi dengan bahasa Inggris sederhana berbasis syntax dan dilengkapi sekumpulan
-                perintah atau rule untuk mengaturnya. Salah satu rule CSS dapat beroperasi melalui tag
-                <code>&lt;style&gt;</code> untuk atribut class warna. Dengan pengaturan CSS pada HTML ini akan mengubah
-                warna teks menjadi lebih mudah.
+        <!-- Section 1: Pengertian -->
+        <section class="materi-card">
+            <h2 class="materi-section-title"><i class="fas fa-info-circle"></i> Pengertian CSS</h2>
+            <p class="materi-text">
+                <strong>CSS (Cascading Style Sheet)</strong> digunakan untuk memberikan warna, style, ukuran, dan mengatur posisi elemen-elemen di halaman website. Tanpa CSS, website hanya akan berupa teks hitam putih yang membosankan.
             </p>
-            <p align="justify">Kemudian, bila ingin mengganti warna teks cukup mengetikkan tag <code>&lt;span&gt;</code>
-                tanpa harus menulis ulang kembali perintah. Inilah mengapa CSS disebut-sebut dapat menghemat waktu
-                pemilik web dengan perintah-perintah yang lebih efisien. Lebih lanjut, CSS bekerja saat browser memuat
-                halaman website. Proses pengaturan tampilan HTML yang telah ditentukan dengan kode CSS ada beberapa
-                langkah. Pertama, browser akan memuat file HTML dan CSS. Selanjutnya, browser mengubah keduanya menjadi
-                document object model (DOM) yang merupakan komponen yang mewakili file HTML dan CSS dalam memori
-                perangkat pengunjung website.</p>
-            <p align="justify">Setelah itu, browser akan melakukan rendering, yakni di mana browser menerapkan
-                pengaturan di kode CSS pada elemen-elemen HTML sehingga menghasilkan tampilan HTML yang maksimal pada
-                layar pengunjung website. Dari hal di atas dapat disimpulkan bahwa CSS merupakan bahasa pemrograman yang
-                perlu dikuasai, khususnya bagi seorang web designer untuk lebih mudah mengendalikan website. CSS
-                berperan penting bagi webite karena tampilan website akan membosankan tanpa adanya CSS bahkan
-                membutuhkan waktu lama untuk loading. Tak hanya itu, CSS juga membuat seseorang tidak perlu pusing
-                mengubah HTML saat harus memprogram ulang tampilan halaman.</p>
-
-            <div class="materi-navigasi">
-                <a href="materi-html.html" class="btn">&laquo; Materi Sebelumnya</a>
-                <a href="materi-js.html" class="btn">Materi Selanjutnya &raquo;</a>
+            
+            <div class="info-box">
+                <i class="fas fa-exclamation-circle"></i>
+                <div class="info-box-content">
+                    <h4>Bukan Bahasa Pemrograman</h4>
+                    <p>CSS adalah bahasa <em>style sheet</em>, bukan bahasa pemrograman. Fungsinya memisahkan konten (HTML) dari tampilan (Desain).</p>
+                </div>
             </div>
-        </main>
+
+            <p class="materi-text">
+                CSS memungkinkan satu file style digunakan untuk banyak halaman HTML sekaligus. Ini membuat pengelolaan tampilan website menjadi jauh lebih efisien.
+            </p>
+            
+            <ul class="materi-list">
+                <li>CSS adalah aturan untuk menampilkan elemen HTML.</li>
+                <li>Script CSS sebaiknya dibuat terpisah dari HTML (External CSS).</li>
+                <li>1 file CSS dapat mengontrol tampilan ribuan halaman HTML.</li>
+            </ul>
+        </section>
+
+        <!-- Section 2: Hubungan HTML & CSS -->
+        <section class="materi-card">
+            <h2 class="materi-section-title"><i class="fas fa-link"></i> Hubungan CSS dan HTML</h2>
+            <p class="materi-text">
+                Jika diibaratkan, <strong>HTML adalah kerangka manusia</strong> (tulang), sedangkan <strong>CSS adalah kulit dan pakaiannya</strong>. HTML membangun struktur, CSS memberikan tampilan visual.
+            </p>
+            <p class="materi-text">
+                CSS bekerja dengan memilih elemen HTML (selector) dan memberikan aturan gaya (property) kepadanya. Misalnya, mengubah semua teks dalam paragraf menjadi berwarna biru.
+            </p>
+        </section>
+
+        <!-- Section 3: Fungsi CSS -->
+        <section class="materi-card">
+            <h2 class="materi-section-title"><i class="fas fa-magic"></i> Fungsi Utama CSS</h2>
+            
+            <div class="info-box" style="border-left-color: var(--accent-teal);">
+                <i class="fas fa-tachometer-alt" style="color: var(--accent-teal);"></i>
+                <div class="info-box-content">
+                    <h4 style="color: var(--accent-teal);">1. Loading Lebih Cepat</h4>
+                    <p>Dengan CSS eksternal, browser hanya perlu memuat kode tampilan sekali untuk seluruh website (caching).</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="border-left-color: var(--accent-purple);">
+                <i class="fas fa-paint-brush" style="color: var(--accent-purple);"></i>
+                <div class="info-box-content">
+                    <h4 style="color: var(--accent-purple);">2. Variasi Tampilan</h4>
+                    <p>CSS menawarkan kontrol desain yang jauh lebih kaya daripada atribut HTML lama.</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="border-left-color: #f39c12;">
+                <i class="fas fa-mobile-alt" style="color: #f39c12;"></i>
+                <div class="info-box-content">
+                    <h4 style="color: #f39c12);">3. Responsif (Rapi di Semua Layar)</h4>
+                    <p>CSS memungkinkan website menyesuaikan diri dengan ukuran layar HP, tablet, atau desktop (Responsive Web Design).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Tag Dasar -->
+        <section class="materi-card">
+            <h2 class="materi-section-title"><i class="fas fa-code"></i> Tag Dasar CSS</h2>
+            <p class="materi-text">Berikut adalah beberapa properti CSS yang paling sering digunakan:</p>
+
+            <div class="materi-table-wrapper">
+                <table class="materi-table">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Penjelasan</th>
+                            <th>Contoh</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>color</code></td>
+                            <td>Mengatur warna teks</td>
+                            <td><code>color: red;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>background-color</code></td>
+                            <td>Mengatur warna latar belakang</td>
+                            <td><code>background-color: #333;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>font-size</code></td>
+                            <td>Mengatur ukuran huruf</td>
+                            <td><code>font-size: 16px;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>margin</code></td>
+                            <td>Jarak di LUAR elemen</td>
+                            <td><code>margin: 20px;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>padding</code></td>
+                            <td>Jarak di DALAM elemen</td>
+                            <td><code>padding: 15px;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>border</code></td>
+                            <td>Garis tepi</td>
+                            <td><code>border: 1px solid black;</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 5: Jenis CSS -->
+        <section class="materi-card">
+            <h2 class="materi-section-title"><i class="fas fa-layer-group"></i> 3 Jenis Penulisan CSS</h2>
+            <ul class="materi-list">
+                <li>
+                    <strong>Inline CSS:</strong> Ditulis langsung di tag HTML. <br>
+                    <em>Contoh:</em> <code>&lt;p style="color:blue"&gt;</code>. (Tidak disarankan untuk proyek besar).
+                </li>
+                <li>
+                    <strong>Internal CSS:</strong> Ditulis di dalam tag <code>&lt;head&gt;</code> file HTML menggunakan tag <code>&lt;style&gt;</code>.
+                </li>
+                <li>
+                    <strong>External CSS:</strong> File terpisah berekstensi <code>.css</code>. Ini adalah metode terbaik dan paling profesional.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Navigation -->
+        <div class="quiz-navigation">
+            <a href="materi-html.html" class="btn-quiz-nav btn-prev">
+                <i class="fas fa-arrow-left"></i> Kembali ke HTML
+            </a>
+            <a href="materi-js.html" class="btn-quiz-nav btn-next">
+                Lanjut ke JavaScript <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
     </div>
 
     <footer>
@@ -212,5 +196,4 @@
 
     <script src="../script.js"></script>
 </body>
-
 </html>

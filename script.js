@@ -141,6 +141,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- C. FITUR KUIS ---
   const quizForm = document.querySelector(".quiz-form");
   if (quizForm) {
+    // Progress Bar Logic
+    const progressFill = document.querySelector(".quiz-progress-fill");
+    const totalQuestions = 10; // Asumsi 10 soal per kuis
+
+    if (progressFill) {
+      quizForm.addEventListener("change", () => {
+        const answeredCount = quizForm.querySelectorAll(
+          "input[type='radio']:checked"
+        ).length;
+        const progress = (answeredCount / totalQuestions) * 100;
+        progressFill.style.width = `${progress}%`;
+      });
+    }
+
     quizForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const quizId = quizForm.dataset.quizId;
@@ -225,6 +239,26 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("ai-input")?.addEventListener("keypress", (e) => {
     if (e.key === "Enter") sendToAI();
   });
+  // --- F. QUIZ PROGRESS BAR ---
+  const quizInputs = document.querySelectorAll(".quiz-option-input");
+  const progressBar = document.querySelector(".quiz-progress-fill");
+  if (quizInputs.length > 0 && progressBar) {
+    const totalQuestions = new Set(
+      Array.from(quizInputs).map((input) => input.name)
+    ).size;
+
+    quizInputs.forEach((input) => {
+      input.addEventListener("change", () => {
+        const answeredCount = new Set(
+          Array.from(
+            document.querySelectorAll(".quiz-option-input:checked")
+          ).map((i) => i.name)
+        ).size;
+        const percent = (answeredCount / totalQuestions) * 100;
+        progressBar.style.width = percent + "%";
+      });
+    });
+  }
 });
 
 /* =========================================

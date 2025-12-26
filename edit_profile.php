@@ -18,6 +18,9 @@ $oldData = mysqli_fetch_assoc($queryOld);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullName = mysqli_real_escape_string($conn, $_POST['full_name']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
+    $github = mysqli_real_escape_string($conn, $_POST['github_link']);
+    $instagram = mysqli_real_escape_string($conn, $_POST['instagram_link']);
+    $linkedin = mysqli_real_escape_string($conn, $_POST['linkedin_link']);
 
     // Logika Upload Foto (support crop base64)
     $profilePic = $oldData['profile_pic']; // Default pakai yang lama
@@ -56,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 3. Update Database
     if ($alertScript == "") {
-        $update = mysqli_query($conn, "UPDATE users SET full_name = '$fullName', bio = '$bio', profile_pic = '$profilePic' WHERE username = '$username'");
+        $update = mysqli_query($conn, "UPDATE users SET full_name = '$fullName', bio = '$bio', profile_pic = '$profilePic', github_link = '$github', instagram_link = '$instagram', linkedin_link = '$linkedin' WHERE username = '$username'");
 
         if ($update) {
             $alertScript = "
@@ -117,6 +120,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label>Bio / Deskripsi</label>
                     <textarea name="bio" rows="4"
                         style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border-color); font-family:inherit;"><?php echo $oldData['bio']; ?></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fab fa-github"></i> GitHub URL</label>
+                    <input type="url" name="github_link" value="<?php echo $oldData['github_link'] ?? ''; ?>"
+                        placeholder="https://github.com/username">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fab fa-instagram"></i> Instagram URL</label>
+                    <input type="url" name="instagram_link" value="<?php echo $oldData['instagram_link'] ?? ''; ?>"
+                        placeholder="https://instagram.com/username">
+                </div>
+
+                <div class="input-group">
+                    <label><i class="fab fa-linkedin"></i> LinkedIn URL</label>
+                    <input type="url" name="linkedin_link" value="<?php echo $oldData['linkedin_link'] ?? ''; ?>"
+                        placeholder="https://linkedin.com/in/username">
                 </div>
 
 
