@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kuis: Dasar-dasar CSS - edu.io</title>
+    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <a class="logo" href="../index.html"
+        ><img src="../logo.png" alt="Logo Edu.io" class="logo-img"
+      /></a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Belajar <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-content">
+            <a href="../materi.html"><i class="fas fa-book"></i> Materi Teks</a>
+            <a href="../video.html"><i class="fas fa-play-circle"></i> Video Tutorial</a>
+            <!-- Link ini otomatis aktif karena href-nya cocok dengan nama file -->
+            <a href="../playground.php"><i class="fas fa-code"></i> Live Coding</a>
+          </div>
+        </li>
+        <li class="dropdown active">
+        <a href="#" class="dropbtn">Kuis <i class="fas fa-caret-down"></i></a>
+        <div class="dropdown-content">
+            <a href="../kuis.php"><i class="fas fa-clipboard-check"></i> Pilih Kuis</a>
+            <a href="..ai_quiz.php"><i class="fas fa-robot"></i> AI Quiz Generator</a>
+            <a href="../leaderboard.php"><i class="fas fa-trophy"></i> Leaderboard</a>
+        </div>
+        </li>
+        <li><a href="../forum.php">Forum</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <h1 class="page-title">Kuis: Dasar-dasar CSS</h1>
+      <main>
+        <form class="quiz-form" data-quiz-id="css-quiz">
+          <h2>Jawablah pertanyaan berikut:</h2>
+
+          <div class="question">
+            <p>
+              1. Apa properti CSS untuk mengubah warna latar belakang elemen?
+            </p>
+            <ul class="options">
+              <li><input type="radio" name="q1" value="a" /> color</li>
+              <li>
+                <input type="radio" name="q1" value="b" /> background-color
+              </li>
+              <li>
+                <input type="radio" name="q1" value="c" required /> bgcolor
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>
+              2. Selektor CSS manakah yang digunakan untuk memilih elemen dengan
+              `id="header"`?
+            </p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q2" value="a" required /> #header
+              </li>
+              <li><input type="radio" name="q2" value="b" /> .header</li>
+              <li><input type="radio" name="q2" value="c" /> header</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>
+              3. Bagaimana cara Anda menyisipkan komentar di dalam file CSS?
+            </p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q3" value="a" /> // ini komentar
+              </li>
+              <li>
+                <input type="radio" name="q3" value="b" /> &lt;!-- ini komentar
+                --&gt;
+              </li>
+              <li>
+                <input type="radio" name="q3" value="c" required /> /* ini
+                komentar */
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>4. Apa kepanjangan dari CSS?</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q4" value="a" /> Creative Style Sheets
+              </li>
+              <li>
+                <input type="radio" name="q4" value="b" /> Computer Style Sheets
+              </li>
+              <li>
+                <input type="radio" name="q4" value="c" required /> Cascading
+                Style Sheets
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>5. Fungsi utama CSS adalah...</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q5" value="a" /> Mengatur struktur
+                konten halaman
+              </li>
+              <li>
+                <input type="radio" name="q5" value="b" required /> Menjalankan
+                logika interaktif
+              </li>
+              <li>
+                <input type="radio" name="q5" value="c" /> Mengatur tampilan dan
+                gaya elemen pada halaman web
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>6. Jenis CSS yang ditulis langsung di dalam tag HTML disebut?</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q6" value="a" required /> Inline CSS
+              </li>
+              <li><input type="radio" name="q6" value="b" /> Internal CSS</li>
+              <li><input type="radio" name="q6" value="c" /> External CSS</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>
+              7. Jenis CSS yang disimpan di file terpisah dengan ekstensi .css
+              disebut?
+            </p>
+            <ul class="options">
+              <li><input type="radio" name="q7" value="a" /> Inline CSS</li>
+              <li>
+                <input type="radio" name="q7" value="b" required /> External CSS
+              </li>
+              <li><input type="radio" name="q7" value="c" /> Local CSS</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>8. Property untuk mengatur ukuran teks adalah...</p>
+            <ul class="options">
+              <li><input type="radio" name="q8" value="a" /> text-size</li>
+              <li>
+                <input type="radio" name="q8" value="b" required /> font-size
+              </li>
+              <li><input type="radio" name="q8" value="c" /> size</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>9. Property untuk memberikan jarak luar antar elemen disebut?</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q9" value="a" required /> margin
+              </li>
+              <li><input type="radio" name="q9" value="b" /> padding</li>
+              <li><input type="radio" name="q9" value="c" /> border</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>10. Keuntungan menggunakan CSS adalah...</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q10" value="a" required /> Membuat
+                tampilan halaman lebih konsisten dan mudah diatur
+              </li>
+              <li>
+                <input type="radio" name="q10" value="b" /> Mengatur logika
+                program di server
+              </li>
+              <li>
+                <input type="radio" name="q10" value="c" /> Menambah kapasitas
+                penyimpanan web
+              </li>
+            </ul>
+          </div>
+          <button type="submit" class="btn">Lihat Hasil</button>
+        </form>
+      </main>
+    </div>
+    <footer>
+      <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+    <script src="../script.js"></script>
+  </body>
+</html>

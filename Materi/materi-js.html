@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Materi: JavaScript - edu.io</title>
+    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <a class="logo" href="../index.html">
+        <img
+          src="../logo.png"
+          alt="Logo Edu.io"
+          height="70"
+          width="150"
+          class="logo-img"
+        />
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li class="dropdown active">
+          <a href="#" class="dropbtn"
+            >Belajar <i class="fas fa-caret-down"></i
+          ></a>
+          <div class="dropdown-content">
+            <a href="../materi.html"><i class="fas fa-book"></i> Materi Teks</a>
+            <a href="../video.html"
+              ><i class="fas fa-play-circle"></i> Video Tutorial</a
+            >
+            <!-- Link ini otomatis aktif karena href-nya cocok dengan nama file -->
+            <a href="../playground.php"
+              ><i class="fas fa-code"></i> Live Coding</a
+            >
+          </div>
+        </li>
+        <li class="dropdown active">
+          <a href="#" class="dropbtn">Kuis <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-content">
+            <a href="../kuis.php"
+              ><i class="fas fa-clipboard-check"></i> Pilih Kuis</a
+            >
+            <a href="..ai_quiz.php"
+              ><i class="fas fa-robot"></i> AI Quiz Generator</a
+            >
+            <a href="../leaderboard.php"
+              ><i class="fas fa-trophy"></i> Leaderboard</a
+            >
+          </div>
+        </li>
+        <li><a href="../forum.php">Forum</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <main class="materi-content">
+        <h1>Materi 3: JavaScript</h1>
+        <h2>Pengertian JavaScript</h2>
+        <p align="justify">
+          JavaScript adalah bahasa skrip yang digunakan untuk membuat konten
+          halaman web dinamis, berfungsi untuk membuat elemen yang mampu
+          meningkatkan interaksi pengunjung seperti menu drop-down, animasi, dan
+          warna background dinamis. Sejarah JavaScript dimulai pada tahun 1995,
+          diciptakan oleh Brendan Eich di Netscape Communications. Awalnya,
+          JavaScript hanya digunakan untuk keperluan internal dengan web browser
+          perusahaan tersebut, Netscape Navigator.
+        </p>
+
+        <p align="justify">
+          Dulunya, JavaScript bernama LiveScript, yang kemudian diubah menjadi
+          JavaScript agar bisa menjadi “teman” bagi bahasa pemrograman Java
+          milik mitra mereka, Sun Microsystems. Kami akan menjelaskan perbedaan
+          Java dan JavaScript nanti. JavaScript terus berkembang bersama browser
+          web baru seperti Mozilla Firefox dan Google Chrome sejak saat itu.
+          Bahkan, saat ini sedang dikembangkan mesin JavaScript modern pertama,
+          yaitu V8, yang bertugas untuk mengompilasi bytecode menjadi kode mesin
+          asli.
+        </p>
+
+        <h2>Fungsi JavaScript</h2>
+        <p align="justify">
+          Fungsi JavaScript yang paling umum adalah untuk pengembangan aplikasi
+          web dan mobile, membangun web server dan aplikasi server, membuat
+          website yang interaktif, serta game development. Bahasa pemrograman
+          JavaScript sekarang memiliki banyak framework dan library yang bisa
+          membantu mempercepat proses, seperti AngularJS, jQuery, and ReactJS.
+          Meskipun umumnya melayani program berbasis web, fitur pemrograman
+          JavaScript memiliki implementasi lain di area yang berbeda. Untuk
+          lebih jelasnya, berikut kegunaan JavaScript:
+        </p>
+        <h4>1. Efisiensi Pengembangan Aplikasi Web dan Seluler</h4>
+        <p align="justify">
+          Pengembangan framework JavaScript, yang terdiri dari library kode
+          JavaScript, memungkinkan developer menggunakan kode JS siap pakai
+          dalam proyek mereka. Proses yang harus dilalui pun menjadi lebih cepat
+          dan efisien karena mereka tidak perlu menulis kode dari nol. Setiap
+          framework JavaScript memiliki fitur yang berfungsi untuk
+          menyederhanakan proses development dan debugging. Misalnya, framework
+          front-end seperti jQuery dan ReactJS bisa membantu meningkatkan
+          efisiensi desain. Developer bisa menggunakan ulang dan memperbarui
+          komponen kode tanpa memengaruhi satu sama lain, baik dari segi fungsi
+          maupun nilai.
+        </p>
+        <h4>2. Membangun Web Server dan Aplikasi Server</h4>
+        <p align="justify">
+          Melalui Node.js, JavaScript memungkinkan developer membangun web
+          server dan infrastruktur back-end sehingga akan menghemat waktu dan
+          tenaga dalam hal pembuatan web server. Modul HTTP built-in pada bahasa
+          pemrograman ini memungkinkan Anda mengembangkan server HTTP basic yang
+          menampilkan teks biasa saat pengunjung mengakses halaman web. Anda
+          bisa menggunakan web server Node.js sendiri, Node-OS, atau milik pihak
+          luar seperti Microsoft Internet Information Services (IIS) dan Apache
+          untuk menangani permintaan HTTP. Node-OS bekerja paling baik di sistem
+          operasi Linux karena dikembangkan berdasarkan kernel Linux.
+        </p>
+        <h4>3. Membuat Website Interaktif</h4>
+        <p align="justify">
+          Fungsi JavaScript berikutnya adalah untuk menciptakan halaman web yang
+          dinamis, seperti untuk menampilkan animasi, mengubah visibilitas teks,
+          dan membuat menu drop-down. Meskipun Anda bisa menggunakan HTML dan
+          CSS saja untuk membuat website, halaman yang dihasilkan hanya akan
+          memiliki tampilan statis tanpa adanya JavaScript. Bahasa pemrograman
+          ini memungkinkan pengunjung berinteraksi dengan halaman web, dan Anda
+          pun bisa menyajikan user experience yang lebih baik. Selain itu,
+          JavaScript memungkinkan Anda mengubah konten dan nilai atribut HTML
+          tanpa harus merefresh halaman web dulu. Sebab, JavaScript mendukung
+          tipe data berikut:
+        </p>
+        <ul>
+          <li>
+            String ‒ terdiri dari data teks yang ditulis di dalam tanda kutip.
+            Misalnya, “Hello World”, ‘Hello World’, dan “Display ‘Hello world’
+            text“.
+          </li>
+          <li>
+            Number ‒ mencakup bilangan bulat dan floating-point antara (2^53 –
+            1) dan -(2^53 – 1).
+          </li>
+          <li>Boolean ‒ tipe data logis dengan nilai true dan false.</li>
+          <li>
+            BigInt ‒ merepresentasikan data bilangan bulat (integer) dengan
+            panjang arbitrer.
+          </li>
+          <li>Null ‒ berisi nilai nol.</li>
+          <li>
+            Undefined ‒ termasuk variabel yang dideklarasikan, tapi tidak
+            ditetapkan.
+          </li>
+          <li>Symbol ‒ menyediakan identifier unik untuk objek.</li>
+          <li>
+            Object ‒ untuk struktur data kompleks yang ditulis dengan kurung
+            kurawal. Misalnya, {item:”Buku”, information:”biografi”}.
+          </li>
+        </ul>
+        <p align="justify">
+          Tipe data primitif, yang terdiri dari semua tipe data kecuali object,
+          hanya bisa menyimpan satu data. Sementara itu, tipe data object bisa
+          berisi sekumpulan nilai. Dengan JavaScript, Anda juga bisa
+          meningkatkan pengalaman browsing pengunjung menggunakan cookie. Untuk
+          membuat, membaca, dan menghapus cookie dalam JavaScript, diperlukan
+          properti document.cookie yang berfungsi sebagai “getter and setter”
+          nilai cookie.
+        </p>
+
+        <h4>4. Memudahkan Pengembangan Game</h4>
+        <p align="justify">
+          JavaScript juga bisa membantu Anda membuat game kalau digunakan dengan
+          HTML5 dan Application Programming Interface (API) seperti WebGL. Ada
+          banyak game engine berbasis JavaScript seperti Phaser, GDevelop, dan
+          Kiwi.js yang tersedia untuk rendering grafis, daur ulang kode, dan
+          aplikasi lintas platform. Beberapa contoh game yang dibuat dengan
+          JavaScript antara lain adalah Angry Birds, The Wizard, dan 2048.
+        </p>
+
+        <h2>Tag Dasar Javascript</h2>
+        <table border="1">
+          <tr>
+            <td><strong>Konsep/Statement</strong></td>
+            <td><strong>Penjelasan</strong></td>
+            <td><strong>Contoh</strong></td>
+          </tr>
+          <tr>
+            <td>var</td>
+            <td>Deklarasi variabel (function scope)</td>
+            <td>var nama = "John";</td>
+          </tr>
+          <tr>
+            <td>let</td>
+            <td>Deklarasi variabel (block scope)</td>
+            <td>let umur = 25;</td>
+          </tr>
+          <tr>
+            <td>const</td>
+            <td>Deklarasi konstanta (nilai tetap)</td>
+            <td>const PI = 3.14;</td>
+          </tr>
+          <tr>
+            <td>function</td>
+            <td>Mendefinisikan fungsi</td>
+            <td>function sapa() { }</td>
+          </tr>
+          <tr>
+            <td>if</td>
+            <td>Percabangan kondisi</td>
+            <td>if (nilai > 80) { }</td>
+          </tr>
+          <tr>
+            <td>for</td>
+            <td>Perulangan</td>
+            <td>for (let i = 0; i < 5; i++) { }</td>
+          </tr>
+          <tr>
+            <td>console.log()</td>
+            <td>Menampilkan pesan ke console</td>
+            <td>console.log("Hello");</td>
+          </tr>
+          <tr>
+            <td>document.getElementById()</td>
+            <td>Memilih elemen berdasarkan ID</td>
+            <td>document.getElementById("btn")</td>
+          </tr>
+          <tr>
+            <td>addEventListener()</td>
+            <td>Menangani event</td>
+            <td>btn.addEventListener("click", ...)</td>
+          </tr>
+          <tr>
+            <td>return</td>
+            <td>Mengembalikan nilai dari fungsi</td>
+            <td>return hasil;</td>
+          </tr>
+          <tr>
+            <td>Array</td>
+            <td>Struktur data untuk kumpulan nilai</td>
+            <td>let buah = ["apel", "mangga"];</td>
+          </tr>
+          <tr>
+            <td>Object</td>
+            <td>Struktur data key-value</td>
+            <td>let user = {nama: "John"};</td>
+          </tr>
+        </table>
+        <h2>Perbedaan Java dan JavaScript</h2>
+        <p align="justify">
+          Setelah memahami apa itu JavaScript beserta fungsinya, di bagian ini
+          kami akan membahas perbedaannya dengan Java. Sebab, walaupun namanya
+          mirip dan sama-sama digunakan dalam konteks pemrograman, keduanya
+          tidaklah sama. Menurut informasi dari website resmi Java, bahasa
+          pemrograman JavaScript yang dikembangkan oleh Netscape, Inc. bukanlah
+          bagian dari platform Java yang dikembangkan oleh Sun Microsystems
+          (sebelum diakuisisi Oracle). Perbedaan Java dan JavaScript adalah,
+          Java merupakan bahasa pemrograman, sedangkan JavaScript merupakan
+          skrip pemrograman. Kode JavaScript ditulis dalam teks dan bisa
+          langsung diinterpretasikan browser, sedangkan Java harus di-compile
+          menjadi bytecode yang bisa dipahami dan dijalankan komputer.
+        </p>
+        <p>Apa bedanya scripting language dan bahasa pemrograman?</p>
+        <p align="justify">
+          Nah, bahasa scripting termasuk ke dalam bahasa pemrograman, tapi
+          digunakan untuk memanipulasi, menyesuaikan, dan mengotomatiskan apa
+          yang sudah ada di sistem. Sedangkan bahasa pemrograman biasanya
+          digunakan untuk membuat program dari nol. Kemudian, Java digunakan
+          untuk membuat aplikasi di perangkat atau browser, sedangkan JavaScript
+          umumnya digunakan pada dokumen HTML. Plugin yang digunakan untuk
+          menggunakan Java dan JavaScript pun berbeda.
+        </p>
+
+        <h2>Kelebihan dan Kekurangan JavaScript</h2>
+        <p align="justify">
+          JavaScript memiliki sejumlah keunggulan yang membuatnya menjadi
+          pilihan yang lebih baik daripada bahasa pemrograman lainnya. Antara
+          lain, berikut kelebihan JavaScript:
+        </p>
+        <ul align="justiy">
+          <li>
+            Struktur yang sederhana. Strukturnya yang sederhana membuat
+            JavaScript lebih mudah dipelajari dan diterapkan, serta lebih cepat
+            daripada sejumlah bahasa lain. Error juga mudah diidentifikasi dan
+            diperbaiki.
+          </li>
+          <li>
+            Eksekusi lebih cepat. JavaScript mengeksekusi skrip langsung di
+            browser web tanpa harus konek ke server atau menggunakan compiler.
+            Selain itu, sebagian besar browser memungkinkan JavaScript
+            meng-compile kode pada saat eksekusi program.
+          </li>
+          <li>
+            Fungsi yang serbaguna. JavaScript kompatibel dengan bahasa
+            pemrograman lain seperti PHP, Perl, dan Java. Bahasa ini juga
+            menjadikan data science dan machine learning bisa diakses oleh
+            developer.
+          </li>
+          <li>
+            Cukup populer dan banyak digunakan. Ada berbagai resource dan forum
+            yang bisa membantu pemula mempelajari bahasa scripting ini.
+          </li>
+          <li>
+            Mengurangi beban server. Karena berjalan di sisi klien, JavaScript
+            bisa mengurangi permintaan yang dikirim ke server. Validasi data
+            bisa dilakukan melalui browser, dan update hanya berlaku pada bagian
+            halaman web tertentu.
+          </li>
+        </ul>
+        <p align="justify">
+          Namun, JavaScript juga memiliki beberapa batasan yang perlu Anda
+          pertimbangkan. Berikut adalah beberapa kekurangan JavaScript:
+        </p>
+        <ul>
+          <li>
+            Terkadang memiliki masalah kompatibilitas. Beberapa web browser
+            menginterpretasikan kode JS dalam cara yang berbeda, sehingga
+            terkadang tidak konsisten. Jadi, Anda harus menguji skrip JavaScript
+            di semua web browser utama, termasuk versi lamanya agar tidak
+            mengganggu user experience.
+          </li>
+          <li>
+            Keamanan kurang terjaga. Kode JavaScript yang berjalan secara
+            client-side rawan terkena eksploitasi oleh pengguna yang tidak
+            bertanggung jawab.
+          </li>
+          <li>
+            Debugging kurang efisien. Meskipun beberapa editor HTML mendukung
+            debugging, fungsinya masih kurang efisien dibanding editor lain.
+            Karena browser tidak menampilkan peringatan error, Anda mungkin akan
+            kesulitan mengidentifikasi masalah.
+          </li>
+        </ul>
+        <h2>Cara Kerja JavaScript pada Website</h2>
+        <p align="justify">
+          JavaScript di-embed langsung ke halaman web atau direferensikan
+          melalui file .js terpisah. Saat pengunjung membuka halaman web,
+          browser akan menjalankan skrip beserta kode HTML dan CSS untuk membuat
+          halaman fungsional yang disajikan melalui tab browser. Skrip kemudian
+          didownload dan diproses di perangkat pengunjung. Yap, seperti yang
+          kami jelaskan tadi, JavaScript adalah bahasa sisi klien. Jadi tidak
+          seperti bahasa server side di mana server memproses skrip sebelum
+          dikirim ke browser. Saat menemukan blok kode JavaScript, browser web
+          akan memprosesnya dari atas ke bawah. Karena urutan akan
+          diperhitungkan, pastikan Anda mereferensikan objek atau variabel di
+          dalam blok lebih dulu sebelum memodifikasinya. Apabila memiliki
+          variabel tanpa nilai, error undefined akan muncul.
+        </p>
+
+        <div class="materi-navigasi">
+          <a href="materi-css.html" class="btn">&laquo; Materi Sebelumnya</a>
+          <a href="../kuis.php" class="btn">Mulai Kerjakan Kuis &raquo;</a>
+        </div>
+      </main>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kuis: JavaScript - edu.io</title>
+    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <a class="logo" href="../index.html"
+        ><img src="../logo.png" alt="Logo Edu.io" class="logo-img"
+      /></a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Belajar <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-content">
+            <a href="../materi.html"><i class="fas fa-book"></i> Materi Teks</a>
+            <a href="../video.html"><i class="fas fa-play-circle"></i> Video Tutorial</a>
+            <!-- Link ini otomatis aktif karena href-nya cocok dengan nama file -->
+            <a href="../playground.php"><i class="fas fa-code"></i> Live Coding</a>
+          </div>
+        </li>
+        <li class="dropdown active">
+        <a href="#" class="dropbtn">Kuis <i class="fas fa-caret-down"></i></a>
+        <div class="dropdown-content">
+            <a href="../kuis.php"><i class="fas fa-clipboard-check"></i> Pilih Kuis</a>
+            <a href="..ai_quiz.php"><i class="fas fa-robot"></i> AI Quiz Generator</a>
+            <a href="../leaderboard.php"><i class="fas fa-trophy"></i> Leaderboard</a>
+        </div>
+        </li>
+        <li><a href="../forum.php">Forum</a></li>
+      </ul>
+    </nav>
+    
+    <div class="container">
+      <h1 class="page-title">Kuis: JavaScript</h1>
+      <main>
+        <form class="quiz-form" data-quiz-id="js-quiz">
+          <h2>Jawablah pertanyaan berikut:</h2>
+
+          <div class="question">
+            <p>1. Fungsi utama JavaScript adalah...</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q1" value="a" /> Mengatur tampilan
+                halaman
+              </li>
+              <li>
+                <input type="radio" name="q1" value="b" required /> Menambahkan
+                interaktivitas pada halaman web
+              </li>
+              <li>
+                <input type="radio" name="q1" value="c" /> Membuat struktur
+                halaman
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>2. File eksternal JavaScript memiliki ekstensi?</p>
+            <ul class="options">
+              <li><input type="radio" name="q2" value="a" /> .css</li>
+              <li><input type="radio" name="q2" value="b" /> .html</li>
+              <li><input type="radio" name="q2" value="c" required /> .js</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>
+              3. Tag HTML yang digunakan untuk menulis kode JavaScript adalah...
+            </p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q3" value="a" required />
+                &lt;script&gt;
+              </li>
+              <li><input type="radio" name="q3" value="b" /> &lt;js&gt;</li>
+              <li><input type="radio" name="q3" value="c" /> &lt;style&gt;</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>4. Fungsi alert() dalam JavaScript digunakan untuk?</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q4" value="a" required /> Menampilkan
+                pesan pada jendela pop-up
+              </li>
+              <li>
+                <input type="radio" name="q4" value="b" /> Mengubah warna
+                halaman
+              </li>
+              <li>
+                <input type="radio" name="q4" value="c" /> Menghapus elemen HTML
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>
+              5. Variabel dalam JavaScript dapat dideklarasikan dengan kata
+              kunci?
+            </p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q5" value="a" /> int, string, bool
+              </li>
+              <li>
+                <input type="radio" name="q5" value="b" required /> var, let,
+                const
+              </li>
+              <li><input type="radio" name="q5" value="c" /> def, val, set</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>6. Operator + dalam JavaScript dapat digunakan untuk?</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q6" value="a" /> Membandingkan dua
+                nilai
+              </li>
+              <li>
+                <input type="radio" name="q6" value="b" /> Membagi dua angka
+              </li>
+              <li>
+                <input type="radio" name="q6" value="c" required /> Menambah
+                nilai angka atau menggabungkan string
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>
+              7. Pernyataan kondisi dalam JavaScript ditulis dengan kata kunci?
+            </p>
+            <ul class="options">
+              <li><input type="radio" name="q7" value="a" /> for</li>
+              <li><input type="radio" name="q7" value="b" required /> if</li>
+              <li><input type="radio" name="q7" value="c" /> while</li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>
+              8. JavaScript dapat mengubah isi elemen HTML dengan menggunakan?
+            </p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q8" value="a" required />
+                document.getElementById()
+              </li>
+              <li><input type="radio" name="q8" value="b" /> style.color</li>
+              <li>
+                <input type="radio" name="q8" value="c" /> addEventListener()
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>9. Kegunaan utama JavaScript pada website adalah...</p>
+            <ul class="options">
+              <li>
+                <input type="radio" name="q9" value="a" required /> Membuat
+                halaman lebih interaktif dan responsif
+              </li>
+              <li>
+                <input type="radio" name="q9" value="b" /> Mengatur gaya
+                tampilan halaman
+              </li>
+              <li>
+                <input type="radio" name="q9" value="c" /> Menentukan struktur
+                dasar halaman
+              </li>
+            </ul>
+          </div>
+
+          <div class="question">
+            <p>10. JavaScript dijalankan pada sisi...</p>
+            <ul class="options">
+              <li><input type="radio" name="q10" value="a" /> Server</li>
+              <li>
+                <input type="radio" name="q10" value="b" required />
+                Klien(browser)
+              </li>
+              <li><input type="radio" name="q10" value="c" /> Database</li>
+            </ul>
+          </div>
+
+          <button type="submit" class="btn">Lihat Hasil</button>
+        </form>
+      </main>
+    </div>
+    <footer>
+      <p>&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+    <script src="../script.js"></script>
+  </body>
+</html>
