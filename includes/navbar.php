@@ -25,6 +25,8 @@ if (!isset($path)) {
       <div class="dropdown-content">
         <a href="<?php echo $path; ?>kuis.php"><i class="fas fa-clipboard-check"></i> Pilih Kuis</a>
         <a href="<?php echo $path; ?>ai_quiz.php"><i class="fas fa-robot"></i> AI Quiz Generator</a>
+        <a href="<?php echo $path; ?>multiplayer_create.php"><i class="fas fa-gamepad"></i> Mabar Kuis (Host)</a>
+        <a href="<?php echo $path; ?>multiplayer_join.php"><i class="fas fa-door-open"></i> Join Mabar</a>
         <a href="<?php echo $path; ?>leaderboard.php"><i class="fas fa-trophy"></i> Leaderboard</a>
       </div>
     </li>

@@ -1,0 +1,125 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+if (!isset($_SESSION['loggedInUser']) || !isset($_GET['room'])) {
+    header("Location: index.php");
+    exit;
+}
+
+$roomCode = mysqli_real_escape_string($conn, $_GET['room']);
+$currentUser = $_SESSION['loggedInUser'];
+
+// Tandai user sudah selesai
+mysqli_query($conn, "UPDATE quiz_participants SET is_finished = 1 WHERE room_code = '$roomCode' AND username = '$currentUser'");
+
+// Ambil Top 3
+$query = "SELECT username, score FROM quiz_participants 
+          WHERE room_code = '$roomCode' 
+          ORDER BY score DESC, is_finished DESC 
+          LIMIT 3";
+$res = mysqli_query($conn, $query);
+$winners = [];
+while ($row = mysqli_fetch_assoc($res)) {
+    $winners[] = $row;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Hasil Akhir - <?php echo $roomCode; ?></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-mode');</script>
+    <style>
+        .podium {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 300px;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        .podium-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .podium-block {
+            width: 80px;
+            background: linear-gradient(to bottom, var(--accent-teal), #16a085);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .rank-1 { height: 150px; background: #f1c40f; order: 2; }
+        .rank-2 { height: 100px; background: #bdc3c7; order: 1; }
+        .rank-3 { height: 70px; background: #e67e22; order: 3; }
+        
+        .winner-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid white;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <?php $path = ""; include 'includes/navbar.php'; ?>
+    
+    <div class="container" style="text-align: center;">
+        <h1><i class="fas fa-trophy"></i> Hasil Akhir</h1>
+        <p>Selamat kepada para pemenang!</p>
+
+        <div class="podium">
+            <?php if (isset($winners[1])): ?>
+                <div class="podium-item" style="order: 1;">
+                    <img src="img/default-pp.png" class="winner-avatar">
+                    <div style="font-weight: bold; margin-bottom: 5px;"><?php echo $winners[1]['username']; ?></div>
+                    <div class="podium-block rank-2">2</div>
+                    <div style="margin-top: 5px; font-weight: bold;"><?php echo $winners[1]['score']; ?> pts</div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($winners[0])): ?>
+                <div class="podium-item" style="order: 2;">
+                    <i class="fas fa-crown" style="color: #f1c40f; font-size: 2em; margin-bottom: 10px; animation: bounce 1s infinite;"></i>
+                    <img src="img/default-pp.png" class="winner-avatar" style="width: 80px; height: 80px; border-color: #f1c40f;">
+                    <div style="font-weight: bold; margin-bottom: 5px; font-size: 1.2em;"><?php echo $winners[0]['username']; ?></div>
+                    <div class="podium-block rank-1">1</div>
+                    <div style="margin-top: 5px; font-weight: bold;"><?php echo $winners[0]['score']; ?> pts</div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($winners[2])): ?>
+                <div class="podium-item" style="order: 3;">
+                    <img src="img/default-pp.png" class="winner-avatar">
+                    <div style="font-weight: bold; margin-bottom: 5px;"><?php echo $winners[2]['username']; ?></div>
+                    <div class="podium-block rank-3">3</div>
+                    <div style="margin-top: 5px; font-weight: bold;"><?php echo $winners[2]['score']; ?> pts</div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <a href="index.php" class="btn">Kembali ke Home</a>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+    <script src="script.js"></script>
+</body>
+</html>

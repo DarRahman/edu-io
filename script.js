@@ -423,3 +423,52 @@ function updateVisitorStats() {
     })
     .catch((err) => console.error("Stats Error:", err));
 }
+
+// --- E. SISTEM UNDANGAN MABAR ---
+function checkInvites() {
+  if (!sessionStorage.getItem("loggedInUser")) return;
+
+  fetch(pathPrefix + "api_invite.php?action=check_invites")
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "found") {
+        const invite = data.data;
+        const swalConfig = getSwalThemeConfig();
+
+        Swal.fire({
+          title: "Undangan Mabar!",
+          text: `${invite.sender} mengundang kamu ke Room ${invite.room_code}`,
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Terima",
+          cancelButtonText: "Tolak",
+          background: swalConfig.background,
+          color: swalConfig.color,
+        }).then((result) => {
+          const formData = new FormData();
+          formData.append("invite_id", invite.id);
+
+          if (result.isConfirmed) {
+            formData.append("response", "accepted");
+            fetch(pathPrefix + "api_invite.php?action=respond_invite", {
+              method: "POST",
+              body: formData,
+            }).then(() => {
+              // Redirect ke Join Room Otomatis
+              window.location.href =
+                pathPrefix + "multiplayer_join.php?auto_join=" + invite.room_code;
+            });
+          } else {
+            formData.append("response", "rejected");
+            fetch(pathPrefix + "api_invite.php?action=respond_invite", {
+              method: "POST",
+              body: formData,
+            });
+          }
+        });
+      }
+    });
+}
+
+// Cek undangan setiap 5 detik
+setInterval(checkInvites, 5000);
