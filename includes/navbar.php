@@ -28,6 +28,7 @@ if (!isset($path)) {
         <a href="<?php echo $path; ?>leaderboard.php"><i class="fas fa-trophy"></i> Leaderboard</a>
       </div>
     </li>
+    <li><a href="<?php echo $path; ?>friends.php">Teman</a></li>
     <li><a href="<?php echo $path; ?>forum.php">Forum</a></li>
     <!-- Menu User (Halo, Logout, Theme) akan disuntikkan oleh script.js di sini -->
   </ul>

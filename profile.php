@@ -80,6 +80,22 @@ while ($row = mysqli_fetch_assoc($queryScores)) {
 
 $isOwnProfile = ($username === $_SESSION['loggedInUser']);
 
+// --- LOGIKA STATUS PERTEMANAN ---
+$friendStatus = 'none'; // none, sent, received, friend
+if (!$isOwnProfile) {
+    $me = $_SESSION['loggedInUser'];
+    $them = $username;
+    $checkFriend = mysqli_query($conn, "SELECT * FROM friends WHERE (requester='$me' AND receiver='$them') OR (requester='$them' AND receiver='$me')");
+    if (mysqli_num_rows($checkFriend) > 0) {
+        $rel = mysqli_fetch_assoc($checkFriend);
+        if ($rel['status'] === 'accepted') {
+            $friendStatus = 'friend';
+        } else {
+            $friendStatus = ($rel['requester'] === $me) ? 'sent' : 'received';
+        }
+    }
+}
+
 // Ekstraksi username dari URL sosial
 $ghHandle = '';
 $igHandle = '';
@@ -431,6 +447,38 @@ if (!empty($userData['linkedin_link'])) {
                     <?php echo !empty($userData['bio']) ? $userData['bio'] : "Pengguna ini belum menuliskan deskripsi diri."; ?>
                 </p>
 
+                <!-- TOMBOL ACTION (Edit Profil / Add Friend) -->
+                <div style="margin-bottom: 20px;">
+                    <?php if ($isOwnProfile): ?>
+                        <a href="edit_profile.php" class="btn" style="width:100%; display:block; text-align:center;">
+                            <i class="fas fa-edit"></i> Edit Profil
+                        </a>
+                    <?php else: ?>
+                        <?php if ($friendStatus === 'none'): ?>
+                            <button onclick="friendAction('add', '<?php echo $username; ?>')" class="btn" style="width:100%; background:var(--accent-teal);">
+                                <i class="fas fa-user-plus"></i> Tambah Teman
+                            </button>
+                        <?php elseif ($friendStatus === 'sent'): ?>
+                            <button onclick="friendAction('cancel', '<?php echo $username; ?>')" class="btn" style="width:100%; background:var(--bg-secondary); border:1px solid var(--border-color); color:var(--text-primary);">
+                                <i class="fas fa-clock"></i> Menunggu Konfirmasi
+                            </button>
+                        <?php elseif ($friendStatus === 'received'): ?>
+                            <div style="display:flex; gap:10px;">
+                                <button onclick="friendAction('accept', '<?php echo $username; ?>')" class="btn" style="flex:1; background:#2ecc71;">
+                                    <i class="fas fa-check"></i> Terima
+                                </button>
+                                <button onclick="friendAction('reject', '<?php echo $username; ?>')" class="btn" style="flex:1; background:#e74c3c;">
+                                    <i class="fas fa-times"></i> Tolak
+                                </button>
+                            </div>
+                        <?php elseif ($friendStatus === 'friend'): ?>
+                            <button class="btn" style="width:100%; background:var(--bg-secondary); cursor:default; border:1px solid var(--accent-teal); color:var(--accent-teal);">
+                                <i class="fas fa-check-circle"></i> Berteman
+                            </button>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+
                 <?php if (!empty($userData['github_link']) || !empty($userData['instagram_link']) || !empty($userData['linkedin_link'])): ?>
                     <div class="social-card">
                         <h4><i class="fas fa-share-alt"></i> Sosial Media</h4>
@@ -654,6 +702,33 @@ if (!empty($userData['linkedin_link'])) {
     <div id="ai-chat-launcher" onclick="toggleAIChat()"><i class="fas fa-robot"></i></div>
 
     <script src="script.js"></script>
+    <script>
+        function friendAction(action, username) {
+            const formData = new FormData();
+            formData.append('action', action);
+            formData.append('username', username);
+
+            fetch('friend_action.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: data.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => location.reload());
+                } else {
+                    Swal.fire('Gagal', data.message, 'error');
+                }
+            })
+            .catch(err => console.error(err));
+        }
+    </script>
 </body>
 
 </html>
