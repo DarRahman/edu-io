@@ -16,15 +16,27 @@ $friends = [];
 while ($row = mysqli_fetch_assoc($friendsResult)) {
     $friendUsername = ($row['requester'] === $currentUser) ? $row['receiver'] : $row['requester'];
     // Ambil detail user
-    $uQuery = mysqli_query($conn, "SELECT full_name, profile_pic FROM users WHERE username='$friendUsername'");
+    $uQuery = mysqli_query($conn, "SELECT full_name, profile_pic, last_seen FROM users WHERE username='$friendUsername'");
 
     // Cek apakah user masih ada (belum dihapus admin)
     if ($uQuery && mysqli_num_rows($uQuery) > 0) {
         $uData = mysqli_fetch_assoc($uQuery);
+        
+        // Tentukan Online Status (Aktif dalam 1 menit terakhir)
+        $isOnline = false;
+        if (!empty($uData['last_seen'])) {
+            $lastSeenStr = $uData['last_seen'];
+            $lastSeenTime = strtotime($lastSeenStr);
+            if ((time() - $lastSeenTime) < 60) {
+                $isOnline = true;
+            }
+        }
+
         $friends[] = [
             'username' => $friendUsername,
             'full_name' => $uData['full_name'] ?? $friendUsername,
-            'profile_pic' => $uData['profile_pic']
+            'profile_pic' => $uData['profile_pic'],
+            'is_online' => $isOnline
         ];
     } else {
         mysqli_query($conn, "DELETE FROM friends WHERE id = " . $row['id']);
@@ -83,96 +95,12 @@ if (isset($_GET['q'])) {
     <title>Teman & Komunitas - edu.io</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-mode');
     </script>
-    <style>
-        .friend-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            transition: transform 0.2s;
-        }
-
-        .friend-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .friend-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent-teal);
-        }
-
-        .friend-info {
-            flex: 1;
-        }
-
-        .friend-name {
-            font-weight: 600;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-
-        .friend-username {
-            font-size: 0.85em;
-            color: var(--text-secondary);
-        }
-
-        .action-btn {
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: 0.2s;
-        }
-
-        .btn-add {
-            background: var(--accent-teal);
-            color: white;
-        }
-
-        .btn-accept {
-            background: #2ecc71;
-            color: white;
-        }
-
-        .btn-reject {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .btn-secondary {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/friends.css">
 </head>
 
 <body>
@@ -208,13 +136,13 @@ if (isset($_GET['q'])) {
                                 </div>
                                 <div>
                                     <?php if ($res['friend_status'] === 'none'): ?>
-                                        <button onclick="friendAction('add', '<?php echo $res['username']; ?>')"
+                                        <button onclick="friendAction('add', '<?php echo $res['username']; ?>', this)"
                                             class="action-btn btn-add"><i class="fas fa-user-plus"></i> Add</button>
                                     <?php elseif ($res['friend_status'] === 'sent'): ?>
-                                        <button onclick="friendAction('cancel', '<?php echo $res['username']; ?>')"
+                                        <button onclick="friendAction('cancel', '<?php echo $res['username']; ?>', this)"
                                             class="action-btn btn-secondary"><i class="fas fa-times"></i> Batal</button>
                                     <?php elseif ($res['friend_status'] === 'received'): ?>
-                                        <button onclick="friendAction('accept', '<?php echo $res['username']; ?>')"
+                                        <button onclick="friendAction('accept', '<?php echo $res['username']; ?>', this)"
                                             class="action-btn btn-accept"><i class="fas fa-check"></i> Terima</button>
                                     <?php elseif ($res['friend_status'] === 'friend'): ?>
                                         <span class="badge"
@@ -241,12 +169,21 @@ if (isset($_GET['q'])) {
                 <?php else: ?>
                     <?php foreach ($friends as $f): ?>
                         <div class="friend-card">
-                            <img src="<?php echo !empty($f['profile_pic']) ? (strpos($f['profile_pic'], 'http') === 0 ? $f['profile_pic'] : '../img/' . $f['profile_pic']) : '../img/default-pp.png'; ?>"
-                                class="friend-img">
+                            <div class="img-container">
+                                <img src="<?php echo !empty($f['profile_pic']) ? (strpos($f['profile_pic'], 'http') === 0 ? $f['profile_pic'] : '../img/' . $f['profile_pic']) : '../img/default-pp.png'; ?>"
+                                    class="friend-img">
+                                <div class="status-indicator <?php echo $f['is_online'] ? 'status-online' : 'status-offline'; ?>" 
+                                     title="<?php echo $f['is_online'] ? 'Online' : 'Offline'; ?>"></div>
+                            </div>
                             <div class="friend-info">
                                 <a href="profile.php?user=<?php echo $f['username']; ?>"
                                     class="friend-name"><?php echo $f['full_name']; ?></a>
-                                <div class="friend-username">@<?php echo $f['username']; ?></div>
+                                <div class="friend-username">
+                                    @<?php echo $f['username']; ?> 
+                                    <span style="font-size: 0.8em; margin-left: 5px;">
+                                        (<?php echo $f['is_online'] ? 'Sedang aktif' : 'Offline'; ?>)
+                                    </span>
+                                </div>
                             </div>
                             <button onclick="confirmRemove('<?php echo $f['username']; ?>')" class="action-btn btn-reject"
                                 title="Hapus Teman"><i class="fas fa-user-minus"></i></button>
@@ -273,9 +210,9 @@ if (isset($_GET['q'])) {
                                 <div class="friend-username">@<?php echo $in['requester']; ?></div>
                             </div>
                             <div style="display:flex; gap:5px;">
-                                <button onclick="friendAction('accept', '<?php echo $in['requester']; ?>')"
+                                <button onclick="friendAction('accept', '<?php echo $in['requester']; ?>', this)"
                                     class="action-btn btn-accept"><i class="fas fa-check"></i></button>
-                                <button onclick="friendAction('reject', '<?php echo $in['requester']; ?>')"
+                                <button onclick="friendAction('reject', '<?php echo $in['requester']; ?>', this)"
                                     class="action-btn btn-reject"><i class="fas fa-times"></i></button>
                             </div>
                         </div>
@@ -292,7 +229,7 @@ if (isset($_GET['q'])) {
                                 <span class="friend-name"><?php echo $out['full_name'] ?? $out['receiver']; ?></span>
                                 <div class="friend-username">Menunggu konfirmasi...</div>
                             </div>
-                            <button onclick="friendAction('cancel', '<?php echo $out['receiver']; ?>')"
+                            <button onclick="friendAction('cancel', '<?php echo $out['receiver']; ?>', this)"
                                 class="action-btn btn-secondary"><i class="fas fa-times"></i></button>
                         </div>
                     <?php endwhile; ?>
@@ -303,10 +240,16 @@ if (isset($_GET['q'])) {
     </div>
 
     <script>
-        function friendAction(action, username) {
+        function friendAction(action, username, btnElement = null) {
             const formData = new FormData();
             formData.append('action', action);
             formData.append('username', username);
+
+            // Optional: Show loading state on button
+            if (btnElement) {
+                btnElement.disabled = true;
+                btnElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            }
 
             fetch('../api/friend_action.php', {
                 method: 'POST',
@@ -315,19 +258,36 @@ if (isset($_GET['q'])) {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        Swal.fire({
+                        Toast.fire({
                             icon: 'success',
-                            title: 'Berhasil',
-                            text: data.message,
-                            timer: 1500,
-                            showConfirmButton: false
-                        }).then(() => location.reload());
+                            title: data.message
+                        });
+                        // Refresh data without full page reload if possible,
+                        // but for simplicity and consistency with search results, 
+                        // a slight delay before reload is user-friendly.
+                        setTimeout(() => location.reload(), 1000);
                     } else {
                         Swal.fire('Gagal', data.message, 'error');
+                        if (btnElement) {
+                            btnElement.disabled = false;
+                            // Restore innerHTML based on action (this is a bit complex for a generic function)
+                            location.reload(); 
+                        }
                     }
                 })
-                .catch(err => console.error(err));
+                .catch(err => {
+                    console.error(err);
+                    location.reload();
+                });
         }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
 
         function confirmRemove(username) {
             Swal.fire({
@@ -349,6 +309,8 @@ if (isset($_GET['q'])) {
         <p style="margin-top: 20px;">&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
     </footer>
     <script src="../assets/js/script.js"></script>
+    <!-- AI Chatbot UI -->
+    <?php include '../includes/chatbot.php'; ?>
 </body>
 
 </html>

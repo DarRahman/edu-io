@@ -41,40 +41,7 @@ $currentQ = $questions[$currentIndex];
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-mode');</script>
-    <style>
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background: var(--glass-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            text-align: left;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 1.1em;
-            color: var(--text-primary);
-        }
-        .option-btn:hover {
-            background: var(--accent-teal);
-            color: white;
-            border-color: var(--accent-teal);
-        }
-        .progress-bar {
-            height: 10px;
-            background: var(--bg-secondary);
-            border-radius: 5px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--accent-teal);
-            width: <?php echo ($currentIndex / count($questions)) * 100; ?>%;
-            transition: width 0.3s;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/multiplayer.css">
 </head>
 <body>
     <div style="position: absolute; top: 20px; left: 20px;">
@@ -85,7 +52,7 @@ $currentQ = $questions[$currentIndex];
 
     <div class="container" style="max-width: 600px; margin-top: 60px;">
         <div class="progress-bar">
-            <div class="progress-fill"></div>
+            <div class="progress-fill" style="width: <?php echo ($currentIndex / count($questions)) * 100; ?>%;"></div>
         </div>
         
         <div class="materi-card">

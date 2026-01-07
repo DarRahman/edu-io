@@ -22,9 +22,11 @@ $oldData = mysqli_fetch_assoc($queryOld);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullName = mysqli_real_escape_string($conn, $_POST['full_name']);
     $bio = mysqli_real_escape_string($conn, $_POST['bio']);
-    $github = mysqli_real_escape_string($conn, $_POST['github_link']);
-    $instagram = mysqli_real_escape_string($conn, $_POST['instagram_link']);
-    $linkedin = mysqli_real_escape_string($conn, $_POST['linkedin_link']);
+    
+    // Validasi dan sanitasi URL social links dengan filter_var
+    $github = !empty($_POST['github_link']) && filter_var($_POST['github_link'], FILTER_VALIDATE_URL) ? mysqli_real_escape_string($conn, $_POST['github_link']) : '';
+    $instagram = !empty($_POST['instagram_link']) && filter_var($_POST['instagram_link'], FILTER_VALIDATE_URL) ? mysqli_real_escape_string($conn, $_POST['instagram_link']) : '';
+    $linkedin = !empty($_POST['linkedin_link']) && filter_var($_POST['linkedin_link'], FILTER_VALIDATE_URL) ? mysqli_real_escape_string($conn, $_POST['linkedin_link']) : '';
 
     // Logika Upload Foto (support crop base64)
     $profilePic = $oldData['profile_pic']; // Default pakai yang lama
@@ -93,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         if (localStorage.getItem('theme') === 'dark') {
@@ -266,6 +269,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         </script>
     <?php endif; ?>
+    <?php include '../includes/chatbot.php'; ?>
+    <script src="../assets/js/script.js"></script>
 </body>
 
 </html>

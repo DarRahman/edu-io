@@ -1,0 +1,137 @@
+/* Multiplayer Specific Styles */
+/* Lobby Styles */
+.pin-display {
+    font-size: 4em;
+    font-weight: 800;
+    letter-spacing: 10px;
+    color: var(--accent-teal);
+    background: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 20px 0;
+    border: 3px dashed var(--border-color);
+}
+
+.player-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.player-card {
+    background: var(--glass-bg);
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+/* Game Styles */
+.option-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: var(--glass-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 1.1em;
+    color: var(--text-primary);
+}
+
+.option-btn:hover {
+    background: var(--accent-teal);
+    color: white;
+    border-color: var(--accent-teal);
+}
+
+.progress-bar {
+    height: 10px;
+    background: var(--bg-secondary);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--accent-teal);
+    transition: width 0.3s;
+}
+
+/* Result / Podium Styles */
+.podium {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 300px;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.podium-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.podium-block {
+    width: 80px;
+    background: linear-gradient(to bottom, var(--accent-teal), #16a085);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.rank-1 {
+    height: 150px;
+    background: #f1c40f;
+    order: 2;
+}
+
+.rank-2 {
+    height: 100px;
+    background: #bdc3c7;
+    order: 1;
+}
+
+.rank-3 {
+    height: 70px;
+    background: #e67e22;
+    order: 3;
+}
+
+.winner-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}

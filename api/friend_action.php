@@ -25,13 +25,25 @@ if ($action === 'add') {
         echo json_encode(['status' => 'error', 'message' => 'Permintaan sudah ada atau sudah berteman.']);
     } else {
         $insert = mysqli_query($conn, "INSERT INTO friends (requester, receiver, status) VALUES ('$currentUser', '$targetUser', 'pending')");
-        if ($insert) echo json_encode(['status' => 'success', 'message' => 'Permintaan pertemanan dikirim!']);
+        if ($insert) {
+            // KIRIM NOTIFIKASI
+            $msg = "$currentUser mengirimkan permintaan pertemanan.";
+            mysqli_query($conn, "INSERT INTO notifications (username, message, type, link) VALUES ('$targetUser', '$msg', 'friend_request', 'pages/friends.php')");
+            
+            echo json_encode(['status' => 'success', 'message' => 'Permintaan pertemanan dikirim!']);
+        }
         else echo json_encode(['status' => 'error', 'message' => 'Gagal mengirim permintaan.']);
     }
 } elseif ($action === 'accept') {
     // Hanya receiver yang bisa accept
     $update = mysqli_query($conn, "UPDATE friends SET status='accepted' WHERE requester='$targetUser' AND receiver='$currentUser'");
-    if ($update) echo json_encode(['status' => 'success', 'message' => 'Pertemanan diterima!']);
+    if ($update) {
+        // KIRIM NOTIFIKASI
+        $msg = "$currentUser menerima permintaan pertemanan Anda.";
+        mysqli_query($conn, "INSERT INTO notifications (username, message, type, link) VALUES ('$targetUser', '$msg', 'friend_accept', 'pages/friends.php')");
+
+        echo json_encode(['status' => 'success', 'message' => 'Pertemanan diterima!']);
+    }
     else echo json_encode(['status' => 'error', 'message' => 'Gagal menerima permintaan.']);
 } elseif ($action === 'reject' || $action === 'cancel' || $action === 'remove') {
     // Hapus relasi

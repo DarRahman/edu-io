@@ -80,6 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Pustaka Markdown & SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // Pre-load theme agar tidak kedip
@@ -95,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="auth-container">
         <main class="auth-form">
             <form id="register-form" method="POST" action="register.php">
-                <img src="logo.png" alt="Logo edu.io" class="auth-logo">
+                <img src="../logo.png" alt="Logo edu.io" class="auth-logo">
                 <h2>Buat Akun Baru</h2>
                 <p class="auth-subtext">Daftar untuk memulai petualangan belajar Anda.</p>
 
@@ -122,6 +124,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </main>
     </div>
+
+    <!-- ================= AI CHATBOT UI ================= -->
+    <?php include '../includes/chatbot.php'; ?>
 
     <script src="../assets/js/script.js"></script>
 

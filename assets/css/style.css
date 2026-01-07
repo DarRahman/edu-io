@@ -10,6 +10,7 @@
   --accent-teal: #00a896;
   --accent-yellow: #ffc312;
   --accent-purple: #c724b1;
+  --accent-blue: #3498db;
   --border-color: #e9ecef;
   --shadow-color: rgba(0, 0, 0, 0.05);
   --button-bg: #192a56;
@@ -27,6 +28,7 @@ html.dark-mode {
   --title-color: #bb86fc;
   --accent-teal: #bb86fc;
   --accent-purple: #bb86fc;
+  --accent-blue: #bb86fc;
   --border-color: #3a3a50;
   --shadow-color: rgba(187, 134, 252, 0.1);
   --button-bg: #bb86fc;
@@ -325,12 +327,21 @@ main {
 .feature-card:hover,
 .materi-card:hover,
 .score-history-card:hover {
-  transform: translateY(-10px) scale(1.02);
   border-color: var(--accent-teal);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* Specific Shadow Colors */
+/* Feature Card Lift Animation (index.php) + Materi Link Cards (only for <a> links) */
+.feature-card:hover,
+a.materi-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* Disable lift animation inside materi content pages */
+.materi-wrapper .materi-card:hover {
+  transform: none;
+}
+
 .feature-card:hover {
   border-color: var(--card-color, var(--accent-teal));
   box-shadow: 0 15px 35px var(--card-color, rgba(0, 168, 150, 0.4));
@@ -775,6 +786,59 @@ html.dark-mode #ai-chat-window {
   background-color: #00a896 !important;
   color: white !important;
   align-self: flex-end !important;
+}
+
+/* Video Performance: Lite Embed Styles */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-color: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.video-wrapper:hover {
+  transform: scale(1.02);
+}
+
+.video-wrapper::before {
+  content: "\f04b";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 168, 150, 0.9);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  z-index: 2;
+  transition: background 0.3s ease;
+}
+
+.video-wrapper:hover::before {
+  background: var(--accent-teal);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 3;
 }
 
 .ai-chat-footer {

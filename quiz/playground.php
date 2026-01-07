@@ -36,20 +36,7 @@ if (!isset($_SESSION['loggedInUser'])) {
     })();
   </script>
 
-  <!-- CSS Khusus untuk menghilangkan margin container bawaan agar full screen -->
-  <style>
-    /* Override style body agar tidak ada scrollbar ganda */
-    body {
-      overflow: hidden;
-      padding-top: 70px;
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/playground.css">
 </head>
 
 <body>
@@ -123,25 +110,7 @@ if (!isset($_SESSION['loggedInUser'])) {
   </div>
 
   <!-- ================= AI CHATBOT ================= -->
-  <div id="ai-chat-launcher" onclick="toggleAIChat()">
-    <i class="fas fa-robot"></i>
-  </div>
-
-  <div id="ai-chat-window">
-    <div class="ai-chat-header">
-      <span><i class="fas fa-magic"></i> edu.io AI Tutor</span>
-      <button onclick="toggleAIChat()">&times;</button>
-    </div>
-    <div id="ai-chat-body">
-      <div class="ai-message bot">
-        Halo! Sedang eksperimen koding ya? Jika ada kode yang error, tanyakan saja padaku!
-      </div>
-    </div>
-    <div class="ai-chat-footer">
-      <input type="text" id="ai-input" placeholder="Tanyakan sesuatu..." autocomplete="off" />
-      <button onclick="sendToAI()"><i class="fas fa-paper-plane"></i></button>
-    </div>
-  </div>
+  <?php include '../includes/chatbot.php'; ?>
 
   <script src="../assets/js/script.js"></script>
 
@@ -162,10 +131,6 @@ if (!isset($_SESSION['loggedInUser'])) {
       runCode();
     });
   </script>
-  <footer>
-    <?php include '../includes/visitor_stats.php'; ?>
-    <p style="margin-top: 20px;">&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
-  </footer>
 </body>
 
 </html>

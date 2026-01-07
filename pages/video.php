@@ -50,27 +50,7 @@ include '../config/koneksi.php';
     <p style="margin-top: 20px;">&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
   </footer>
 
-  <div id="ai-chat-launcher" onclick="toggleAIChat()">
-    <i class="fas fa-robot"></i>
-  </div>
-
-  <!-- Jendela Chat AI -->
-  <div id="ai-chat-window">
-    <div class="ai-chat-header">
-      <span><i class="fas fa-magic"></i> edu.io AI Tutor</span>
-      <button onclick="toggleAIChat()">&times;</button>
-    </div>
-    <div id="ai-chat-body">
-      <div class="ai-message bot">
-        Halo! Saya Tutor AI edu.io. Ada yang bisa saya bantu terkait koding
-        atau materi hari ini?
-      </div>
-    </div>
-    <div class="ai-chat-footer">
-      <input type="text" id="ai-input" placeholder="Tanyakan sesuatu..." autocomplete="off" />
-      <button onclick="sendToAI()"><i class="fas fa-paper-plane"></i></button>
-    </div>
-  </div>
+  <?php include '../includes/chatbot.php'; ?>
 
   <script src="../assets/js/script.js"></script>
   <script>
@@ -166,6 +146,10 @@ include '../config/koneksi.php';
       },
     ];
 
+    function loadVideo(container, id) {
+      container.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    }
+
     function renderVideos(filter = "") {
       const list = document.getElementById("video-list");
       const keyword = filter.trim().toLowerCase();
@@ -189,11 +173,10 @@ include '../config/koneksi.php';
                     <i class="fab fa-youtube" style="color:#FF0000;"></i>
                     <h3 style="font-size:1.1em;">${v.title}</h3>
                 </div>
-                <div class="video-wrapper">
-                    <iframe
-                        src="https://www.youtube.com/embed/${v.youtubeId}"
-                        allowfullscreen>
-                    </iframe>
+                <div class="video-wrapper" 
+                     style="background-image: url('https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg')"
+                     onclick="loadVideo(this, '${v.youtubeId}')">
+                    <!-- Video loaded on click -->
                 </div>
             </div>
         `
@@ -209,6 +192,9 @@ include '../config/koneksi.php';
         });
     });
   </script>
+
+  <?php include '../includes/chatbot.php'; ?>
+  <script src="../assets/js/script.js"></script>
 </body>
 
 </html>

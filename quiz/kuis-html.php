@@ -76,28 +76,28 @@ include '../config/koneksi.php';
         <!-- Soal 2 -->
         <div class="quiz-question-card">
           <p class="question-text">
-            2. Tag HTML manakah yang digunakan untuk membuat paragraf?
+            2. Apa fungsi dari tag &lt;!DOCTYPE html&gt;?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q2" value="a" class="quiz-option-input" />
+              <input type="radio" name="q2" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">&lt;h1&gt;</span>
+                <span class="quiz-option-text">Mendefinisikan tipe dokumen sebagai HTML5</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q2" value="b" class="quiz-option-input" required />
+              <input type="radio" name="q2" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">&lt;p&gt;</span>
+                <span class="quiz-option-text">Membuat judul halaman</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q2" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">&lt;br&gt;</span>
+                <span class="quiz-option-text">Menampilkan paragraf teks</span>
               </div>
             </label>
           </div>
@@ -106,28 +106,28 @@ include '../config/koneksi.php';
         <!-- Soal 3 -->
         <div class="quiz-question-card">
           <p class="question-text">
-            3. Tag yang berfungsi sebagai judul utama dalam HTML adalah...
+            3. Tag &lt;head&gt; berfungsi untuk...
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q3" value="a" class="quiz-option-input" required />
+              <input type="radio" name="q3" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">&lt;h1&gt;</span>
+                <span class="quiz-option-text">Menampilkan konten yang terlihat pengunjung</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q3" value="b" class="quiz-option-input" />
+              <input type="radio" name="q3" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">&lt;title&gt;</span>
+                <span class="quiz-option-text">Berisi meta-informasi tentang dokumen (seperti judul)</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q3" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">&lt;head&gt;</span>
+                <span class="quiz-option-text">Membuat hyperlink ke halaman lain</span>
               </div>
             </label>
           </div>
@@ -136,7 +136,7 @@ include '../config/koneksi.php';
         <!-- Soal 4 -->
         <div class="quiz-question-card">
           <p class="question-text">
-            4. Tag HTML manakah yang digunakan untuk membuat link?
+            4. Tag mana yang digunakan untuk membuat hyperlink?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
@@ -166,29 +166,28 @@ include '../config/koneksi.php';
         <!-- Soal 5 -->
         <div class="quiz-question-card">
           <p class="question-text">
-            5. Elemen yang digunakan untuk menampung seluruh konten halaman
-            web adalah...
+            5. Atribut apa yang digunakan untuk menentukan URL tujuan pada tag &lt;a&gt;?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">&lt;body&gt;</span>
+                <span class="quiz-option-text">href</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">&lt;head&gt;</span>
+                <span class="quiz-option-text">src</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">&lt;footer&gt;</span>
+                <span class="quiz-option-text">url</span>
               </div>
             </label>
           </div>
@@ -197,28 +196,28 @@ include '../config/koneksi.php';
         <!-- Soal 6 -->
         <div class="quiz-question-card">
           <p class="question-text">
-            6. File HTML biasanya disimpan dengan ekstensi?
+            6. Atribut "alt" pada tag &lt;img&gt; berfungsi untuk?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q6" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">.doc</span>
+                <span class="quiz-option-text">Menentukan ukuran gambar</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q6" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">.html</span>
+                <span class="quiz-option-text">Teks alternatif untuk gambar (aksesibilitas dan SEO)</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q6" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">.txt</span>
+                <span class="quiz-option-text">Menentukan sumber gambar</span>
               </div>
             </label>
           </div>
@@ -226,27 +225,27 @@ include '../config/koneksi.php';
 
         <!-- Soal 7 -->
         <div class="quiz-question-card">
-          <p class="question-text">7. Atribut href digunakan untuk?</p>
+          <p class="question-text">7. Tag &lt;div&gt; digunakan untuk?</p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q7" value="a" class="quiz-option-input" />
+              <input type="radio" name="q7" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Menentukan warna teks</span>
+                <span class="quiz-option-text">Mengelompokkan elemen untuk styling</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q7" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Menampilkan teks bergaya miring</span>
+                <span class="quiz-option-text">Membuat garis horizontal</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q7" value="c" class="quiz-option-input" required />
+              <input type="radio" name="q7" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Menentukan lokasi file tujuan hyperlink</span>
+                <span class="quiz-option-text">Menampilkan video</span>
               </div>
             </label>
           </div>
@@ -254,27 +253,27 @@ include '../config/koneksi.php';
 
         <!-- Soal 8 -->
         <div class="quiz-question-card">
-          <p class="question-text">8. Fungsi utama HTML adalah...</p>
+          <p class="question-text">8. Atribut "target" dengan nilai "_blank" pada tag &lt;a&gt; berfungsi untuk?</p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q8" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Mengatur logika program</span>
+                <span class="quiz-option-text">Membuka link di halaman yang sama</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q8" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Menyimpan data pengguna</span>
+                <span class="quiz-option-text">Menyembunyikan link</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q8" value="c" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Menentukan struktur dan isi halaman web</span>
+                <span class="quiz-option-text">Membuka link di tab baru</span>
               </div>
             </label>
           </div>
@@ -283,29 +282,28 @@ include '../config/koneksi.php';
         <!-- Soal 9 -->
         <div class="quiz-question-card">
           <p class="question-text">
-            9. Tag yang digunakan untuk menampilkan gambar pada halaman web
-            adalah...
+            9. Tag &lt;ul&gt; dan &lt;li&gt; digunakan untuk membuat...
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q9" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">&lt;img&gt;</span>
+                <span class="quiz-option-text">Daftar tidak berurutan (unordered list)</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q9" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">&lt;picture&gt;</span>
+                <span class="quiz-option-text">Tabel data</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q9" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">&lt;image&gt;</span>
+                <span class="quiz-option-text">Formulir input</span>
               </div>
             </label>
           </div>
@@ -314,28 +312,28 @@ include '../config/koneksi.php';
         <!-- Soal 10 -->
         <div class="quiz-question-card">
           <p class="question-text">
-            10. Tag yang berfungsi untuk membuat baris baru adalah...
+            10. Atribut data-* (seperti data-info="online") digunakan untuk?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q10" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">&lt;b&gt;</span>
+                <span class="quiz-option-text">Menampilkan data secara langsung di halaman</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q10" value="b" class="quiz-option-input" />
+              <input type="radio" name="q10" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">&lt;hr&gt;</span>
+                <span class="quiz-option-text">Menyimpan data kustom pada elemen HTML</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q10" value="c" class="quiz-option-input" required />
+              <input type="radio" name="q10" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">&lt;br&gt;</span>
+                <span class="quiz-option-text">Menghubungkan ke database</span>
               </div>
             </label>
           </div>

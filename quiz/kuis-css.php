@@ -47,28 +47,28 @@ include '../config/koneksi.php';
         <!-- Soal 1 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            1. Apa properti CSS untuk mengubah warna latar belakang elemen?
+            1. Apa kepanjangan dari CSS?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q1" value="a" class="quiz-option-input" />
+              <input type="radio" name="q1" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">color</span>
+                <span class="quiz-option-text">Cascading Style Sheets</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q1" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">background-color</span>
+                <span class="quiz-option-text">Creative Style Sheets</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q1" value="c" class="quiz-option-input" required />
+              <input type="radio" name="q1" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">bgcolor</span>
+                <span class="quiz-option-text">Computer Style Sheets</span>
               </div>
             </label>
           </div>
@@ -77,29 +77,28 @@ include '../config/koneksi.php';
         <!-- Soal 2 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            2. Selektor CSS manakah yang digunakan untuk memilih elemen dengan
-            `id="header"`?
+            2. Apa yang dimaksud dengan CSS menurut materi?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q2" value="a" class="quiz-option-input" required />
+              <input type="radio" name="q2" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">#header</span>
+                <span class="quiz-option-text">Bahasa pemrograman untuk logika website</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q2" value="b" class="quiz-option-input" />
+              <input type="radio" name="q2" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">.header</span>
+                <span class="quiz-option-text">Bahasa style sheet untuk tampilan elemen</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q2" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">header</span>
+                <span class="quiz-option-text">Bahasa untuk membuat database</span>
               </div>
             </label>
           </div>
@@ -108,28 +107,28 @@ include '../config/koneksi.php';
         <!-- Soal 3 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            3. Bagaimana cara Anda menyisipkan komentar di dalam file CSS?
+            3. Bagaimana struktur sintaks dasar CSS yang benar?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q3" value="a" class="quiz-option-input" />
+              <input type="radio" name="q3" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">// ini komentar</span>
+                <span class="quiz-option-text">selector { property: value; }</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q3" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">&lt;!-- ini komentar --&gt;</span>
+                <span class="quiz-option-text">property (selector) = value;</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q3" value="c" class="quiz-option-input" required />
+              <input type="radio" name="q3" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">/* ini komentar */</span>
+                <span class="quiz-option-text">&lt;selector property="value"&gt;</span>
               </div>
             </label>
           </div>
@@ -137,27 +136,29 @@ include '../config/koneksi.php';
 
         <!-- Soal 4 -->
         <div class="quiz-question-card">
-          <p class="quiz-question-text">4. Apa kepanjangan dari CSS?</p>
+          <p class="quiz-question-text">
+            4. Selector CSS untuk memilih elemen dengan id="header" adalah?
+          </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q4" value="a" class="quiz-option-input" />
+              <input type="radio" name="q4" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Creative Style Sheets</span>
+                <span class="quiz-option-text">#header</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q4" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Computer Style Sheets</span>
+                <span class="quiz-option-text">.header</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q4" value="c" class="quiz-option-input" required />
+              <input type="radio" name="q4" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Cascading Style Sheets</span>
+                <span class="quiz-option-text">*header</span>
               </div>
             </label>
           </div>
@@ -165,27 +166,29 @@ include '../config/koneksi.php';
 
         <!-- Soal 5 -->
         <div class="quiz-question-card">
-          <p class="quiz-question-text">5. Fungsi utama CSS adalah...</p>
+          <p class="quiz-question-text">
+            5. Selector CSS untuk memilih elemen dengan class="tombol" adalah?
+          </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Mengatur struktur konten halaman</span>
+                <span class="quiz-option-text">#tombol</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Menjalankan logika interaktif</span>
+                <span class="quiz-option-text">.tombol</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Mengatur tampilan dan gaya elemen pada halaman web</span>
+                <span class="quiz-option-text">tombol</span>
               </div>
             </label>
           </div>
@@ -194,28 +197,28 @@ include '../config/koneksi.php';
         <!-- Soal 6 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            6. Jenis CSS yang ditulis langsung di dalam tag HTML disebut?
+            6. Universal Selector (*) dalam CSS berfungsi untuk?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q6" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Inline CSS</span>
+                <span class="quiz-option-text">Memilih semua elemen di halaman</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q6" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Internal CSS</span>
+                <span class="quiz-option-text">Memilih elemen dengan ID tertentu</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q6" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">External CSS</span>
+                <span class="quiz-option-text">Memilih elemen pertama saja</span>
               </div>
             </label>
           </div>
@@ -224,29 +227,28 @@ include '../config/koneksi.php';
         <!-- Soal 7 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            7. Jenis CSS yang disimpan di file terpisah dengan ekstensi .css
-            disebut?
+            7. Format warna rgba(255, 0, 0, 0.5) memiliki nilai alpha yang berarti?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q7" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Inline CSS</span>
+                <span class="quiz-option-text">Ukuran font</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q7" value="b" class="quiz-option-input" required />
+              <input type="radio" name="q7" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">External CSS</span>
+                <span class="quiz-option-text">Saturasi warna</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q7" value="c" class="quiz-option-input" />
+              <input type="radio" name="q7" value="c" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Local CSS</span>
+                <span class="quiz-option-text">Tingkat transparansi (0-1)</span>
               </div>
             </label>
           </div>
@@ -255,28 +257,28 @@ include '../config/koneksi.php';
         <!-- Soal 8 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            8. Property untuk mengatur ukuran teks adalah...
+            8. Dalam CSS Box Model, property untuk jarak LUAR elemen adalah?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q8" value="a" class="quiz-option-input" />
+              <input type="radio" name="q8" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">text-size</span>
+                <span class="quiz-option-text">margin</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q8" value="b" class="quiz-option-input" required />
+              <input type="radio" name="q8" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">font-size</span>
+                <span class="quiz-option-text">padding</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q8" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">size</span>
+                <span class="quiz-option-text">border</span>
               </div>
             </label>
           </div>
@@ -285,18 +287,18 @@ include '../config/koneksi.php';
         <!-- Soal 9 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            9. Property untuk memberikan jarak luar antar elemen disebut?
+            9. Dalam CSS Box Model, property untuk jarak DALAM elemen (antara konten dan border) adalah?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q9" value="a" class="quiz-option-input" required />
+              <input type="radio" name="q9" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
                 <span class="quiz-option-text">margin</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q9" value="b" class="quiz-option-input" />
+              <input type="radio" name="q9" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
                 <span class="quiz-option-text">padding</span>
@@ -306,7 +308,7 @@ include '../config/koneksi.php';
               <input type="radio" name="q9" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">border</span>
+                <span class="quiz-option-text">content</span>
               </div>
             </label>
           </div>
@@ -315,29 +317,28 @@ include '../config/koneksi.php';
         <!-- Soal 10 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            10. Keuntungan menggunakan CSS adalah...
+            10. Salah satu fungsi utama CSS menurut materi adalah?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q10" value="a" class="quiz-option-input" required />
+              <input type="radio" name="q10" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Membuat tampilan halaman lebih konsisten dan mudah
-                  diatur</span>
+                <span class="quiz-option-text">Menyimpan data di database</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q10" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Mengatur logika program di server</span>
+                <span class="quiz-option-text">Menjalankan logika server</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q10" value="c" class="quiz-option-input" />
+              <input type="radio" name="q10" value="c" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Menambah kapasitas penyimpanan web</span>
+                <span class="quiz-option-text">Membuat website responsif di semua layar</span>
               </div>
             </label>
           </div>

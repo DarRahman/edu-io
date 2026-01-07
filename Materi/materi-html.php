@@ -12,40 +12,9 @@ include '../config/koneksi.php';
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    /* Tambahan style untuk kode agar terlihat di mode terang */
-    .code-wrapper pre code {
-      color: #e0e0e0 !important;
-      font-family: "Consolas", "Monaco", "Courier New", monospace;
-      font-size: 0.95em;
-      line-height: 1.5;
-      display: block;
-    }
-
-    /* Warna khusus untuk mode terang */
-    body:not(.dark-mode) .code-wrapper pre code {
-      color: #f8f8f2 !important;
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Warna untuk tag HTML dalam kode */
-    .code-wrapper pre code .tag {
-      color: #ff79c6 !important;
-    }
-
-    .code-wrapper pre code .attr-name {
-      color: #50fa7b !important;
-    }
-
-    .code-wrapper pre code .attr-value {
-      color: #f1fa8c !important;
-    }
-
-    .code-wrapper pre code .comment {
-      color: #6272a4 !important;
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/materi_detail.css">
 </head>
 
 <body>
@@ -504,6 +473,9 @@ include '../config/koneksi.php';
     <?php include '../includes/visitor_stats.php'; ?>
     <p style="margin-top: 20px;">&copy; 2025 edu.io. Semua Hak Cipta Dilindungi.</p>
   </footer>
+
+  <!-- AI Chatbot UI -->
+  <?php include '../includes/chatbot.php'; ?>
 </body>
 
 </html>

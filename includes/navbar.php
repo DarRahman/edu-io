@@ -37,7 +37,8 @@ function isBelajarActive()
   $currentUri = strtok($_SERVER['REQUEST_URI'], '?');
   return strpos($currentUri, '/pages/materi.php') !== false ||
     strpos($currentUri, '/pages/video.php') !== false ||
-    strpos($currentUri, '/quiz/playground.php') !== false;
+    strpos($currentUri, '/quiz/playground.php') !== false ||
+    strpos($currentUri, '/pages/ai_materi.php') !== false;
 }
 
 // Fungsi untuk menentukan apakah dropdown Kuis aktif (lebih inklusif)
@@ -61,7 +62,8 @@ function isHomeActive()
 $belajarLinks = [
   '/pages/materi.php',
   '/pages/video.php',
-  '/quiz/playground.php'
+  '/quiz/playground.php',
+  '/pages/ai_materi.php'
 ];
 
 // Daftar sub-link untuk dropdown Kuis
@@ -90,6 +92,9 @@ $kuisLinks = [
         <a href="<?php echo $path; ?>pages/materi.php"
           class="<?php echo isActive($path . 'pages/materi.php') ? 'active' : ''; ?>"><i class="fas fa-book"></i> Materi
           Teks</a>
+        <a href="<?php echo $path; ?>pages/ai_materi.php"
+          class="<?php echo isActive($path . 'pages/ai_materi.php') ? 'active' : ''; ?>"><i class="fas fa-magic"></i>
+          AI Materi Generator</a>
         <a href="<?php echo $path; ?>pages/video.php"
           class="<?php echo isActive($path . 'pages/video.php') ? 'active' : ''; ?>"><i class="fas fa-play-circle"></i>
           Video Tutorial</a>
@@ -110,10 +115,10 @@ $kuisLinks = [
           Quiz Generator</a>
         <a href="<?php echo $path; ?>quiz/multiplayer_create.php"
           class="<?php echo isActive($path . 'quiz/multiplayer_create.php') ? 'active' : ''; ?>"><i
-            class="fas fa-gamepad"></i> Mabar Kuis (Host)</a>
+            class="fas fa-gamepad"></i> Quiz Multiplayer (Host)</a>
         <a href="<?php echo $path; ?>quiz/multiplayer_join.php"
           class="<?php echo isActive($path . 'quiz/multiplayer_join.php') ? 'active' : ''; ?>"><i
-            class="fas fa-door-open"></i> Join Mabar</a>
+            class="fas fa-door-open"></i> Join Quiz Multiplayer </a>
         <a href="<?php echo $path; ?>pages/leaderboard.php"
           class="<?php echo isActive($path . 'pages/leaderboard.php') ? 'active' : ''; ?>"><i class="fas fa-trophy"></i>
           Leaderboard</a>

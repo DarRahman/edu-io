@@ -4,8 +4,7 @@ include '../config/koneksi.php';
 include '../config/config.php'; // Pastikan $apiKey ada di sini
 
 if (!isset($_SESSION['loggedInUser'])) {
-    header("Location: login.php");
-    exit;
+  header("Location: ../auth/login.php");
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -74,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header("Location: multiplayer_lobby.php?room=$roomCode");
     } else {
-        echo "Error: " . $conn->error;
+        echo "Error: " . mysqli_error($conn);
     }
     exit;
 }
@@ -99,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container" style="max-width: 600px; margin-top: 50px;">
         <div class="materi-card" style="text-align: center; padding: 40px;">
             <i class="fas fa-gamepad" style="font-size: 4em; color: var(--accent-teal); margin-bottom: 20px;"></i>
-            <h1 style="margin-bottom: 10px;">Buat Room Mabar</h1>
+            <h1 style="margin-bottom: 10px;">Buat Room Quiz Multiplayer</h1>
             <p style="color: var(--text-secondary); margin-bottom: 30px;">Tantang temanmu dalam kuis real-time!</p>
 
             <form method="POST" onsubmit="showLoading()">

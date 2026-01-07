@@ -1,0 +1,146 @@
+/* AI Materi Specific Styles */
+.materi-gen-wrapper {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.gen-input-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.gen-input-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.gen-input {
+    flex: 1;
+    max-width: 500px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.gen-btn {
+    background: var(--accent-teal);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gen-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 168, 150, 0.3);
+}
+
+.gen-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Styling for Generated Materi */
+.materi-result-container {
+    margin-top: 40px;
+}
+
+.ai-materi-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.ai-materi-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+}
+
+.materi-item-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-left: 6px solid #ccc;
+    display: flex;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.materi-item-box.purple { border-left-color: #a29bfe; }
+.materi-item-box.blue { border-left-color: #74b9ff; }
+.materi-item-box.yellow { border-left-color: #ffeaa7; }
+
+.materi-item-icon {
+    font-size: 1.4rem;
+    margin-top: 5px;
+}
+
+.materi-item-content h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.materi-item-content p {
+    margin: 0;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.loader-spinner {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid var(--accent-teal);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px;
+    color: var(--text-secondary);
+}
+
+.ai-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: linear-gradient(45deg, var(--accent-teal), #4834d4);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}

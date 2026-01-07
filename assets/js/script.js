@@ -21,10 +21,86 @@ const isInsideSubfolder =
 
 const pathPrefix = isInsideSubfolder ? "../" : "";
 
+/* 
+   2. REAL-TIME HEARTBEAT & NOTIFICATIONS
+   ========================================= */
+function startHeartbeat() {
+  // Hanya jalankan jika user sudah login
+  if (!sessionStorage.getItem("loggedInUser")) return;
+
+  const performHeartbeat = () => {
+    fetch(pathPrefix + "api/heartbeat.php")
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success' && data.notifications.length > 0) {
+          let shouldReloadFriends = false;
+          data.notifications.forEach(notif => {
+            showToastNotification(notif);
+            
+            // Jika di halaman friends.php dan ada notif pertemanan, tandai untuk reload
+            if (window.location.pathname.includes("friends.php")) {
+              if (notif.type === 'friend_request' || notif.type === 'friend_accept') {
+                shouldReloadFriends = true;
+              }
+            }
+          });
+
+          if (shouldReloadFriends) {
+            setTimeout(() => location.reload(), 2000);
+          }
+        }
+      })
+      .catch(err => console.error("Heartbeat error:", err));
+  };
+
+  // Jalankan segera dan set interval setiap 5 detik
+  performHeartbeat();
+  setInterval(performHeartbeat, 5000);
+}
+
+function showToastNotification(notif) {
+  const themes = getSwalThemeConfig();
+  
+  // Pilih icon berdasarkan tipe
+  let icon = 'info';
+  if (notif.type === 'friend_request') icon = 'user-plus';
+  if (notif.type === 'friend_accept') icon = 'user-check';
+  if (notif.type === 'forum_reply') icon = 'comment-dots';
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 4000,
+    timerProgressBar: true,
+    background: themes.background,
+    color: themes.color,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+      // Klik notifikasi untuk redirect? Opsional
+      toast.addEventListener('click', () => {
+        if (notif.link) window.location.href = pathPrefix + notif.link;
+      });
+    }
+  });
+
+  Toast.fire({
+    icon: 'info', // SweetAlert2 default icons are limited, we use info but we can customize html
+    title: `<div style="display:flex; align-items:center; gap:10px;">
+              <i class="fas fa-${icon}"></i>
+              <span>${notif.message}</span>
+            </div>`
+  });
+}
+
 // =========================================
 // 3. MAIN LOGIC (AFTER DOM LOADED)
 // =========================================
 document.addEventListener("DOMContentLoaded", () => {
+  // Start Heartbeat
+  startHeartbeat();
+
   const loggedInUser = sessionStorage.getItem("loggedInUser");
   const isPublicPage = ["login.php", "register.php"].some((page) =>
     window.location.pathname.endsWith(page)

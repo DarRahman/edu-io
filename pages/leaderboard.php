@@ -52,82 +52,7 @@ $result = mysqli_query($conn, $query);
             }
         })();
     </script>
-    <style>
-        /* CSS Khusus Leaderboard */
-        .rank-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 15px;
-            /* Jarak antar baris */
-        }
-
-        .rank-row {
-            background: var(--glass-bg);
-            transition: transform 0.2s;
-        }
-
-        .rank-row:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .rank-cell {
-            padding: 15px 20px;
-            vertical-align: middle;
-        }
-
-        .rank-cell:first-child {
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-        }
-
-        .rank-cell:last-child {
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            font-weight: 800;
-            font-size: 1.2em;
-            color: var(--accent-teal);
-        }
-
-        .rank-badge {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-weight: bold;
-            color: white;
-            background: var(--text-secondary);
-        }
-
-        /* Warna Juara */
-        .rank-1 {
-            background: #FFC312;
-            box-shadow: 0 0 10px #FFC312;
-            font-size: 1.2em;
-        }
-
-        /* Emas */
-        .rank-2 {
-            background: #C0C0C0;
-            box-shadow: 0 0 10px #C0C0C0;
-        }
-
-        /* Perak */
-        .rank-3 {
-            background: #CD7F32;
-            box-shadow: 0 0 10px #CD7F32;
-        }
-
-        /* Perunggu */
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/leaderboard.css">
 </head>
 
 <body>
@@ -209,16 +134,7 @@ $result = mysqli_query($conn, $query);
     </footer>
 
     <!-- AI Chatbot UI -->
-    <div id="ai-chat-launcher" onclick="toggleAIChat()"><i class="fas fa-robot"></i></div>
-    <div id="ai-chat-window">
-        <div class="ai-chat-header"><span><i class="fas fa-magic"></i> edu.io AI Tutor</span><button
-                onclick="toggleAIChat()">&times;</button></div>
-        <div id="ai-chat-body">
-            <div class="ai-message bot">Halo! Butuh bantuan?</div>
-        </div>
-        <div class="ai-chat-footer"><input type="text" id="ai-input" placeholder="..." autocomplete="off" /><button
-                onclick="sendToAI()"><i class="fas fa-paper-plane"></i></button></div>
-    </div>
+    <?php include '../includes/chatbot.php'; ?>
 
     <script src="../assets/js/script.js"></script>
 </body>

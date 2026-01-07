@@ -60,11 +60,5 @@ $pdf->SetTextColor(26, 35, 126); // Warna biru gelap (Indigo) - Sesuaikan dengan
 $pdf->SetXY(0, 100); 
 $pdf->Cell(297, 20, strtoupper($displayName), 0, 1, 'C');
 
-// --- PENGATURAN TANGGAL (Opsional) ---
-$pdf->SetFont('Arial', '', 12);
-$pdf->SetTextColor(0, 0, 0);
-$pdf->SetXY(0, 180);
-$pdf->Cell(297, 10, 'Diterbitkan pada: ' . date('d F Y'), 0, 1, 'C');
-
 // Output PDF ke browser (I = Inline)
 $pdf->Output('I', 'Sertifikat_' . $username . '.pdf');

@@ -1,0 +1,31 @@
+/* Playground Specific Styles */
+/* Override style body agar tidak ada scrollbar ganda */
+body {
+    overflow: hidden;
+    padding-top: 70px; /* Jarak untuk navbar */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+    zoom: 100% !important; /* Paksa zoom 100% agar perhitungan vh akurat */
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.editor-container {
+    flex: 1;
+    display: flex;
+    height: auto !important;
+    margin-top: 0;
+    border: none;
+}
+
+/* Hilangkan footer di playground agar area editor maksimal */
+footer {
+    display: none !important;
+}

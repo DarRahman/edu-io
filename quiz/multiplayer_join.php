@@ -3,8 +3,7 @@ session_start();
 include '../config/koneksi.php';
 
 if (!isset($_SESSION['loggedInUser'])) {
-    header("Location: login.php");
-    exit;
+  header("Location: ../auth/login.php");
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['auto_join'])) {

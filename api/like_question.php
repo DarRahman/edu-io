@@ -10,25 +10,24 @@ if (!isset($_SESSION['loggedInUser'])) {
 }
 
 $currentUser = $_SESSION['loggedInUser'];
+$questionId = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : (isset($_POST['question_id']) ? intval($_POST['question_id']) : 0);
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['question_id'])) {
-    echo json_encode(['success' => false, 'message' => 'invalid_request']);
+if ($questionId <= 0) {
+    echo json_encode(['success' => false, 'status' => 'error', 'message' => 'ID Pertanyaan tidak ditemukan']);
     exit;
 }
-
-$questionId = intval($_POST['question_id']);
 
 // Check if the question exists and get the owner
 $questionQuery = mysqli_query($conn, "SELECT username FROM forum_questions WHERE id = '$questionId'");
 if (!$questionQuery || mysqli_num_rows($questionQuery) === 0) {
-    echo json_encode(['success' => false, 'message' => 'question_not_found']);
+    echo json_encode(['success' => false, 'status' => 'error', 'message' => 'question_not_found']);
     exit;
 }
 
 $questionData = mysqli_fetch_assoc($questionQuery);
 // Prevent liking own question
 if ($questionData['username'] === $currentUser) {
-    echo json_encode(['success' => false, 'message' => 'cannot_like_own_question']);
+    echo json_encode(['success' => false, 'status' => 'error', 'message' => 'Tidak bisa menyukai pertanyaan sendiri']);
     exit;
 }
 
@@ -51,7 +50,8 @@ $likeCount = mysqli_fetch_assoc($likeCountQuery)['count'];
 
 echo json_encode([
     'success' => true,
-    'action' => $action,
-    'new_count' => $likeCount
+    'status' => 'success',
+    'total_likes' => $likeCount,
+    'user_liked' => ($action === 'liked')
 ]);
 ?>

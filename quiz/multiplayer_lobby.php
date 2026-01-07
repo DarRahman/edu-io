@@ -49,49 +49,7 @@ if (!$isHost && $room['status'] === 'playing') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-mode');</script>
-    <style>
-        .pin-display {
-            font-size: 4em;
-            font-weight: 800;
-            letter-spacing: 10px;
-            color: var(--accent-teal);
-            background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 20px;
-            display: inline-block;
-            margin: 20px 0;
-            border: 3px dashed var(--border-color);
-        }
-
-        .player-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .player-card {
-            background: var(--glass-bg);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes popIn {
-            from {
-                transform: scale(0);
-            }
-
-            to {
-                transform: scale(1);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/multiplayer.css">
 </head>
 
 <body>

@@ -47,28 +47,28 @@ include '../config/koneksi.php';
         <!-- Soal 1 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            1. Fungsi utama JavaScript adalah...
+            1. Siapa yang menciptakan JavaScript dan pada tahun berapa?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q1" value="a" class="quiz-option-input" />
+              <input type="radio" name="q1" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Mengatur tampilan halaman</span>
+                <span class="quiz-option-text">Brendan Eich, 1995</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q1" value="b" class="quiz-option-input" required />
+              <input type="radio" name="q1" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Menambahkan interaktivitas pada halaman web</span>
+                <span class="quiz-option-text">Tim Berners-Lee, 1990</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q1" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Membuat struktur halaman</span>
+                <span class="quiz-option-text">James Gosling, 2000</span>
               </div>
             </label>
           </div>
@@ -77,28 +77,28 @@ include '../config/koneksi.php';
         <!-- Soal 2 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            2. File eksternal JavaScript memiliki ekstensi?
+            2. Apa tipe data untuk menyimpan teks dalam JavaScript?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q2" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">.css</span>
+                <span class="quiz-option-text">Number</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q2" value="b" class="quiz-option-input" />
+              <input type="radio" name="q2" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">.html</span>
+                <span class="quiz-option-text">String</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q2" value="c" class="quiz-option-input" required />
+              <input type="radio" name="q2" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">.js</span>
+                <span class="quiz-option-text">Boolean</span>
               </div>
             </label>
           </div>
@@ -107,28 +107,28 @@ include '../config/koneksi.php';
         <!-- Soal 3 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            3. Tag HTML yang digunakan untuk menulis kode JavaScript adalah...
+            3. Kata kunci mana yang digunakan untuk mendeklarasi variabel yang nilainya TIDAK bisa diubah?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q3" value="a" class="quiz-option-input" required />
+              <input type="radio" name="q3" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">&lt;script&gt;</span>
+                <span class="quiz-option-text">var</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q3" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">&lt;js&gt;</span>
+                <span class="quiz-option-text">let</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q3" value="c" class="quiz-option-input" />
+              <input type="radio" name="q3" value="c" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">&lt;style&gt;</span>
+                <span class="quiz-option-text">const</span>
               </div>
             </label>
           </div>
@@ -137,28 +137,28 @@ include '../config/koneksi.php';
         <!-- Soal 4 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            4. Fungsi alert() dalam JavaScript digunakan untuk?
+            4. Apa hasil dari perbandingan 5 === "5" dalam JavaScript?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q4" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Menampilkan pesan pada jendela pop-up</span>
+                <span class="quiz-option-text">false (karena tipe data berbeda)</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q4" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Mengubah warna halaman</span>
+                <span class="quiz-option-text">true</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q4" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Menghapus elemen HTML</span>
+                <span class="quiz-option-text">Error</span>
               </div>
             </label>
           </div>
@@ -167,29 +167,28 @@ include '../config/koneksi.php';
         <!-- Soal 5 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            5. Variabel dalam JavaScript dapat dideklarasikan dengan kata
-            kunci?
+            5. Tipe data apa yang digunakan untuk menyimpan kumpulan nilai dalam tanda []?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">int, string, bool</span>
+                <span class="quiz-option-text">Object</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">var, let, const</span>
+                <span class="quiz-option-text">Array</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q5" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">def, val, set</span>
+                <span class="quiz-option-text">String</span>
               </div>
             </label>
           </div>
@@ -198,28 +197,28 @@ include '../config/koneksi.php';
         <!-- Soal 6 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            6. Operator + dalam JavaScript dapat digunakan untuk?
+            6. Operator logika yang berarti "DAN" dalam JavaScript adalah?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q6" value="a" class="quiz-option-input" />
+              <input type="radio" name="q6" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Membandingkan dua nilai</span>
+                <span class="quiz-option-text">&amp;&amp;</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q6" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Membagi dua angka</span>
+                <span class="quiz-option-text">||</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q6" value="c" class="quiz-option-input" required />
+              <input type="radio" name="q6" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Menambah nilai angka atau menggabungkan string</span>
+                <span class="quiz-option-text">!</span>
               </div>
             </label>
           </div>
@@ -228,28 +227,28 @@ include '../config/koneksi.php';
         <!-- Soal 7 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            7. Pernyataan kondisi dalam JavaScript ditulis dengan kata kunci?
+            7. Pernyataan kondisi dalam JavaScript menggunakan kata kunci?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q7" value="a" class="quiz-option-input" />
+              <input type="radio" name="q7" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">for</span>
+                <span class="quiz-option-text">if-else</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q7" value="b" class="quiz-option-input" required />
+              <input type="radio" name="q7" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">if</span>
+                <span class="quiz-option-text">for-each</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q7" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">while</span>
+                <span class="quiz-option-text">do-while</span>
               </div>
             </label>
           </div>
@@ -258,28 +257,28 @@ include '../config/koneksi.php';
         <!-- Soal 8 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            8. JavaScript dapat mengubah isi elemen HTML dengan menggunakan?
+            8. Loop yang digunakan untuk mengulang kode dengan jumlah iterasi tertentu adalah?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
-              <input type="radio" name="q8" value="a" class="quiz-option-input" required />
+              <input type="radio" name="q8" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">document.getElementById()</span>
+                <span class="quiz-option-text">while</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q8" value="b" class="quiz-option-input" />
+              <input type="radio" name="q8" value="b" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">style.color</span>
+                <span class="quiz-option-text">for</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q8" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">addEventListener()</span>
+                <span class="quiz-option-text">switch</span>
               </div>
             </label>
           </div>
@@ -288,28 +287,28 @@ include '../config/koneksi.php';
         <!-- Soal 9 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            9. Kegunaan utama JavaScript pada website adalah...
+            9. Apa perbedaan antara null dan undefined dalam JavaScript?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q9" value="a" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Membuat halaman lebih interaktif dan responsif</span>
+                <span class="quiz-option-text">null: nilai kosong yang disengaja, undefined: variabel belum diisi</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q9" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Mengatur gaya tampilan halaman</span>
+                <span class="quiz-option-text">Keduanya sama persis</span>
               </div>
             </label>
             <label class="quiz-option-label">
               <input type="radio" name="q9" value="c" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Menentukan struktur dasar halaman</span>
+                <span class="quiz-option-text">null: tipe number, undefined: tipe string</span>
               </div>
             </label>
           </div>
@@ -318,28 +317,28 @@ include '../config/koneksi.php';
         <!-- Soal 10 -->
         <div class="quiz-question-card">
           <p class="quiz-question-text">
-            10. JavaScript dijalankan pada sisi...
+            10. Apa fungsi utama JavaScript pada website menurut materi?
           </p>
           <div class="quiz-options-grid">
             <label class="quiz-option-label">
               <input type="radio" name="q10" value="a" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">A</span>
-                <span class="quiz-option-text">Server</span>
+                <span class="quiz-option-text">Mengatur warna dan tampilan halaman</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q10" value="b" class="quiz-option-input" required />
+              <input type="radio" name="q10" value="b" class="quiz-option-input" />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">B</span>
-                <span class="quiz-option-text">Klien(browser)</span>
+                <span class="quiz-option-text">Membuat struktur konten halaman</span>
               </div>
             </label>
             <label class="quiz-option-label">
-              <input type="radio" name="q10" value="c" class="quiz-option-input" />
+              <input type="radio" name="q10" value="c" class="quiz-option-input" required />
               <div class="quiz-option-content">
                 <span class="quiz-option-marker">C</span>
-                <span class="quiz-option-text">Database</span>
+                <span class="quiz-option-text">Membuat konten dinamis dan interaktif</span>
               </div>
             </label>
           </div>

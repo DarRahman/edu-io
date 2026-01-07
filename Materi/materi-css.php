@@ -12,121 +12,9 @@ include '../config/koneksi.php';
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    /* Style tambahan untuk materi CSS */
-    .code-wrapper pre code {
-      color: #f8f8f2 !important;
-      font-family: "Consolas", "Monaco", "Courier New", monospace;
-      font-size: 0.95em;
-      line-height: 1.5;
-    }
-
-    .css-example {
-      border: 2px dashed var(--accent-teal);
-      padding: 15px;
-      margin: 15px 0;
-      background: rgba(0, 168, 150, 0.05);
-      border-radius: 10px;
-    }
-
-    .css-example .preview {
-      padding: 15px;
-      background: white;
-      border-radius: 8px;
-      margin-top: 10px;
-      border: 1px solid var(--border-color);
-    }
-
-    .selector-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin: 20px 0;
-    }
-
-    .selector-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      padding: 20px;
-      border-radius: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .selector-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .selector-card h4 {
-      color: var(--accent-teal);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .selector-card code {
-      background: rgba(0, 0, 0, 0.1);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-family: "Consolas", monospace;
-    }
-
-    .color-demo {
-      width: 30px;
-      height: 30px;
-      display: inline-block;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-
-    .box-model-demo {
-      width: 200px;
-      height: 100px;
-      margin: 30px auto;
-      padding: 20px;
-      border: 10px solid #3498db;
-      background: #f8f9fa;
-      position: relative;
-    }
-
-    .box-model-label {
-      position: absolute;
-      font-size: 12px;
-      color: #666;
-      background: white;
-      padding: 2px 5px;
-      border-radius: 3px;
-      border: 1px solid #ddd;
-    }
-
-    .margin-label {
-      top: -25px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .border-label {
-      top: 50%;
-      left: -45px;
-      transform: translateY(-50%);
-    }
-
-    .padding-label {
-      top: 50%;
-      left: 230px;
-      transform: translateY(-50%);
-    }
-
-    .content-label {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/materi_detail.css">
 </head>
 
 <body>
@@ -927,6 +815,8 @@ p {
       });
     });
   </script>
+  <!-- AI Chatbot UI -->
+  <?php include '../includes/chatbot.php'; ?>
 </body>
 
 </html>

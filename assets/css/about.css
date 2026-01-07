@@ -1,0 +1,194 @@
+/* About Page Specific Styles */
+.about-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about-header h1 {
+    font-size: 3em;
+    color: var(--title-color);
+    margin-bottom: 10px;
+}
+
+.about-header p {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.content-section {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 30px var(--shadow-color);
+}
+
+.content-section h2 {
+    color: var(--accent-teal);
+    font-size: 2em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.text-content {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: var(--text-primary);
+    text-align: justify;
+}
+
+.image-content img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.image-content img:hover {
+    transform: scale(1.02);
+}
+
+/* Team Section */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.team-card {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+html.dark-mode .team-card {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+}
+
+.team-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--accent-teal);
+}
+
+.team-name {
+    font-weight: 700;
+    color: var(--title-color);
+    margin-bottom: 5px;
+}
+
+.team-role {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+.team-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Feedback Form */
+.feedback-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    /* Penting agar tidak melebar */
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 0 3px var(--shadow-color);
+}
+
+textarea.form-control {
+    resize: none;
+    min-height: 120px;
+}
+
+.btn-submit {
+    width: 100%;
+    background: var(--accent-teal);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: var(--button-hover-bg);
+}
+
+html.dark-mode .btn-submit {
+    background: var(--button-bg);
+}
+
+html:not(.dark-mode) .btn-submit:hover {
+    background-color: #49e0d1ff !important;
+    color: #ffffffff !important;
+}
+
+/* Dark Mode: Warna hover kuning/oren */
+html.dark-mode .btn-submit:hover {
+    background-color: #ceb2f1ff !important;
+    color: #ffffffff !important;
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-header h1 {
+        font-size: 2em;
+    }
+}

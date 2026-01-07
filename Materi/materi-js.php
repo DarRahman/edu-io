@@ -13,105 +13,7 @@ include '../config/koneksi.php';
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    /* Style tambahan untuk materi JavaScript */
-    .code-wrapper pre code {
-      color: #f8f8f2 !important;
-      font-family: "Consolas", "Monaco", "Courier New", monospace;
-      font-size: 0.95em;
-      line-height: 1.5;
-    }
-
-    .js-example {
-      border: 2px dashed #f7df1e;
-      padding: 15px;
-      margin: 15px 0;
-      background: rgba(247, 223, 30, 0.05);
-      border-radius: 10px;
-    }
-
-    .js-example .preview {
-      padding: 15px;
-      background: white;
-      border-radius: 8px;
-      margin-top: 10px;
-      border: 1px solid var(--border-color);
-    }
-
-    .concept-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin: 20px 0;
-    }
-
-    .concept-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      padding: 20px;
-      border-radius: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .concept-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(247, 223, 30, 0.1);
-    }
-
-    .concept-card h4 {
-      color: #f7df1e;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .demo-buttons {
-      display: flex;
-      gap: 10px;
-      margin: 15px 0;
-      flex-wrap: wrap;
-    }
-
-    .demo-btn {
-      background: #f7df1e;
-      color: #323330;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .demo-btn:hover {
-      background: #f0db4f;
-      transform: translateY(-2px);
-    }
-
-    .output-box {
-      background: #f8f9fa;
-      border: 1px solid #dee2e6;
-      border-radius: 8px;
-      padding: 15px;
-      margin-top: 15px;
-      font-family: monospace;
-      min-height: 50px;
-    }
-
-    .interactive-demo {
-      background: #f8f9fa;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px 0;
-      border: 2px solid #f7df1e;
-    }
-
-    .js-syntax-highlight {
-      color: #f7df1e;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/materi_detail.css">
 </head>
 
 <body>
@@ -279,7 +181,7 @@ include '../config/koneksi.php';
           <button class="demo-btn" onclick="demoArray()">Array</button>
           <button class="demo-btn" onclick="demoObject()">Object</button>
         </div>
-        <div id="typeDemoOutput" class="output-box">
+        <div id="typeDemoOutput" class="output-box" style="color: #000000">
           Klik tombol untuk melihat contoh tipe data
         </div>
       </div>
@@ -319,8 +221,8 @@ x = 10; // assignment</code></pre>
       </div>
 
       <div class="interactive-demo">
-        <h4>Demo: Variabel</h4>
-        <div class="code-wrapper" style="background: #f8f9fa; border: 1px solid #ddd">
+        <h4 style="color: #000000">Demo: Variabel</h4>
+        <div class="code-wrapper" style="background: #000000ff; border: 1px solid #000000ff">
           <pre style="color: #333"><code>let counter = 0;
 const max = 5;
 
@@ -342,7 +244,7 @@ function reset() {
           </button>
           <button class="demo-btn" onclick="resetCounter()">Reset</button>
         </div>
-        <div id="counterDisplay" class="output-box" style="text-align: center; font-size: 24px; font-weight: bold">
+        <div id="counterDisplay" class="output-box" style="text-align: center; font-size: 24px; font-weight: bold; color: #000000ff">
           Counter: 0
         </div>
       </div>
@@ -417,7 +319,7 @@ function reset() {
           <button class="demo-btn" onclick="demoLogical()">Logika</button>
           <button class="demo-btn" onclick="demoTernary()">Ternary</button>
         </div>
-        <div id="operatorDemoOutput" class="output-box">
+        <div id="operatorDemoOutput" class="output-box" style="color: #000000">
           Klik tombol untuk melihat contoh operator
         </div>
       </div>
@@ -535,7 +437,7 @@ console.log(pangkat(2, 3));   // 8</code></pre>
       </div>
 
       <div class="interactive-demo">
-        <h4>Demo: Kalkulator Sederhana</h4>
+        <h4 style="color: #000000">Demo: Kalkulator Sederhana</h4>
         <div style="
               display: grid;
               grid-template-columns: repeat(2, 1fr);
@@ -561,7 +463,7 @@ console.log(pangkat(2, 3));   // 8</code></pre>
             Bagi (÷)
           </button>
         </div>
-        <div id="calculatorResult" class="output-box" style="text-align: center; font-size: 20px">
+        <div id="calculatorResult" class="output-box" style="color: #000000; text-align: center; font-size: 20px">
           Hasil: -
         </div>
       </div>
@@ -896,7 +798,7 @@ document.getElementById('todoForm')
       <a href="materi-css.php" class="btn-quiz-nav btn-prev">
         <i class="fas fa-arrow-left"></i> Kembali ke CSS
       </a>
-      <a href="../kuis.php" class="btn-quiz-nav btn-next">
+      <a href="../quiz/index.php" class="btn-quiz-nav btn-next">
         Mulai Kuis <i class="fas fa-flag-checkered"></i>
       </a>
     </div>

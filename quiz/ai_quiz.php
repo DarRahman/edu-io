@@ -19,40 +19,7 @@ if (!isset($_SESSION['loggedInUser'])) {
     <script>
         if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-mode');
     </script>
-    <style>
-        /* Loading Animation */
-        .loader {
-            display: none;
-            border: 5px solid var(--bg-secondary);
-            border-top: 5px solid var(--accent-teal);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Custom override for AI input area */
-        .ai-input-section {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px var(--shadow-color);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/quiz.css">
 </head>
 
 <body>
