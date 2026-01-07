@@ -1,6 +1,6 @@
 # edu.io - Platform Edukasi Web Interaktif
 
-**edu.io** adalah platform pembelajaran daring berbasis web yang dirancang untuk membantu pengguna mempelajari dasar-dasar pengembangan web (HTML, CSS, dan JavaScript). Proyek ini telah berkembang menjadi aplikasi web dinamis (Full-Stack) dengan integrasi database, autentikasi modern, dan kecerdasan buatan (AI).
+**edu.io** adalah platform pembelajaran daring berbasis web yang dirancang untuk membantu pengguna mempelajari dasar-dasar pengembangan web (HTML, CSS, dan JavaScript). Proyek ini telah berkembang menjadi aplikasi web dinamis (Full-Stack) dengan integrasi database, autentikasi modern, kecerdasan buatan (AI), dan fitur multiplayer real-time.
 
 Proyek ini dibuat sebagai **Tugas Kelompok Proyek Akhir Mata Kuliah Web Design**.
 
@@ -15,31 +15,33 @@ Proyek ini dibuat sebagai **Tugas Kelompok Proyek Akhir Mata Kuliah Web Design**
 
 ---
 
-## 🚀 Fitur Utama (v3.0 - Final Release)
+## 🚀 Fitur Utama (v3.5 - Multiplayer Update)
+
+### 🎮 Mabar Kuis (Multiplayer Race Mode) **[BARU]**
+- **Real-time Race:** Tantang teman dalam kuis di mana kecepatan dan ketepatan menentukan pemenang.
+- **AI Generated Quiz:** Host cukup memasukkan topik (misal: "Sejarah", "Anime", "Coding"), AI akan membuatkan soal unik secara instan.
+- **Lobby & PIN System:** Gabung menggunakan Kode PIN 6 digit atau undangan langsung.
+- **Live Leaderboard:** Pantau posisi balapan antar pemain secara langsung.
+- **Focus Mode:** Tampilan permainan bebas gangguan (tanpa navbar).
+
+### 🤝 Sistem Pertemanan (Social) **[BARU]**
+- **Add & Search Friend:** Cari teman berdasarkan username dan tambahkan ke daftar teman.
+- **Game Invites:** Undang teman yang sedang online langsung ke dalam room permainan via notifikasi popup.
+- **Friend List:** Lihat daftar teman dan status pertemanan di halaman profil.
 
 ### 🤖 AI Power (Integrasi Gemini 2.5 Flash)
-- **AI Tutor Chatbot:** Asisten belajar 24/7 yang dapat menjawab pertanyaan koding, menjelaskan konsep, dan memperbaiki bug.
-- **AI Quiz Generator (BARU):** Fitur canggih untuk membuat soal kuis otomatis tanpa batas berdasarkan topik apa saja yang diminta pengguna.
+- **AI Tutor Chatbot:** Asisten belajar 24/7 yang dapat menjawab pertanyaan koding.
+- **AI Quiz Generator:** Fitur canggih untuk membuat soal kuis otomatis tanpa batas.
 
-### 🎮 Gamifikasi & Interaktivitas (BARU)
-- **Sistem Leaderboard:** Peringkat global pengguna berdasarkan total skor kuis.
-- **Badges & Achievements:** Dapatkan lencana eksklusif (seperti *HTML Master*, *JS Ninja*) saat mencapai nilai sempurna (100).
-- **UI Kuis Modern:** Tampilan kuis interaktif dengan *Glassmorphism*, *Sticky Progress Bar*, dan animasi transisi.
+### 🏆 Gamifikasi & Interaktivitas
+- **Sistem Leaderboard:** Peringkat global pengguna berdasarkan total skor.
+- **Badges & Achievements:** Dapatkan lencana eksklusif saat mencapai nilai sempurna.
+- **Profile Customization:** Upload dan crop foto profil dengan tampilan modern.
 
 ### 📚 Modul Pembelajaran
-- **Materi Terstruktur:** Modul HTML, CSS, dan JS dengan tampilan *Card-Based Layout* yang nyaman dibaca.
-- **Code Highlighting:** Blok kode dengan tampilan gelap ala text editor.
-- **Navigasi Intuitif:** Kemudahan berpindah antar materi dan kuis.
-
-### 💬 Forum & Komunitas
-- **Diskusi Real-time:** Tanya jawab antar pengguna yang tersimpan di database.
-- **Sistem Rating:** Berikan bintang pada jawaban yang membantu.
-- **Profil Terintegrasi:** Identitas penanya dan penjawab terlihat jelas.
-
-### 🔒 Keamanan & Autentikasi
-- **Secure Login:** Password hashing (`password_hash`) dan proteksi sesi.
-- **Google OAuth:** Login instan menggunakan akun Google.
-- **Config Protection:** API Key disimpan aman dalam file `config.php` terpisah.
+- **Materi Terstruktur:** Modul HTML, CSS, dan JS.
+- **Video Tutorial:** Integrasi video pembelajaran YouTube.
+- **Playground:** Live coding editor untuk HTML/CSS/JS.
 
 ---
 
@@ -47,39 +49,38 @@ Proyek ini dibuat sebagai **Tugas Kelompok Proyek Akhir Mata Kuliah Web Design**
 
 | Kategori | Teknologi |
 | :--- | :--- |
-| **Frontend** | HTML5, CSS3 (Glassmorphism), JavaScript (ES6+), SweetAlert2, FontAwesome |
+| **Frontend** | HTML5, CSS3 (Glassmorphism), JavaScript (ES6+), SweetAlert2, Cropper.js |
 | **Backend** | PHP 8+ (Native/Procedural) |
 | **Database** | MySQL / MariaDB |
 | **AI Service** | Google Gemini API (via cURL) |
+| **Real-time** | AJAX Polling (Simulated Real-time) |
 | **Auth** | Google Identity Services (OAuth 2.0) |
 
 ---
 
-## 📂 Struktur Folder
+## 📂 Struktur Folder Utama
 
 ```text
 edu-io/
-+-- Kuis/                   # Halaman kuis statis (HTML)
-+-- Materi/                 # Halaman materi pembelajaran (HTML)
-+-- img/
-│   +-- badges/             # Aset gambar lencana/badge
-│   +-- ...                 # Foto profil user
-+-- ai_process.php          # Backend: Chatbot AI
-+-- ai_quiz.php             # Frontend: Halaman AI Quiz Generator
-+-- ai_quiz_process.php     # Backend: Generator Soal AI
-+-- auth_google.php         # Handler login Google
-+-- config.php              # Konfigurasi API Key (Gitignored)
-+-- forum.php               # Halaman Forum Diskusi
-+-- index.html              # Landing Page / Dashboard
++-- api/                    # Backend API & Logic (AI, Multiplayer, dll)
++-- assets/                 # CSS, JS, Images
++-- auth/                   # Halaman Login & Register
++-- config/                 # Koneksi Database & Konfigurasi
++-- includes/               # Komponen PHP (Navbar, dll)
++-- pages/                  # Halaman Utama (Profile, Forum, dll)
++-- quiz/                   # Halaman Kuis & Logic Kuis
++-- Materi/                 # Halaman materi pembelajaran
+```
++-- api_multiplayer.php     # API: Logika Game Multiplayer
++-- friends.php             # Halaman Manajemen Teman
++-- multiplayer_create.php  # Halaman Host (Buat Room)
++-- multiplayer_game.php    # Halaman Permainan (Player)
++-- multiplayer_lobby.php   # Halaman Tunggu (Lobby)
++-- multiplayer_result.php  # Halaman Hasil Akhir (Podium)
++-- index.php               # Dashboard Utama
 +-- koneksi.php             # Koneksi Database
-+-- leaderboard.php         # Halaman Peringkat User
-+-- login.php               # Halaman Login
-+-- profile.php             # Halaman Profil User
-+-- register.php            # Halaman Registrasi
 +-- script.js               # Logic Frontend Global
-+-- simpan_nilai.php        # API: Simpan skor & Logika Badge
-+-- style.css               # Global Styling (Dark/Light Mode)
-+-- visitor_stats.php       # Tracker statistik pengunjung
++-- style.css               # Global Styling
 ```
 
 ## 💻 Cara Menjalankan Proyek (Localhost)
@@ -90,15 +91,12 @@ edu-io/
     ```
 2.  **Siapkan Database:**
     - Buat database di phpMyAdmin bernama **`db_eduio`**.
-    - Import file SQL yang disertakan (jika ada) atau pastikan tabel `users`, `scores`, `badges`, `forum_*` sudah dibuat.
+    - Import file SQL utama 
 3.  **Konfigurasi:**
-    - **Database:** Sesuaikan `koneksi.php` dengan user/pass MySQL Anda.
-    - **API Key:** Buka `config.php` dan masukkan API Key Google Gemini Anda.
-      ```php
-      $apiKey = "YOUR_GEMINI_API_KEY";
-      ```
+    - Sesuaikan `koneksi.php`.
+    - Masukkan API Key Google Gemini di `config.php`.
 4.  **Jalankan:**
-    - Akses via browser: `http://localhost/edu-io/login.php`
+    - Akses via browser: `http://localhost/eduio/`
 
 ---
 

@@ -1,3 +1,0 @@
-// Cropper.js CDN
-// https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js
-// https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css

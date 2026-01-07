@@ -7,87 +7,83 @@ This guide provides essential context for AI agents working on the **edu.io** co
 - **Database:** MySQL/MariaDB using `mysqli` extension.
 - **Frontend:** HTML5, CSS3 (Glassmorphism), Vanilla JavaScript (ES6+).
 - **AI Integration:** Google Gemini API (Gemini 2.5 Flash) via PHP cURL.
-- **Authentication:** Session-based (`$_SESSION['loggedInUser']`) with Google OAuth integration.
+- **Real-time Simulation:** AJAX Polling (Long-polling) for Multiplayer & Notifications.
+- **Authentication:** Session-based (`$_SESSION['loggedInUser']`, `$_SESSION['role']`) with Google OAuth integration.
+- **Access Control:** Role-based (Admin vs User).
 
 ## 📂 Key Files & Directories
-- [koneksi.php](koneksi.php): Central database connection. Always include this for DB operations.
-- [config.php](config.php): Global configuration and API keys (e.g., `$apiKey` for Gemini).
-- [includes/navbar.php](includes/navbar.php): Centralized navigation bar. Include this in all pages.
-- [script.js](script.js): Global frontend logic, including session checks and UI interactions.
-- [style.css](style.css): Global styling, implementing dark mode and glassmorphism.
-- [ai_process.php](ai_process.php): Backend handler for the AI Tutor chatbot.
-- [Materi/](Materi/): PHP modules for learning content.
-- [Kuis/](Kuis/): PHP modules for quizzes.
+- [koneksi.php](koneksi.php): Central database connection.
+- [config.php](config.php): Global configuration and API keys.
+- [includes/navbar.php](includes/navbar.php): Centralized navigation bar.
+- [script.js](script.js): Global frontend logic, including session checks, UI interactions, and polling.
+- [style.css](style.css): Global styling (Glassmorphism & Dark Mode).
+- [api_multiplayer.php](api_multiplayer.php): JSON API for multiplayer game state.
+- [api_invite.php](api_invite.php): JSON API for friend invitations.
+- [about.php](about.php): About page with feedback form.
+- [admin_dashboard.php](admin_dashboard.php): Admin control panel.
 
 ## 🛠️ Development Conventions
 
 ### 1. Database Operations
 - Use `mysqli_query($conn, $query)` for database interactions.
-- **Security:** Always use `mysqli_real_escape_string($conn, $data)` for user inputs to prevent SQL injection.
-- Example:
-  ```php
-  $question = mysqli_real_escape_string($conn, $_POST['question']);
-  mysqli_query($conn, "INSERT INTO forum_questions (username, question) VALUES ('$currentUser', '$question')");
-  ```
+- **Security:** Always use `mysqli_real_escape_string($conn, $data)` for user inputs.
+- **New Tables:** `friends`, `quiz_rooms`, `quiz_participants`, `game_invites`, `feedback`.
+- **Table Updates:** `users` table has `role` column ('admin', 'user').
 
 ### 2. Session & Auth
 - Start every dynamic PHP file with `session_start()`.
-- Check `$_SESSION['loggedInUser']` to verify if a user is authenticated.
-- Public pages: `login.php`, `register.php`, `index.php`.
+- Check `$_SESSION['loggedInUser']` to verify authentication.
+- Check `$_SESSION['role']` for admin-only pages.
+- **Focus Mode:** Navbar is intentionally removed in `multiplayer_lobby.php` and `multiplayer_game.php`.
 
 ### 3. AI Integration
-- Gemini API calls are handled via cURL in [ai_process.php](ai_process.php).
-- Use the `$apiKey` from [config.php](config.php).
-- System instructions for the AI are defined in the `$systemInstruction` variable.
+- **Model:** Gemini 2.5 Flash.
+- **Endpoints:**
+  - `ai_process.php`: Chatbot.
+  - `ai_quiz_process.php`: Single player quiz generator.
+  - `multiplayer_create.php`: Multiplayer quiz generator (Host).
 
 ### 4. Frontend Patterns
-- **Notifications:** Use SweetAlert2 (`Swal.fire`) for all user feedback (success, error, alerts).
-- **Icons:** Use FontAwesome 6.5.1 classes (e.g., `fas fa-bars`).
-- **Pathing:** [script.js](script.js) uses a `pathPrefix` logic to handle assets when the user is inside subfolders like `Materi/` or `Kuis/`.
-
-### 5. Gamification
-- Scores are saved via [simpan_nilai.php](simpan_nilai.php).
-- Badges are awarded automatically when a user achieves a score of 100.
-- Badge types: `html_master`, `css_wizard`, `js_ninja`.
+- **Notifications:** Use SweetAlert2 (`Swal.fire`) for all user feedback.
+- **Icons:** FontAwesome 6.5.1.
+- **Image Cropping:** Cropper.js implemented in `edit_profile.php`.
 
 ## 🧩 Project Features & Implementation Details
 
-### 1. AI Integration (Gemini 2.5 Flash)
-- **AI Tutor Chatbot:**
-  - **Backend:** `ai_process.php` handles requests via cURL.
-  - **Frontend:** Chat interface in `index.php` (floating widget).
-  - **Context:** System instruction defines the persona as a friendly coding tutor.
-- **AI Quiz Generator:**
-  - **Backend:** `ai_quiz_process.php` generates JSON-formatted questions.
-  - **Frontend:** `ai_quiz.php` renders dynamic quizzes.
-  - **Logic:** User inputs a topic -> AI generates 5 multiple-choice questions -> User answers -> Score saved.
+### 1. Multiplayer System (Race Mode)
+- **Concept:** Asynchronous "Race" where players answer questions at their own pace.
+- **Host:** Creates room -> Generates AI Quiz -> Waits in Lobby -> Starts Game.
+- **Player:** Joins via PIN or Invite -> Waits in Lobby -> Answers Questions.
+- **Tech:**
+  - `multiplayer_create.php`: Host generates quiz (JSON stored in DB).
+  - `multiplayer_lobby.php`: Waiting room with live player list (AJAX).
+  - `multiplayer_game.php`: Player interface (No navbar, focus mode).
+  - `api_multiplayer.php`: Handles state syncing and score updates.
+  - `multiplayer_exit.php`: Handles safe exit and room cleanup.
 
-### 2. Gamification System
-- **Scoring:** `simpan_nilai.php` handles score submission (`INSERT ... ON DUPLICATE KEY UPDATE`).
-- **Badges:** Automatically awarded when score == 100.
-  - **Types:** `html_master`, `css_wizard`, `js_ninja`, `expert_[topic]`.
-  - **Storage:** `badges` table.
-- **Leaderboard:** `leaderboard.php` displays top users based on total score.
+### 2. Social & Friend System
+- **Friends:** `friends.php` allows searching, adding, and accepting friends.
+- **Invites:** `api_invite.php` handles sending/receiving game invites.
+- **Polling:** `script.js` polls for new invites every 5 seconds.
 
-### 3. Learning Modules
-- **Content:** `Materi/` (PHP files) and `video.php` (YouTube embeds).
-- **Playground:** `playground.php` provides a live coding environment (HTML/CSS/JS) with real-time preview.
-- **Quizzes:** `Kuis/` folder contains PHP quizzes; `ai_quiz.php` for dynamic ones.
+### 3. AI Integration
+- **Chatbot:** Floating widget in `index.php`.
+- **Quiz Generator:** Generates JSON-formatted questions for both single and multiplayer modes.
 
-### 4. Community & Social
-- **Forum:** `forum.php` allows Q&A.
-  - **Features:** Post questions, answer, rate answers (star rating), delete own posts.
-  - **Database:** `forum_questions`, `forum_answers`, `forum_ratings`.
-- **User Profiles:** `profile.php` shows stats, badges, and activity.
-- **Visitor Stats:** `visitor_stats.php` tracks online users (session-based) and total visits (cookie-based).
+### 4. Gamification
+- **Scoring:** `simpan_nilai.php` handles score submission.
+- **Badges:** Automatically awarded for perfect scores (100).
+- **Leaderboard:** `leaderboard.php` (Global ranking).
 
-### 5. Authentication & Security
-- **Google OAuth:** `auth_google.php` uses Google Identity Services.
-- **Local Auth:** `login.php` / `register.php` with `password_hash`.
-- **Session Management:** `session_start()` required in all protected files.
-- **Auto-Migration:** `visitor_stats.php` contains logic to auto-create missing tables (`online_users`, `site_stats`).
+### 5. Community
+- **Forum:** `forum.php` for Q&A with rating system.
+- **Profile:** `profile.php` displays stats, badges, and friend list.
+
+### 6. Admin & Feedback
+- **Admin Panel:** `admin_dashboard.php` for managing users and viewing feedback.
+- **Feedback:** `about.php` allows users/guests to send feedback (stored in `feedback` table).
 
 ## 🚀 Workflow
-- **Local Dev:** Project is designed to run in XAMPP `htdocs/eduio`.
-- **Database:** Ensure `db_eduio` is created and `koneksi.php` is updated with local credentials.
-- **Styling:** Follow the glassmorphism pattern (semi-transparent backgrounds, blurs) defined in [style.css](style.css).
+- **Local Dev:** XAMPP `htdocs/eduio`.
+- **Database:** Ensure all tables (`friends`, `quiz_rooms`, etc.) are created.
+- **Styling:** Maintain Glassmorphism consistency.
